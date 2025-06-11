@@ -5,6 +5,7 @@ format:
     code-fold: false
     code-tools: true
 editor: visual
+author: "Jenny L. Smith"
 ---
 
 ::: callout-tip
