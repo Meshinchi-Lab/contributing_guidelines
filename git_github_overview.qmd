@@ -1,0 +1,45 @@
+---
+title: "Overview"
+format: 
+  html:
+    code-fold: false
+    code-tools: true
+editor: visual
+---
+
+::: callout-tip
+## General Conventions
+
+A description of:
+
+1. Naming conventions for Github repositories
+2. Using a data analysis notebook template
+3. Initializing the code repo using `git` and `github`
+
+:::
+
+<!-- You can experiment with `code-fold` and `code-tools` in the yaml header above to change how the code cells look like. -->
+
+## Naming Conventions
+
+1. Exploratory Data Analysis
+
+2. Genomic Data Pipelines
+
+## Data Analysis Notebook Template
+
+1. R with rmarkdown and quarto
+
+2. Python with jupyter notebooks and quarto
+
+## Initializing the Repository
+
+basic git command line to commit and push code to the lab github organization
+
+::: callout-note
+## Task 1
+
+*This is a callout-note, and it can be quite useful for exercises. You can find more about callout [here](https://quarto.org/docs/authoring/callouts.html).*
+
+Example: Extend the above analysis to cover all genes.
+:::

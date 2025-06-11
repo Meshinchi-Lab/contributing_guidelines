@@ -1,0 +1,40 @@
+---
+title: "Prerequisites"
+format: 
+  html:
+    code-fold: false
+    code-tools: false
+editor: visual
+---
+
+::: callout-tip
+## Page without code
+
+This page contains README's and internal lab documentation on how to contribute to the Meshinchi Lab github organization
+:::
+
+Here are some preparation information for the lab members
+
+## Software
+
+We will be using R and Python. You can either
+
+-   have **R and Rstudio** installed on your laptop
+-   or, use **Posit cloud** (formerly Rstudio Cloud).
+
+[Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
+
+
+## Data
+
+The datasets we use can be found here (*insert link*).
+
+## Code
+
+The R scripts used in part 1 and part 2 can be found here (*insert link*).
+
+## Resources
+
+Lecture notes (*insert link*)
+
+Lab notes (*insert link*)
