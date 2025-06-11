@@ -1,0 +1,54 @@
+---
+title: "Meshinchi and Locatelli Github Contributing Guidelines"
+author: "Jenny L. Smith"
+---
+
+------------------------------------------------------------------------
+
+::: callout-note
+## This website is for documenting how to contribute to the Meshinchi and Locatelli Lab github organization(s).
+
+:::
+
+
+::: callout-tip
+## Homepage of your workshop
+
+This is the **homepage** `index.qmd` for your workshop, so ideally it should contain some key information such as **time and place, instructors** and information of the course/workshop. 
+
+It should be easy to navigate.
+:::
+
+
+# Welcome!
+
+-   The goal of the lab documentation is to ... (*insert your message*)
+-   For example, introduce kep concepts in machine learning, such as regularisation.
+-   Analysis code and pipelines can be found in the lab [github repository](https://github.com/Meshinchi-Lab).
+
+#### Objectives
+
+Lab members will be able to understand key concepts and have standardized workflows for using:
+
+- `git` version control
+- `github` remote repository to host code and pipelines
+- creating standardized Rmarkdown/quarto documents and jupyter notebooks for analysis
+- creating standardized github repositories 
+- best practices in security 
+- best practices in code reviews
+
+#### Pre-requisites
+
+-   familiarity with bash and using the command line
+-   Basic familiarity with R and Python
+
+
+# Resources 
+
+::: callout-tip
+## Bash and using the command line interface
+
+If you still need to gain basic working knowledge of using bash and the commandline (terminal), then see the following tutorial before following the steps outlined here. 
+:::
+
+
