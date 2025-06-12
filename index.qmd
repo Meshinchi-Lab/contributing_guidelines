@@ -29,8 +29,9 @@ Lab members will be able to understand key concepts and have standardized workfl
 
 #### Pre-requisites
 
--   familiarity with bash and using the command line
--   Basic familiarity with R and Python
+-   familiarity with bash 
+-   familiarity using the command line
+-   Basic knowledge of R and Python
 
 # Resources
 

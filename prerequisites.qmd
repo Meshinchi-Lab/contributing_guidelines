@@ -1,5 +1,6 @@
 ---
 title: "Prerequisites"
+author: "Jenny Smith"
 format: 
   html:
     code-fold: false
@@ -8,12 +9,11 @@ editor: visual
 ---
 
 ::: callout-tip
-## Page without code
+## Overview
 
-This page contains README's and internal lab documentation on how to contribute to the Meshinchi Lab github organization
+This page contains README's and internal lab documentation on how to contribute to the Meshinchi Lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.  
 :::
 
-Here are some preparation information for the lab members
 
 ## Software
 
@@ -24,6 +24,8 @@ We will be using R and Python. You can either
 
 [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
 
+-   **Python** installed on your laptop
+-   **Quarto** installed on your laptop
 
 ## Data
 
@@ -31,10 +33,21 @@ The datasets we use can be found here (*insert link*).
 
 ## Code
 
-The R scripts used in part 1 and part 2 can be found here (*insert link*).
+The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization]().
+
+  - Repositorities have the following nomenclature:
+    - Data Analysis and Research Projects with collaborators:
+    - Genomic Data pipelines and workflows:
+    - R packages
+    - Python packages
 
 ## Resources
 
-Lecture notes (*insert link*)
+### Bash and Command Line Tutorial 
 
-Lab notes (*insert link*)
+### Quarto Quick Start
+
+### R Tutorial
+
+### Python Tutorial
+
