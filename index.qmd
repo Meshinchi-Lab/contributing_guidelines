@@ -39,5 +39,5 @@ Lab members will be able to understand key concepts and have standardized workfl
 ::: callout-tip
 ## Bash and using the command line interface
 
-If you still need to gain basic working knowledge of using bash and the commandline (terminal), then see the following [tutorial](https://www.coursera.org/learn/cli---command-line-basics) before following the steps outlined here.
+If you still need to gain basic working knowledge of using bash and the commandline (terminal), then see the following [tutorials](prerequisites.html#resources) in the resources section before following these steps.
 :::
