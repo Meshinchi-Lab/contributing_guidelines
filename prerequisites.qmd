@@ -19,9 +19,10 @@ This page contains README's and internal lab documentation on how to contribute 
 
 We will be using R, Rstudio, Python, and VSCode
 
--    [**R and Rstudio**](https://posit.co/download/rstudio-desktop/) installed on your laptop
--   [**Python**](https://www.python.org/downloads/) installed on your laptop
--   [**Quarto CLI**](https://quarto.org/docs/download/) installed on your laptop
+-    [**R and Rstudio**](https://posit.co/download/rstudio-desktop/) installed
+-   [**Python**](https://www.python.org/downloads/) installed 
+-   [**Quarto CLI**](https://quarto.org/docs/download/) installed
+-   [**Visual Studio Code**](https://code.visualstudio.com/) text editor installed
 
 
 Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
@@ -35,7 +36,7 @@ The datasets we use can be found here (*insert link*).
 
 The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization]().
 
-Repositorities have the following nomenclature:
+Repositorities have the following nomenclature for easy searching:
 
   - Data Analysis and Research Projects with collaborators:
   
@@ -46,13 +47,25 @@ Repositorities have the following nomenclature:
   - Python packages:
   
 
+## Getting Started
+
+See the [**Getting Started**]() page for complete steps to generating a new analysis or workflow code repository on the github. 
+  
+
 ## Resources
 
 ### Bash and Command Line Tutorial 
 
-### Quarto Quick Start
+A good place to start getting familair with common bash commands is to read the following [tutorial](https://www.w3schools.com/bash/bash_commands.php). Be sure to complete the exercises in the box at the bottom of each page, starting with the `ls` command. 
 
-### R Tutorial
+https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
+
+### Quarto and Visual Studio Code Quick Start
+
+The quarto CLI with VS Code editor [quick start](https://quarto.org/docs/get-started/hello/vscode.html) is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports. 
+
+
+### R and Rstudio Tutorial
 
 ### Python Tutorial
 
