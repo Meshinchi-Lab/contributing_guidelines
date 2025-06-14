@@ -11,22 +11,19 @@ editor: visual
 ::: callout-tip
 ## Overview
 
-This page contains README's and internal lab documentation on how to contribute to the Meshinchi Lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.  
+This page contains README's and internal lab documentation on how to contribute to the Meshinchi lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.
 :::
-
 
 ## Software
 
-We will be using R, Rstudio, Python, and VSCode
+We will be using R, Python, Quarto, with the integrated development editors (IDE) Rstudio and VSCode. Click on the links below to install the required software.
 
--    [**R and Rstudio**](https://posit.co/download/rstudio-desktop/) installed
--   [**Python**](https://www.python.org/downloads/) installed 
--   [**Quarto CLI**](https://quarto.org/docs/download/) installed
--   [**Visual Studio Code**](https://code.visualstudio.com/) text editor installed
-
+-   [**R and Rstudio**](https://posit.co/download/rstudio-desktop/)
+-   [**Python**](https://www.python.org/downloads/)
+-   [**Quarto CLI**](https://quarto.org/docs/download/)
+-   [**Visual Studio Code**](https://code.visualstudio.com/)
 
 Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
-
 
 ## Data
 
@@ -34,46 +31,62 @@ The datasets we use can be found here (*insert link*).
 
 ## Code
 
-The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization]().
+The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization](https://github.com/Meshinchi-Lab).
 
-Repositorities have the following nomenclature for easy searching:
+Repositories have the following nomenclature for easy searching:
 
-  - Data Analysis and Research Projects with collaborators:
-  
-  - Genomic Data pipelines and workflows:
-  
-  - R packages: 
-  
-  - Python packages:
-  
+-   Data Analysis and Research Projects with collaborators:
+
+    -   `[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
+
+    -   Example: '2025.06.02_RNAseq_Bulk_T-ALL'
+
+    -   Example with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
+
+-   Genomic Data pipelines and workflows:
+
+    -   `[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]`
+
+    -   Example: 'RNAseq_Fusion_Calling_Nextflow'
+
+-   R packages:
+
+    -   `[SHORT-NAME]_R_Package`
+
+    -   Example: 'DeGSEA_R_Package'
+
+-   Python packages:
+
+    -   `[SHORT-NAME]_Py_Package`
+
+    -   Example: 'DataValidator_Py_Package'
 
 ## Getting Started
 
-See the [**Getting Started**]() page for complete steps to generating a new analysis or workflow code repository on the github. 
-  
+See the [**Getting Started**](git_github_overview.html) page for complete steps to generating a new analysis or workflow code repository on the github.
+
+If you still need to gain a working knowledge of using bash, R, and Python, then see the following [Resources](prerequisites.html#resources) section below before following these steps.
 
 ## Resources
 
-### Bash and Command Line Tutorial 
+### Bash and Command Line Tutorial
 
-A good place to start getting familair with common bash commands is to read the following [tutorial](https://www.w3schools.com/bash/bash_commands.php). Be sure to complete the exercises in the box at the bottom of each page, starting with the `ls` command. 
+A good place to start getting familair with common bash commands is to read the following [tutorial](https://www.w3schools.com/bash/bash_commands.php). Be sure to complete the exercises in the box at the bottom of each page, starting with the `ls` command.
 
 For more intermediate bash scripting, you can follow the tutorial [here](https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/).s
 
 ### Quarto and Visual Studio Code Quick Start
 
-The quarto CLI with VS Code editor [quick start](https://quarto.org/docs/get-started/hello/vscode.html) is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports. 
+The quarto CLI with VS Code editor [quick start](https://quarto.org/docs/get-started/hello/vscode.html) is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports.
 
 ### R and Rstudio Tutorial
 
-The [RStudio user guide](https://docs.posit.co/ide/user/ide/get-started/) can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data. 
+The [RStudio user guide](https://docs.posit.co/ide/user/ide/get-started/) can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data.
 
-Detailed descriptions of the RStudio panels, panes, and tabsets can be [found here](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html) as well. 
+Detailed descriptions of the RStudio panels, panes, and tabsets can be [found here](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html) as well.
 
 ### Python Tutorial
 
 Start by learning how the VS Code editor displays and runs [python code](https://code.visualstudio.com/docs/python/python-quick-start).
 
-Next, you can follow along with the [python tutorial](https://www.w3schools.com/python/python_intro.asp) using both the VS Code editor and interactively in a web browser by using the 'try it yourself' buttons. 
-
-
+Next, you can follow along with the [python tutorial](https://www.w3schools.com/python/python_intro.asp) using both the VS Code editor and interactively in a web browser by using the 'try it yourself' buttons.
