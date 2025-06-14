@@ -58,14 +58,22 @@ See the [**Getting Started**]() page for complete steps to generating a new anal
 
 A good place to start getting familair with common bash commands is to read the following [tutorial](https://www.w3schools.com/bash/bash_commands.php). Be sure to complete the exercises in the box at the bottom of each page, starting with the `ls` command. 
 
-https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
+For more intermediate bash scripting, you can follow the tutorial [here](https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/).s
 
 ### Quarto and Visual Studio Code Quick Start
 
 The quarto CLI with VS Code editor [quick start](https://quarto.org/docs/get-started/hello/vscode.html) is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports. 
 
-
 ### R and Rstudio Tutorial
 
+The [RStudio user guide](https://docs.posit.co/ide/user/ide/get-started/) can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data. 
+
+Detailed descriptions of the RStudio panels, panes, and tabsets can be [found here](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html) as well. 
+
 ### Python Tutorial
+
+Start by learning how the VS Code editor displays and runs [python code](https://code.visualstudio.com/docs/python/python-quick-start).
+
+Next, you can follow along with the [python tutorial](https://www.w3schools.com/python/python_intro.asp) using both the VS Code editor and interactively in a web browser by using the 'try it yourself' buttons. 
+
 
