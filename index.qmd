@@ -12,7 +12,8 @@ author: "Jenny L. Smith"
 
 # Welcome!
 
--   The goal of the lab documentation is to ... (*insert your message*)
+-   The goal of the lab documentation is to provide standardized procedures for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab's software and data analysis pipelines on github.
+
 -   Analysis code and pipelines can be found in the lab [github repository](https://github.com/Meshinchi-Lab).
 
 #### Objectives

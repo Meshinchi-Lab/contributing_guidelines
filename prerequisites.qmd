@@ -17,15 +17,15 @@ This page contains README's and internal lab documentation on how to contribute 
 
 ## Software
 
-We will be using R and Python. You can either
+We will be using R, Rstudio, Python, and VSCode
 
--   have **R and Rstudio** installed on your laptop
--   or, use **Posit cloud** (formerly Rstudio Cloud).
+-    [**R and Rstudio**](https://posit.co/download/rstudio-desktop/) installed on your laptop
+-   [**Python**](https://www.python.org/downloads/) installed on your laptop
+-   [**Quarto CLI**](https://quarto.org/docs/download/) installed on your laptop
 
-[Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
 
--   **Python** installed on your laptop
--   **Quarto** installed on your laptop
+Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
+
 
 ## Data
 
@@ -35,11 +35,16 @@ The datasets we use can be found here (*insert link*).
 
 The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization]().
 
-  - Repositorities have the following nomenclature:
-    - Data Analysis and Research Projects with collaborators:
-    - Genomic Data pipelines and workflows:
-    - R packages
-    - Python packages
+Repositorities have the following nomenclature:
+
+  - Data Analysis and Research Projects with collaborators:
+  
+  - Genomic Data pipelines and workflows:
+  
+  - R packages: 
+  
+  - Python packages:
+  
 
 ## Resources
 
