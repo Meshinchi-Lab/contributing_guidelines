@@ -13,25 +13,48 @@ author: "Jenny L. Smith"
 
 A description of:
 
-1. Naming conventions for Github repositories
-2. Using a data analysis notebook template
-3. Initializing the code repo using `git` and `github`
-
+1.  Naming conventions for Github repositories
+2.  Using a data analysis notebook template
+3.  Initializing the code repo using `git` and `github`
 :::
 
 <!-- You can experiment with `code-fold` and `code-tools` in the yaml header above to change how the code cells look like. -->
 
 ## Naming Conventions
 
-1. Exploratory Data Analysis
+Repositories have the following nomenclature for easy searching:
 
-2. Genomic Data Pipelines
+1.  Exploratory Data Analysis and Research Projects with collaborators:
+
+-   `[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
+
+-   Example: '2025.06.02_RNAseq_Bulk_T-ALL'
+
+-   Example with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
+
+2.  Genomic Data pipelines and workflows:
+
+-   `[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]`
+
+-   Example: 'RNAseq_Fusion_Calling_Nextflow'
+
+R packages:
+
+-   `[SHORT-NAME]_R_Package`
+
+-   Example: 'DeGSEA_R_Package'
+
+Python packages:
+
+-   `[SHORT-NAME]_Py_Package`
+
+-   Example: 'DataValidator_Py_Package'
 
 ## Data Analysis Notebook Template
 
-1. R with rmarkdown and quarto
+1.  R with rmarkdown and quarto
 
-2. Python with jupyter notebooks and quarto
+2.  Python with jupyter notebooks and quarto
 
 ## Initializing the Repository
 
