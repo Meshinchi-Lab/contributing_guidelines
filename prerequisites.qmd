@@ -105,9 +105,9 @@ Repositories have the following nomenclature for easy searching:
 
 ## Getting Started
 
-See the [**Getting Started**](git_github_overview.html) page for complete steps to generating a new analysis or workflow code repository on the github.
+See the [**Getting Started**](git_github_overview.html) page for the next steps to generate a new analysis or workflow code repository on the github.
 
-If you still need to gain a working knowledge of using bash, R, and Python, then see the following [Resources](prerequisites.html#resources) section below before following these steps.
+If you still need to gain a working knowledge of using `bash`, `R`, and `Python`, then see the following [Resources](prerequisites.html#resources) section below.
 
 ## Resources
 
