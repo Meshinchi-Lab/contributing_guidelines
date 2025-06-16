@@ -4,7 +4,6 @@ format:
   html:
     code-fold: false
     code-tools: true
-editor: visual
 author: "Jenny L. Smith"
 ---
 
@@ -52,11 +51,10 @@ Python packages:
 
 ## Data Analysis Notebook Template
 
-::: {.panel-tabset}
+::: panel-tabset
+### R with rmarkdown and quarto
 
-###  R with rmarkdown and quarto
-
-``` bash        
+``` bash
 DATATYPE="RNAseq" 
 DESCRIPTION="T-ALL_fusions" 
 OUTDIR="$(date +%Y-%m-%d)_${DATATYPE}_${DESCRIPTION}"
@@ -77,14 +75,7 @@ quarto render 2025-06-13_RNAseq_T-ALL_fusions.qmd
 ### Python with jupyter notebooks and quarto
 
 Another quarto template!
-
 :::
-
-
-
-
-
-
 
 ## Initializing the Repository
 
@@ -97,5 +88,3 @@ basic git command line to commit and push code to the lab github organization
 
 Example: Extend the above analysis to cover all genes.
 :::
-
-

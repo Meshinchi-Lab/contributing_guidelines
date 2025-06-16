@@ -9,7 +9,6 @@ author: "Jenny L. Smith"
 ## This website is for documenting how to contribute to the Meshinchi and Locatelli Lab github organization(s).
 :::
 
-
 # Welcome!
 
 -   The goal of the lab documentation is to provide standardized procedures for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab's software and data analysis pipelines on github.
@@ -20,24 +19,24 @@ author: "Jenny L. Smith"
 
 Lab members will be able to understand key concepts and have standardized workflows for using:
 
--   creating standardized github repositories
+-   creating standardized `github` repositories
 -   using `git` command line utility for version control
 -   using `github` remote repository to host code and pipelines
--   creating standardized Rmarkdown/quarto documents
--   creating standardized python jupyter notebooks for analysis
+-   creating standardized `R` Rmarkdown and quarto documents
+-   creating standardized `Python` jupyter notebooks for analysis
 -   best practices in security
 -   best practices in code reviews
 
 #### Pre-requisites
 
--   familiarity with bash 
+-   familiarity with `bash`
 -   familiarity using the command line
--   Basic knowledge of R and Python
+-   Basic knowledge of `R` and `Python`
 
 # Resources
 
 ::: callout-tip
 ## Bash and using the command line interface
 
-If you still need to gain basic working knowledge of using bash and the commandline (terminal), then see the following [tutorials](prerequisites.html#resources) in the resources section before following these steps.
+If you still need to gain basic working knowledge of using `bash` and the command line (terminal), then see the following [tutorials](prerequisites.html#resources) in the resources section before following these steps.
 :::

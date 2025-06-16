@@ -4,31 +4,24 @@ format:
   html:
     code-fold: false
     code-tools: false
-editor: visual
 author: "Jenny L. Smith"
 ---
+
+### Welcome to the Meshinchi Lab at Fred Hutch
+
+### 
+
+Our research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.
+
+Currently, [Soheil Meshinchi, M.D., Ph.D.,](http://meshinchilab.com/) working in collaboration with [Franco Locatelli, M.D., Ph.D.](https://www.ospedalebambinogesu.it/area-di-ricerca---oncoematologia-94851/) and [Concetta Quintarelli, M.D., Ph.D.](https://www.ospedalebambinogesu.it/terapia-genica-dei-tumori-95043/) at the [Bambino Gesù Children's Hospital IRCCS](https://www.ospedalebambinogesu.it/ricerca/) in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.
+
+<img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/4c/f84deba36f423d966499563db86b31/Fred-Hutch-360px-360px.png?auto=format%2Ccompress&amp;dpr=2&amp;w=180&amp;h=180" alt="Fred Hutch Logo" width="100" height="100"/> <img src="https://www.aopi.it/wp-content/uploads/2019/08/ospedale_bambino_gesu_logo.jpg" alt="Bambino Gesù Logo" width="100" height="100"/>
 
 ::: callout-tip
 ## About page
 
 The Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab's software and data analysis pipelines on github.
 :::
-
-<h3 align="center">
-
-Welcome to the Meshinchi Lab at Fred Hutch.
-
-</h3>
-
-Our research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.
-
-Currently, [Soheil Meshinchi, M.D., Ph.D.,](http://meshinchilab.com/) working in collaboration with [Franco Locatelli, M.D., Ph.D.](https://www.ospedalebambinogesu.it/area-di-ricerca---oncoematologia-94851/) and [Concetta Quintarelli, M.D., Ph.D.](https://www.ospedalebambinogesu.it/terapia-genica-dei-tumori-95043/) at the [Bambino Gesù Children's Hospital IRCCS](https://www.ospedalebambinogesu.it/ricerca/) in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.
-
-<p align="center">
-
-<img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/4c/f84deba36f423d966499563db86b31/Fred-Hutch-360px-360px.png?auto=format%2Ccompress&amp;dpr=2&amp;w=180&amp;h=180" alt="Fred Hutch Logo" width="100" height="100"/> <img src="https://www.aopi.it/wp-content/uploads/2019/08/ospedale_bambino_gesu_logo.jpg" alt="Bambino Gesù Logo" width="100" height="100"/>
-
-</p>
 
 ### Contact
 
