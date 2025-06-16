@@ -1,5 +1,5 @@
 ---
-title: "Software Dependencies"
+title: "Software Dependencies and Pre-requisites"
 author: "Jenny Smith"
 format: 
   html:
@@ -21,11 +21,51 @@ We will be using R, Python, Quarto, with the integrated development editors (IDE
 
 -   [**R and Rstudio**](https://posit.co/download/rstudio-desktop/)
 -   [**Python**](https://www.python.org/downloads/)
+-   [**github CLI**](https://cli.github.com/)
 -   [**Quarto CLI**](https://quarto.org/docs/download/)
 -   [**Visual Studio Code**](https://code.visualstudio.com/)
 
 Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
 
+## Git and Github 
+
+To get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes. 
+
+::: callout-important
+Your github account (also known as your github profile), must be invited to the lab github organization before this can be completed. 
+:::
+
+1. Configure `git` for your github username and email account associated with your github account. 
+
+Open a new a new terminal and enter the following commands.
+
+```bash
+# print out the current configuration 
+git config --global --list
+# if not already set, configure them. This example assumes you are using a gmail account.
+git config --global user.name MY_GITHUB_USERNAME
+git config --global user.email MY_GITHUB_EMAIL@gmail.com
+```
+
+2. Authenticate the `gh` CLI tool to connect to the lab github organization.
+
+Enter the following commands in the terminal. You will be prompted to `? Authenticate Git with your GitHub credentials? (Y/n)` and select 'Yes'. Follow the prompts on the command line to open a new web browser window to enter your username and password for github.
+
+```bash
+# login to github using a web browser
+gh auth login --git-protocol 'HTTPS' --hostname GitHub.com --web
+
+# check that you are now authenticated
+gh auth status
+```
+
+Once you see this message that you are logged in, you were successfully authenticated. 
+
+>   ✓ Logged in to github.com account MY_GITHUB_USERNAME (keyring)
+>  - Active account: true
+>  - Git operations protocol: https
+>  - Token: gho_************************************
+>  - Token scopes: 'gist', 'read:org', 'repo', 'workflow'
 
 ## Data
 
