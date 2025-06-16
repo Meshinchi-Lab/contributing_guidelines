@@ -1,5 +1,5 @@
 ---
-title: "Prerequisites"
+title: "Software Dependencies"
 author: "Jenny Smith"
 format: 
   html:
@@ -17,6 +17,8 @@ This page contains README's and internal lab documentation on how to contribute 
 
 We will be using R, Python, Quarto, with the integrated development editors (IDE) Rstudio and VSCode. Click on the links below to install the required software.
 
+::: {.external target="_blank"}
+
 -   [**R and Rstudio**](https://posit.co/download/rstudio-desktop/)
 -   [**Python**](https://www.python.org/downloads/)
 -   [**Quarto CLI**](https://quarto.org/docs/download/)
@@ -24,19 +26,20 @@ We will be using R, Python, Quarto, with the integrated development editors (IDE
 
 Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
 
+
 ## Data
 
 The datasets we use can be found here (*insert link*).
 
 ## Code
 
-The R and Python scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization](https://github.com/Meshinchi-Lab).
+The `R` and `Python` packages, scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization](https://github.com/Meshinchi-Lab).
 
 Repositories have the following nomenclature for easy searching:
 
 -   Data Analysis and Research Projects with collaborators:
 
-    -   `[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
+    -   `[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
 
     -   Example: '2025.06.02_RNAseq_Bulk_T-ALL'
 
@@ -89,3 +92,5 @@ Detailed descriptions of the RStudio panels, panes, and tabsets can be [found he
 Start by learning how the VS Code editor displays and runs [python code](https://code.visualstudio.com/docs/python/python-quick-start).
 
 Next, you can follow along with the [python tutorial](https://www.w3schools.com/python/python_intro.asp) using both the VS Code editor and interactively in a web browser by using the 'try it yourself' buttons.
+
+:::
