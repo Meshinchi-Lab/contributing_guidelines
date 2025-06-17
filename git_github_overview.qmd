@@ -47,30 +47,68 @@ Repositories have the following nomenclature for easy searching:
 
 -   Example: 'DataValidator_Py_Package'
 
-## Data Analysis Notebook Template
+## Initializing the Repository
+
+Basic `git` commands to commit and push code to the lab github organization.
+
+0. First create a new directory name following the appropriate naming convention listed above.
+
+``` bash
+DATA_TYPE="RNAseq" 
+DESCRIPTION="Example_Repo" 
+OUTDIR="$(date +%Y.%m.%d)_${DATA_TYPE}_${DESCRIPTION}"
+
+echo $OUTDIR
+```
+
+1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
+
+Then repository name format is the organization name `Meshinchi-Lab/` followed by the name of the analysis directory you just created. 
+
+``` bash
+REPO="Meshinchi-Lab/${OUTDIR}"
+
+gh repo create $REPO \
+  --description "An example R analysis template repo" \
+  --gitignore R \
+  --license "MIT" \
+  --add-readme \
+  --clone \
+  --private
+```
+
+If it's successful, you will see:
+> ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub
+>   https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo
+> ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git
+
+
+2. Change directories into the new git hub repository you've just cloned (by using the `--clone` argument).
+
+``` bash
+cd $OUTDIR
+```
+
+## Create the Data Analysis Notebook Template
 
 ::: panel-tabset
 
 ### R with rmarkdown and quarto
 
-First create a new directory following the appropriate naming convention listed above. Then use the quarto CLI to download the analyis quarto markdown document. 
+ Then use the quarto CLI to download the analyis quarto markdown document and follow the prompts. Be sure to select 'No' and avoid creating a new subdirectory. 
 
 ``` bash
-DATATYPE="RNAseq" 
-DESCRIPTION="T-ALL_fusions" 
-OUTDIR="$(date +%Y.%m.%d)_${DATATYPE}_${DESCRIPTION}"
-
-mkdir -p $OUTDIR
-cd $OUTDIR
 quarto use template Meshinchi-Lab/analysis_template
+# ? Do you trust the authors of this template (Y/n) › Yes
+# ? Create a subdirectory for template? (Y/n) › No
 ```
 
-> You will see the following output: \> Downloading \[###################################\] 0.0 \> \[✓\] Downloading \> \[✓\] Unzipping \> Preparing template files... \> \[✓\] Copying files... \> Files created: \> - 2025-06-13_RNAseq_T-ALL_fusions.qmd
+> You will see the following output: \> Downloading \[###################################\] 0.0 \> \[✓\] Downloading \> \[✓\] Unzipping \> Preparing template files... \> \[✓\] Copying files... \> Files created: \> - 2025.06.16_RNAseq_Example_Repo.qmd
 
-The `2025-06-13_RNAseq_T-ALL_fusions.qmd` will be the template for the EDA report. You can rename it if you want. You can now open the `.qmd` file in your text editor and start editing it. When you are ready to render the HTML report, run:
+The `2025.06.16_RNAseq_Example_Repo.qmd` will be the template for the EDA report. You can rename it if you want. You can now open the `.qmd` file in your text editor and start editing it. When you are ready to render the HTML report, run:
 
 ``` bash
-quarto render 2025-06-13_RNAseq_T-ALL_fusions.qmd
+quarto render 2025.06.16_RNAseq_Example_Repo.qmd
 ```
 
 ### Python with jupyter notebooks and quarto
@@ -79,19 +117,47 @@ Another quarto template!
 
 :::
 
-## Initializing the Repository
+## Commit and Push to Github
 
-Basic `git` commands to commit and push code to the lab github organization.
+1. First, add the quarto analysis template qmd file. 
 
-1. Initialize a Git repository 
+In this case, the qmd file is named the same as the directory you created, eg "2025.06.16_RNAseq_Example_Repo.qmd". If you've renamed the qmd before committing the file, be sure to use the right name for the "$FILE" variable.
 
-2. 
+``` bash
+FILE="${OUTDIR}.qmd"
+git status
+git add $FILE
+git status
+```
 
+2. Commit the new template qmd file.
 
-::: callout-note
-## Task 1
+``` bash
+git commit -m "Added analysis template"
+```
 
-*This is a callout-note, and it can be quite useful for exercises. You can find more about callout [here](https://quarto.org/docs/authoring/callouts.html).*
+When you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. For brevity, it will essentially be repeating the 5 commands below as you make edits. 
 
-Example: Extend the above analysis to cover all genes.
-:::
+``` bash
+git status
+git add [MY FILE THAT CHANGED] [A NEW FILE]
+git commit -m "describe what changed"
+git status
+git log --oneline
+```
+
+## Code Review and push changes 
+
+We'll be holding weekly code review / code commit gatherings to ensure that we're only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data. 
+
+1. Once we all completed the code review / code commit partner checks, then you can push changes to the repository. 
+
+``` bash
+git push 
+```
+
+2. check that the repository looks the way you expect it to look using the following command:
+
+``` bash
+gh repo view --web "${REPO}"
+``` 
