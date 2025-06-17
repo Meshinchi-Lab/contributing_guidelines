@@ -3,10 +3,7 @@
 .Rdata
 .httr-oauth
 .DS_Store
-.quarto
-
 /.quarto/
-docs/
 
 # History files
 .Rapp.history
@@ -43,9 +40,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-
-# pkgdown site
-docs/
 
 # translation temp files
 po/*~
