@@ -15,13 +15,13 @@ This page contains README's and internal lab documentation on how to contribute 
 
 ## Software
 
-We will be using R, Python, Quarto, with the integrated development editors (IDE) Rstudio and VSCode. Click on the links below to install the required software.
+We will be using `R`, `Python`, `git`, `gh`, and `Quarto`, with the integrated development editors (IDE) `Rstudio` and `VSCode`. Click on the links below to install the required software.
 
 ::: {.external target="_blank"}
 
 -   [**R and Rstudio**](https://posit.co/download/rstudio-desktop/)
 -   [**Python**](https://www.python.org/downloads/)
--   [**github CLI**](https://cli.github.com/)
+-   [**Github CLI**](https://cli.github.com/)
 -   [**Quarto CLI**](https://quarto.org/docs/download/)
 -   [**Visual Studio Code**](https://code.visualstudio.com/)
 
@@ -70,7 +70,7 @@ Once you see this message that you are logged in, you were successfully authenti
 
 ## Data
 
-The datasets we use can be found here (*insert link*).
+The lab NGS datasets we use can be found here (*insert link*).
 
 ## Code
 
@@ -82,27 +82,27 @@ Repositories have the following nomenclature for easy searching:
 
     -   `[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
 
-    -   Example: '2025.06.02_RNAseq_Bulk_T-ALL'
+        -   **Example**: '2025.06.02_RNAseq_Bulk_T-ALL'
 
-    -   Example with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
+        -   **Example** with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
 
 -   Genomic Data pipelines and workflows:
 
     -   `[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]`
 
-    -   Example: 'RNAseq_Fusion_Calling_Nextflow'
+        -   **Example**: 'RNAseq_Fusion_Calling_Nextflow'
 
 -   R packages:
 
     -   `[SHORT-NAME]_R_Package`
 
-    -   Example: 'DeGSEA_R_Package'
+        -   **Example**: 'DeGSEA_R_Package'
 
 -   Python packages:
 
     -   `[SHORT-NAME]_Py_Package`
 
-    -   Example: 'DataValidator_Py_Package'
+        -   **Example**: 'DataValidator_Py_Package'
 
 ## Getting Started
 
