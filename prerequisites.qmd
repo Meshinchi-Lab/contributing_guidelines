@@ -45,6 +45,7 @@ git config --global --list
 # if not already set, configure them. This example assumes you are using a gmail account.
 git config --global user.name MY_GITHUB_USERNAME
 git config --global user.email MY_GITHUB_EMAIL@gmail.com
+git config --global init.defaultbranch main
 ```
 
 2. Authenticate the `gh` CLI tool to connect to the lab github organization.
