@@ -4,17 +4,18 @@ format:
   html:
     code-fold: false
     code-tools: true
+    toc: true
+    number-sections: true
 author: "Jenny L. Smith"
 ---
 
 ::: callout-tip
-## Standardization of Repositories
-
-A description of:
+## Standardization of Code Repositories
 
 1.  Naming conventions for `github` repositories
-2.  Using data analysis notebook quarto templates
-3.  Initializing the code repository using `git` and `github`
+2.  Initializing the code repository using `git` and `github`
+3.  Using data analysis quarto templates
+
 :::
 
 ## Github Repository Naming Conventions
@@ -23,35 +24,35 @@ Repositories have the following nomenclature for easy searching:
 
 1.  Exploratory Data Analysis and Research Projects with collaborators:
 
--   `[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
+    -   `[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
 
--   Example: '2025.06.02_RNAseq_Bulk_T-ALL'
+        -   **Example**: '2025.06.02_RNAseq_Bulk_T-ALL'
 
--   Example with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
+        -   **Example**: with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
 
 2.  Genomic Data pipelines and workflows:
 
--   `[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]`
+    -   `[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]`
 
--   Example: 'RNAseq_Fusion_Calling_Nextflow'
+          -   **Example**: 'RNAseq_Fusion_Calling_Nextflow'
 
 3. R packages:
 
--   `[SHORT-NAME]_R_Package`
+    -   `[SHORT-NAME]_R_Package`
 
--   Example: 'DeGSEA_R_Package'
+        -   **Example**: 'DeGSEA_R_Package'
 
 4. Python packages:
 
--   `[SHORT-NAME]_Py_Package`
+    -   `[SHORT-NAME]_Py_Package`
 
--   Example: 'DataValidator_Py_Package'
+        -   **Example**: 'DataValidator_Py_Package'
 
 ## Initializing the Repository
 
-Basic `git` commands to commit and push code to the lab github organization.
+First `git` commands to commit and push code to the lab github organization.
 
-0. First create a new directory name following the appropriate naming convention listed above.
+0. First create a folder (directory) name following the standardized naming conventions listed above.
 
 ``` bash
 DATA_TYPE="RNAseq" 
@@ -61,6 +62,8 @@ OUTDIR="$(date +%Y.%m.%d)_${DATA_TYPE}_${DESCRIPTION}"
 echo $OUTDIR
 ```
 
+This will create a variable that is set as the string `2025.06.17_RNAseq_Example_Repo`.
+
 1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
 
 Then repository name format is the organization name `Meshinchi-Lab/` followed by the name of the analysis directory you just created. 
@@ -68,6 +71,12 @@ Then repository name format is the organization name `Meshinchi-Lab/` followed b
 ``` bash
 REPO="Meshinchi-Lab/${OUTDIR}"
 
+echo $REPO
+```
+
+This will create a variable that is set as the string `Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo`.
+
+``` bash
 gh repo create $REPO \
   --description "An example R analysis template repo" \
   --gitignore R \
@@ -77,13 +86,14 @@ gh repo create $REPO \
   --private
 ```
 
-If it's successful, you will see:
+If `gh repo create` command is successful, you will see:
+
 > ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub
 >   https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo
 > ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git
 
 
-2. Change directories into the new git hub repository you've just cloned (by using the `--clone` argument).
+2. Change directories (`cd`) into the new github repository you've just cloned (by using the `--clone` argument in step 1).
 
 ``` bash
 cd $OUTDIR
@@ -95,20 +105,47 @@ cd $OUTDIR
 
 ### R with rmarkdown and quarto
 
- Then use the quarto CLI to download the analyis quarto markdown document and follow the prompts. Be sure to select 'No' and avoid creating a new subdirectory. 
+Use the `quarto` CLI to download the quarto markdown template and follow the prompts:
+
+- ? Do you trust the authors of this template (Y/n) › **Yes**
+- ? Create a subdirectory for template? (Y/n) › **No**
 
 ``` bash
 quarto use template Meshinchi-Lab/analysis_template
-# ? Do you trust the authors of this template (Y/n) › Yes
-# ? Create a subdirectory for template? (Y/n) › No
 ```
 
-> You will see the following output: \> Downloading \[###################################\] 0.0 \> \[✓\] Downloading \> \[✓\] Unzipping \> Preparing template files... \> \[✓\] Copying files... \> Files created: \> - 2025.06.16_RNAseq_Example_Repo.qmd
 
-The `2025.06.16_RNAseq_Example_Repo.qmd` will be the template for the EDA report. You can rename it if you want. You can now open the `.qmd` file in your text editor and start editing it. When you are ready to render the HTML report, run:
+You will see the following output: 
+
+> Downloading \[###################################\] 0.0 
+
+> \[✓\] Downloading 
+
+> \[✓\] Unzipping 
+
+> Preparing template files... 
+
+> \[✓\] Copying files... 
+
+> Files created: 
+
+> - 2025.06.16_RNAseq_Example_Repo.qmd
+
+
+The `2025.06.16_RNAseq_Example_Repo.qmd` will be the template for the EDA report. You can rename it if you want. You can now open the `.qmd` file in your text editor and start editing it. 
+
+In this case, the qmd file is named the same as the directory you created, eg `2025.06.16_RNAseq_Example_Repo.qmd`. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.
 
 ``` bash
-quarto render 2025.06.16_RNAseq_Example_Repo.qmd
+FILE="${OUTDIR}.qmd"
+
+echo $FILE
+```
+
+When you are ready to render the HTML report, run:
+
+``` bash
+quarto render $FILE
 ```
 
 ### Python with jupyter notebooks and quarto

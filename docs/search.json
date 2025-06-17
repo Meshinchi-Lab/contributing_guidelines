@@ -4,7 +4,7 @@
     "href": "git_github_overview.html",
     "title": "Getting Started",
     "section": "",
-    "text": "Standardization of Repositories\n\n\n\nA description of:\n\nNaming conventions for github repositories\nUsing data analysis notebook quarto templates\nInitializing the code repository using git and github",
+    "text": "Standardization of Code Repositories\n\n\n\n\nNaming conventions for github repositories\nInitializing the code repository using git and github\nUsing data analysis quarto templates",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -14,8 +14,8 @@
     "objectID": "git_github_overview.html#github-repository-naming-conventions",
     "href": "git_github_overview.html#github-repository-naming-conventions",
     "title": "Getting Started",
-    "section": "Github Repository Naming Conventions",
-    "text": "Github Repository Naming Conventions\nRepositories have the following nomenclature for easy searching:\n\nExploratory Data Analysis and Research Projects with collaborators:\n\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n\n[SHORT-NAME]_R_Package\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n\n[SHORT-NAME]_Py_Package\nExample: ‘DataValidator_Py_Package’",
+    "section": "1 Github Repository Naming Conventions",
+    "text": "1 Github Repository Naming Conventions\nRepositories have the following nomenclature for easy searching:\n\nExploratory Data Analysis and Research Projects with collaborators:\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\n\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample: with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\n\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n[SHORT-NAME]_R_Package\n\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n[SHORT-NAME]_Py_Package\n\nExample: ‘DataValidator_Py_Package’",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -25,8 +25,8 @@
     "objectID": "git_github_overview.html#initializing-the-repository",
     "href": "git_github_overview.html#initializing-the-repository",
     "title": "Getting Started",
-    "section": "Initializing the Repository",
-    "text": "Initializing the Repository\nBasic git commands to commit and push code to the lab github organization.\n\nFirst create a new directory name following the appropriate naming convention listed above.\n\nDATA_TYPE=\"RNAseq\" \nDESCRIPTION=\"Example_Repo\" \nOUTDIR=\"$(date +%Y.%m.%d)_${DATA_TYPE}_${DESCRIPTION}\"\n\necho $OUTDIR\n\nCreate a private remote repository in the Meshinchi-Lab lab github organization.\n\nThen repository name format is the organization name Meshinchi-Lab/ followed by the name of the analysis directory you just created.\nREPO=\"Meshinchi-Lab/${OUTDIR}\"\n\ngh repo create $REPO \\\n  --description \"An example R analysis template repo\" \\\n  --gitignore R \\\n  --license \"MIT\" \\\n  --add-readme \\\n  --clone \\\n  --private\nIf it’s successful, you will see: &gt; ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub &gt; https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo &gt; ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git\n\nChange directories into the new git hub repository you’ve just cloned (by using the --clone argument).\n\ncd $OUTDIR",
+    "section": "2 Initializing the Repository",
+    "text": "2 Initializing the Repository\nFirst git commands to commit and push code to the lab github organization.\n\nFirst create a folder (directory) name following the standardized naming conventions listed above.\n\nDATA_TYPE=\"RNAseq\" \nDESCRIPTION=\"Example_Repo\" \nOUTDIR=\"$(date +%Y.%m.%d)_${DATA_TYPE}_${DESCRIPTION}\"\n\necho $OUTDIR\nThis will create a variable that is set as the string 2025.06.17_RNAseq_Example_Repo.\n\nCreate a private remote repository in the Meshinchi-Lab lab github organization.\n\nThen repository name format is the organization name Meshinchi-Lab/ followed by the name of the analysis directory you just created.\nREPO=\"Meshinchi-Lab/${OUTDIR}\"\n\necho $REPO\nThis will create a variable that is set as the string Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo.\ngh repo create $REPO \\\n  --description \"An example R analysis template repo\" \\\n  --gitignore R \\\n  --license \"MIT\" \\\n  --add-readme \\\n  --clone \\\n  --private\nIf gh repo create command is successful, you will see:\n\n✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git\n\n\nChange directories (cd) into the new github repository you’ve just cloned (by using the --clone argument in step 1).\n\ncd $OUTDIR",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -36,8 +36,8 @@
     "objectID": "git_github_overview.html#create-the-data-analysis-notebook-template",
     "href": "git_github_overview.html#create-the-data-analysis-notebook-template",
     "title": "Getting Started",
-    "section": "Create the Data Analysis Notebook Template",
-    "text": "Create the Data Analysis Notebook Template\n\nR with rmarkdown and quartoPython with jupyter notebooks and quarto\n\n\nThen use the quarto CLI to download the analyis quarto markdown document and follow the prompts. Be sure to select ‘No’ and avoid creating a new subdirectory.\nquarto use template Meshinchi-Lab/analysis_template\n# ? Do you trust the authors of this template (Y/n) › Yes\n# ? Create a subdirectory for template? (Y/n) › No\n\nYou will see the following output: &gt; Downloading [###################################] 0.0 &gt; [✓] Downloading &gt; [✓] Unzipping &gt; Preparing template files… &gt; [✓] Copying files… &gt; Files created: &gt; - 2025.06.16_RNAseq_Example_Repo.qmd\n\nThe 2025.06.16_RNAseq_Example_Repo.qmd will be the template for the EDA report. You can rename it if you want. You can now open the .qmd file in your text editor and start editing it. When you are ready to render the HTML report, run:\nquarto render 2025.06.16_RNAseq_Example_Repo.qmd\n\n\nAnother quarto template!",
+    "section": "3 Create the Data Analysis Notebook Template",
+    "text": "3 Create the Data Analysis Notebook Template\n\nR with rmarkdown and quartoPython with jupyter notebooks and quarto\n\n\nUse the quarto CLI to download the quarto markdown template and follow the prompts:\n\n? Do you trust the authors of this template (Y/n) › Yes\n? Create a subdirectory for template? (Y/n) › No\n\nquarto use template Meshinchi-Lab/analysis_template\nYou will see the following output:\n\nDownloading [###################################] 0.0\n\n\n[✓] Downloading\n\n\n[✓] Unzipping\n\n\nPreparing template files…\n\n\n[✓] Copying files…\n\n\nFiles created:\n\n\n\n2025.06.16_RNAseq_Example_Repo.qmd\n\n\nThe 2025.06.16_RNAseq_Example_Repo.qmd will be the template for the EDA report. You can rename it if you want. You can now open the .qmd file in your text editor and start editing it.\nIn this case, the qmd file is named the same as the directory you created, eg 2025.06.16_RNAseq_Example_Repo.qmd. If you’ve renamed the qmd, be sure to use the right value for the “$FILE” variable.\nFILE=\"${OUTDIR}.qmd\"\n\necho $FILE\nWhen you are ready to render the HTML report, run:\nquarto render $FILE\n\n\nAnother quarto template!",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -47,8 +47,8 @@
     "objectID": "git_github_overview.html#commit-and-push-to-github",
     "href": "git_github_overview.html#commit-and-push-to-github",
     "title": "Getting Started",
-    "section": "Commit and Push to Github",
-    "text": "Commit and Push to Github\n\nFirst, add the quarto analysis template qmd file.\n\nIn this case, the qmd file is named the same as the directory you created, eg “2025.06.16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.\nFILE=\"${OUTDIR}.qmd\"\ngit status\ngit add $FILE\ngit status\n\nCommit the new template qmd file.\n\ngit commit -m \"Added analysis template\"\nWhen you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. For brevity, it will essentially be repeating the 5 commands below as you make edits.\ngit status\ngit add [MY FILE THAT CHANGED] [A NEW FILE]\ngit commit -m \"describe what changed\"\ngit status\ngit log --oneline",
+    "section": "4 Commit and Push to Github",
+    "text": "4 Commit and Push to Github\n\nFirst, add the quarto analysis template qmd file.\n\nIn this case, the qmd file is named the same as the directory you created, eg “2025.06.16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.\nFILE=\"${OUTDIR}.qmd\"\ngit status\ngit add $FILE\ngit status\n\nCommit the new template qmd file.\n\ngit commit -m \"Added analysis template\"\nWhen you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. For brevity, it will essentially be repeating the 5 commands below as you make edits.\ngit status\ngit add [MY FILE THAT CHANGED] [A NEW FILE]\ngit commit -m \"describe what changed\"\ngit status\ngit log --oneline",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -58,8 +58,8 @@
     "objectID": "git_github_overview.html#code-review-and-push-changes",
     "href": "git_github_overview.html#code-review-and-push-changes",
     "title": "Getting Started",
-    "section": "Code Review and push changes",
-    "text": "Code Review and push changes\nWe’ll be holding weekly code review / code commit gatherings to ensure that we’re only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data.\n\nOnce we all completed the code review / code commit partner checks, then you can push changes to the repository.\n\ngit push \n\ncheck that the repository looks the way you expect it to look using the following command:\n\ngh repo view --web \"${REPO}\"",
+    "section": "5 Code Review and push changes",
+    "text": "5 Code Review and push changes\nWe’ll be holding weekly code review / code commit gatherings to ensure that we’re only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data.\n\nOnce we all completed the code review / code commit partner checks, then you can push changes to the repository.\n\ngit push \n\ncheck that the repository looks the way you expect it to look using the following command:\n\ngh repo view --web \"${REPO}\"",
     "crumbs": [
       "Home",
       "Getting Started"
