@@ -35,6 +35,12 @@ To get started, you will need to authenticate your access to the lab github orga
 Your github account (also known as your github profile), must be invited to the lab github organization before this can be completed. 
 :::
 
+0. Set-up a Github Account and get added as a member to the Lab organization
+
+
+Github profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to [set-up 2FA (2 factor authentication)](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-text-messages).
+
+
 1. Configure `git` for your github username and email account associated with your github account. 
 
 Open a new a new terminal and enter the following commands.
