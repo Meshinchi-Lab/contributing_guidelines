@@ -154,7 +154,7 @@ Another quarto template!
 
 :::
 
-## Commit and Push to Github
+## Commit Changes
 
 1. First, add the quarto analysis template qmd file. 
 

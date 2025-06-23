@@ -25,6 +25,7 @@ We will model our code review style using [this document](https://github.com/maw
 
   - [**Add references and examples**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#provide-references)
 
+We will also reference this checklist and modify this as needed for [bioinformatics coding](https://roadmap.sh/best-practices/code-review).
 
 ## Overview
 
