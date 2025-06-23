@@ -9,7 +9,31 @@ format:
 author: "Jenny L. Smith"
 ---
 
-## Code Review and push changes 
+## Overview
+
+There are two Microsoft Teams recurring meeting series for git and github. 
+
+  1. **"Code Review - paired programming":**
+    - *Frequency:* 1x a week on Wednesdays
+    - *Description:*
+      - focused on gaining experience and familiarity with using `git`, `gh` github CLI commands, and github web features. 
+      - review our commits and commit history together
+      - push changes to the lab github organization
+
+
+  2. **"Code Review - formal review":**
+    - *Frequency:* 1x every 3 weeks
+    - *Description:* 
+      - A more in-depth discussion of the actual code as written,
+      - where we can ask specific questions and troubleshoot errors
+      - get feedback on how to improve our code 
+
+Meeting agendas will be hosted on the [github repository "contributing guidelines" discussions section](https://github.com/Meshinchi-Lab/contributing_guidelines/discussions), which is a website to document our workflows and internal lab procedures.  
+
+If you have any questions or suggestions, please post them discussions section as well! This will be an evolving process as we develop our own bioinformatics team best practices. 
+
+
+## Code Review - paired programming
 
 We'll be holding weekly code review / code commit gatherings to ensure that we're only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data. 
 
@@ -24,3 +48,5 @@ git push
 ``` bash
 gh repo view --web "${REPO}"
 ``` 
+
+## Code Review - formal review

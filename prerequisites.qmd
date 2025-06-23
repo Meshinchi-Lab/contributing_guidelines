@@ -37,7 +37,6 @@ Your github account (also known as your github profile), must be invited to the 
 
 0. Set-up a Github Account and get added as a member to the Lab organization
 
-
 Github profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to [set-up 2FA (2 factor authentication)](https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication#configuring-two-factor-authentication-using-text-messages).
 
 

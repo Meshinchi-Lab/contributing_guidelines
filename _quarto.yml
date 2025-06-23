@@ -12,13 +12,14 @@ website:
         text: About
     right:
       - icon: github
-        href: https://github.com/Meshinchi-Lab/ospedale_bambino_gesu_docs
+        href: https://github.com/Meshinchi-Lab/contributing_guidelines
   sidebar:
     style: "docked"
     search: true
     contents:
       - prerequisites.qmd
       - git_github_overview.qmd
+      - code_review.qmd
   page-navigation: true
 
 format:
