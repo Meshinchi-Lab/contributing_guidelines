@@ -169,32 +169,24 @@ git status
 
 2. Commit the new template qmd file.
 
+And use `git log` to see what changes were made, for example if you come back late to continue. 
+
 ``` bash
 git commit -m "Added analysis template"
+git log --oneline
 ```
 
-When you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. For brevity, it will essentially be repeating the 5 commands below as you make edits. 
+When you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. This is summarized in the section below.
+
+## Summary 
+
+In summary, after creating the github repository with the analysis quarto template, you will be repeating the 5 commands below as you make edits. 
 
 ``` bash
+git pull
 git status
 git add [MY FILE THAT CHANGED] [A NEW FILE]
 git commit -m "describe what changed"
 git status
 git log --oneline
 ```
-
-## Code Review and push changes 
-
-We'll be holding weekly code review / code commit gatherings to ensure that we're only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data. 
-
-1. Once we all completed the code review / code commit partner checks, then you can push changes to the repository. 
-
-``` bash
-git push 
-```
-
-2. check that the repository looks the way you expect it to look using the following command:
-
-``` bash
-gh repo view --web "${REPO}"
-``` 
