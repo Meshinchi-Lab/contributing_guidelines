@@ -78,12 +78,10 @@ This will create a variable that is set as the string `Meshinchi-Lab/2025.06.17_
 
 ``` bash
 gh repo create $REPO \
-  --description "An example R analysis template repo" \
-  --gitignore R \
-  --license "MIT" \
-  --add-readme \
-  --clone \
-  --private
+--description "An example R analysis template repo" \
+--template "Meshinchi-Lab/analysis_template" \
+--clone \
+--private
 ```
 
 If `gh repo create` command is successful, you will see:
@@ -95,8 +93,10 @@ If `gh repo create` command is successful, you will see:
 
 2. Change directories (`cd`) into the new github repository you've just cloned (by using the `--clone` argument in step 1).
 
+Make sure to use `git pull` in order to have your local repository in sync with your new local repository.
+
 ``` bash
-cd $OUTDIR
+cd $OUTDIR && git pull origin main
 ```
 
 ## Create the Data Analysis Notebook Template
