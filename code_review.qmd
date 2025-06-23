@@ -16,9 +16,13 @@ These meetings are truly **team gatherings** and are designed to be a **learning
 We will model our code review style using [this document](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#a-practical-guide-for-better-faster-code-reviews). The most important sections are highlighted below.
 
 **We will prioritize:**
-  - [**Positive and actionable feedback**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#offer-encouragement--appreciation--give-positive-feedback) to each team member
+
+  - [**Positive and actionable feedback**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#offer-encouragement--appreciation--give-positive-feedback)
+
   - [**Empathize and have an open mind**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#empathize--the-other-person-is-you)
+
   - [**Leave comments in your code**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#clarify-the-code-first--help-future-developers)
+
   - [**Add references and examples**](https://github.com/mawrkus/pull-request-review-guide?tab=readme-ov-file#provide-references)
 
 
@@ -26,7 +30,7 @@ We will model our code review style using [this document](https://github.com/maw
 
 ### Agendas 
 
-Meeting agendas will be hosted on the [github repository "contributing guidelines" discussions section](https://github.com/Meshinchi-Lab/contributing_guidelines/discussions), which is a website to document our workflows and internal lab procedures.  
+Meeting agendas will be hosted on the github repository ["contributing guidelines" discussions section](https://github.com/Meshinchi-Lab/contributing_guidelines/discussions).
 
 If you have any questions or suggestions, please post them discussions section as well! This will be an evolving process as we develop our own bioinformatics team best practices. 
 
@@ -34,36 +38,87 @@ If you have any questions or suggestions, please post them discussions section a
 
 There are two Microsoft Teams recurring meeting series for git and github. In general, meetings will always have a virtual component in order to share our screens and easily view each others code.
 
-  1. **"Code Review - paired programming":**
-    - *Frequency:* 1x a week on Wednesdays
-    - *Description:*
-      - focused on gaining experience and familiarity with using `git`, `gh` github CLI commands, and github web features. 
-      - review our commits and commit history together
-      - push changes to the lab github organization
+1. **"Code Review - paired programming":**
+
+  - *Frequency:* 1x a week on Wednesdays
+
+  - *Description:*
+
+    - focused on gaining experience and familiarity with using `git`, `gh` github CLI commands, and github web features. 
+
+    - review our commits and commit history together
+
+    - push changes to the lab github organization
 
 
-  2. **"Code Review - formal review":**
-    - *Frequency:* 1x every 3 weeks
-    - *Description:* 
-      - a more in-depth discussion of the technical components of our code
-      - ask specific questions and troubleshoot errors
-      - get feedback on how to improve the efficiency of our code
+2. **"Code Review - formal review":**
+
+  - *Frequency:* 1x every 3 weeks
+
+  - *Description:* 
+
+    - a more in-depth discussion of the technical components of our code
+
+    - ask specific questions and troubleshoot errors
+
+    - get feedback on how to improve the efficiency of our code
 
 
 ## Code Review - paired programming
 
-We'll be holding weekly code review / code commit gatherings to ensure that we're only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data. 
+Weekly code review / code commit gatherings to ensure:
+- only committing changes that we expect 
+- have not added any files that may not belong on github, such as PDFs or power point presentations
+- have not added any sensitive data. 
 
-1. Once we all completed the code review / code commit partner checks, then you can push changes to the repository. 
+### Meeting Format:
+
+1. Open questions (10 min)
+
+2. We will work in pairs to commit changes, review our commit history and which files should be hosted on github (35 min)
+
+3. Push changes to the lab github repositories (15 min)
+
+### Git and Github
+
+1. Review our diffs and commit history
+
+  - [VSCode](https://code.visualstudio.com/docs/sourcecontrol/overview#_working-in-a-git-repository)
+  - [RStudio](https://docs.posit.co/ide/user/ide/guide/tools/version-control.html#integrations)
+
+``` bash
+REPO="Meshinchi-Lab/2025.06.23_Example_Repo"
+cd $REPO
+git status
+git diff
+```
+
+2. Once we all completed the code review / code commit partner checks, then you can push changes to the repository. 
 
 ``` bash
 git push 
 ```
 
-2. check that the repository looks the way you expect it to look using the following command:
+3. check that the repository looks the way you expect it to look using the following command:
 
 ``` bash
-gh repo view --web "${REPO}"
+gh repo view --web "$REPO"
 ``` 
 
 ## Code Review - formal review
+
+A 1x every 3 weeks recurring code review meeting for the bioinformatics team to discuss questions, troubleshoot code, and make code improvements. 
+
+### Meeting Format
+
+1. Open questions (10 min)
+
+2. Presentation of code by person 1 (15 min)
+
+3. Presentation of code by person 2 (15 min)
+
+4. Presentation of code by person 3 (15 min)
+
+5. Recap on what changes to be made (5 min)
+
+We will then wait until the following "Paired Programming" meeting to push any changes. 
