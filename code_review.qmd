@@ -1,0 +1,26 @@
+---
+title: "Code Review"
+format: 
+  html:
+    code-fold: false
+    code-tools: true
+    toc: true
+    number-sections: true
+author: "Jenny L. Smith"
+---
+
+## Code Review and push changes 
+
+We'll be holding weekly code review / code commit gatherings to ensure that we're only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data. 
+
+1. Once we all completed the code review / code commit partner checks, then you can push changes to the repository. 
+
+``` bash
+git push 
+```
+
+2. check that the repository looks the way you expect it to look using the following command:
+
+``` bash
+gh repo view --web "${REPO}"
+``` 
