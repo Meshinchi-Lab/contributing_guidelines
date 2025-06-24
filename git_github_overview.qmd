@@ -48,9 +48,7 @@ Repositories have the following nomenclature for easy searching:
 
         -   **Example**: 'DataValidator_Py_Package'
 
-## Initializing the Repository
-
-First `git` commands to commit and push code to the lab github organization.
+### Example
 
 0. First create a folder (directory) name following the standardized naming conventions listed above.
 
@@ -70,7 +68,7 @@ This will create a variable that is has the value set as the string `2025.06.17_
 
 ::: panel-tabset
 
-### R with rmarkdown and quarto
+## R 
 
 1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
 
@@ -143,13 +141,7 @@ FILE="${OUTDIR}.qmd"
 echo $FILE
 ```
 
-When you are ready to render the HTML report, run:
-
-``` bash
-quarto render $FILE
-```
-
-### Python with jupyter notebooks and quarto
+## Python
 
 1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
 
@@ -195,7 +187,6 @@ Use the `quarto` CLI to download the quarto markdown template and follow the pro
 quarto use template Meshinchi-Lab/py_analysis_template
 ```
 
-
 You will see the following output: 
 
 > Downloading \[###################################\] 0.0 
@@ -219,7 +210,6 @@ In this case, the qmd file is named the same as the directory you created, eg `2
 
 ``` bash
 FILE="${OUTDIR}.qmd"
-
 echo $FILE
 ```
 
@@ -229,10 +219,41 @@ Then convert the qmd template to ipython notebook (.ipynb) that can be used for 
 quarto convert $FILE
 ```
 
+:::
+
+## Install Dependencies and Render 
+
+::: {.panel-tabset}
+
+## R
+
+Create a virtual environment using `renv` and then install the project dependencies.
+
+``` bash
+Rscript -e "renv::activate()"
+Rscript -e "renv::restore()"
+```
+
 When you are ready to render the HTML report, run:
 
 ``` bash
-IPYNB="${IPYNB}.ipynb"
+quarto render $FILE
+```
+
+## Python
+
+Create a virtual environment using `venv` and then install the initial project dependencies. 
+
+``` bash
+python3 -m venv venv 
+source venv/bin/activate 
+python3 -m pip install -r requirements.txt
+```
+
+When you are ready to render the HTML report, run:
+
+``` bash
+IPYNB="${OUTDIR}.ipynb"
 echo $IPYNB
 quarto render $IPYNB
 ```
@@ -265,7 +286,25 @@ When you make changes to the analysis qmd and create any new files, you will rep
 
 ## Summary 
 
-In summary, after creating the github repository with the analysis quarto template, you will be repeating the 5 commands below as you make edits. 
+In summary, after creating the github repository with the analysis quarto template, you will be repeating the commands below as you make edits. 
+
+1. Ensure the virtual environment is up-to-date and activated. 
+
+For R
+
+``` bash
+Rscript -e "renv::activate()"
+Rscript -e "renv::status()"
+```
+
+For Python
+
+``` bash
+source venv/bin/activate 
+which python
+```
+
+2. Use these 5 git commands as you make changes to files, and install software dependencies
 
 ``` bash
 git pull
