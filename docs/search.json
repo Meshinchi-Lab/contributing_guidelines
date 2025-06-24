@@ -44,22 +44,22 @@
     ]
   },
   {
-    "objectID": "git_github_overview.html#commit-and-push-to-github",
-    "href": "git_github_overview.html#commit-and-push-to-github",
+    "objectID": "git_github_overview.html#commit-changes",
+    "href": "git_github_overview.html#commit-changes",
     "title": "Getting Started",
-    "section": "4 Commit and Push to Github",
-    "text": "4 Commit and Push to Github\n\nFirst, add the quarto analysis template qmd file.\n\nIn this case, the qmd file is named the same as the directory you created, eg “2025.06.16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.\nFILE=\"${OUTDIR}.qmd\"\ngit status\ngit add $FILE\ngit status\n\nCommit the new template qmd file.\n\ngit commit -m \"Added analysis template\"\nWhen you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. For brevity, it will essentially be repeating the 5 commands below as you make edits.\ngit status\ngit add [MY FILE THAT CHANGED] [A NEW FILE]\ngit commit -m \"describe what changed\"\ngit status\ngit log --oneline",
+    "section": "4 Commit Changes",
+    "text": "4 Commit Changes\n\nFirst, add the quarto analysis template qmd file.\n\nIn this case, the qmd file is named the same as the directory you created, eg “2025.06.16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.\nFILE=\"${OUTDIR}.qmd\"\ngit status\ngit add $FILE\ngit status\n\nCommit the new template qmd file.\n\nAnd use git log to see what changes were made, for example if you come back late to continue.\ngit commit -m \"Added analysis template\"\ngit log --oneline\nWhen you make changes to the analysis qmd and create any new files, you will repeat steps 1 and 2 here. This is summarized in the section below.",
     "crumbs": [
       "Home",
       "Getting Started"
     ]
   },
   {
-    "objectID": "git_github_overview.html#code-review-and-push-changes",
-    "href": "git_github_overview.html#code-review-and-push-changes",
+    "objectID": "git_github_overview.html#summary",
+    "href": "git_github_overview.html#summary",
     "title": "Getting Started",
-    "section": "5 Code Review and push changes",
-    "text": "5 Code Review and push changes\nWe’ll be holding weekly code review / code commit gatherings to ensure that we’re only committing changes that we expect and have not added any files that may not belong on github, such as PDFs or power point presentations, and especially any sensitive data.\n\nOnce we all completed the code review / code commit partner checks, then you can push changes to the repository.\n\ngit push \n\ncheck that the repository looks the way you expect it to look using the following command:\n\ngh repo view --web \"${REPO}\"",
+    "section": "5 Summary",
+    "text": "5 Summary\nIn summary, after creating the github repository with the analysis quarto template, you will be repeating the 5 commands below as you make edits.\ngit pull\ngit status\ngit add [MY FILE THAT CHANGED] [A NEW FILE]\ngit commit -m \"describe what changed\"\ngit status\ngit log --oneline",
     "crumbs": [
       "Home",
       "Getting Started"
@@ -150,18 +150,11 @@
     ]
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Welcome to the Meshinchi Lab at Fred Hutch\nOur research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.\nCurrently, Soheil Meshinchi, M.D., Ph.D., working in collaboration with Franco Locatelli, M.D., Ph.D. and Concetta Quintarelli, M.D., Ph.D. at the Bambino Gesù Children’s Hospital IRCCS in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.\n\n \n\n\n\n\n\n\n\nAbout\n\n\n\nThe Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\n\n\n\n\nContact\n\nFred Hutch\nSoheil Meshinchi\nRhonda Ries\n\n\nOPBG\nFranco Locatelli\nConcetta Quintarelli"
-  },
-  {
     "objectID": "code_review.html",
     "href": "code_review.html",
     "title": "Code Review",
     "section": "",
-    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples",
+    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
     "crumbs": [
       "Home",
       "Code Review"
@@ -172,7 +165,7 @@
     "href": "code_review.html#guidelines",
     "title": "Code Review",
     "section": "",
-    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples",
+    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
     "crumbs": [
       "Home",
       "Code Review"
@@ -210,5 +203,12 @@
       "Home",
       "Code Review"
     ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Welcome to the Meshinchi Lab at Fred Hutch\nOur research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.\nCurrently, Soheil Meshinchi, M.D., Ph.D., working in collaboration with Franco Locatelli, M.D., Ph.D. and Concetta Quintarelli, M.D., Ph.D. at the Bambino Gesù Children’s Hospital IRCCS in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.\n\n \n\n\n\n\n\n\n\nAbout\n\n\n\nThe Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\n\n\n\n\nContact\n\nFred Hutch\nSoheil Meshinchi\nRhonda Ries\n\n\nOPBG\nFranco Locatelli\nConcetta Quintarelli"
   }
 ]
