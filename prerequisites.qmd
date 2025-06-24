@@ -27,6 +27,11 @@ We will be using `R`, `Python`, `git`, `gh`, and `Quarto`, with the integrated d
 
 Alternatively, use **Posit cloud** (formerly Rstudio Cloud). [Posit cloud](https://posit.cloud) is free of charge for personal users, yet you need to [sign up](https://posit.cloud/plans/free) for a new user account and have internet connection.
 
+## VS Code Extensions
+
+Install the [Quarto Extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) for VS Code provides a variety of tools for working with .qmd files in VS Code. The extension integrates directly with the [Python Extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) to add Python-specific capabilities.
+
+
 ## Git and Github 
 
 To get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes. 
