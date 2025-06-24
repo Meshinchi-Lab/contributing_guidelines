@@ -48,9 +48,7 @@ Repositories have the following nomenclature for easy searching:
 
         -   **Example**: 'DataValidator_Py_Package'
 
-## Initializing the Repository
-
-First `git` commands to commit and push code to the lab github organization.
+### Example
 
 0. First create a folder (directory) name following the standardized naming conventions listed above.
 
@@ -62,7 +60,15 @@ OUTDIR="$(date +%Y.%m.%d)_${DATA_TYPE}_${DESCRIPTION}"
 echo $OUTDIR
 ```
 
-This will create a variable that is set as the string `2025.06.17_RNAseq_Example_Repo`.
+This will create a variable that is has the value set as the string `2025.06.17_RNAseq_Example_Repo`.
+
+
+
+## Create the Data Analysis Notebook Template
+
+::: panel-tabset
+
+## R 
 
 1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
 
@@ -79,7 +85,7 @@ This will create a variable that is set as the string `Meshinchi-Lab/2025.06.17_
 ``` bash
 gh repo create $REPO \
 --description "An example R analysis template repo" \
---template "Meshinchi-Lab/analysis_template" \
+--template "Meshinchi-Lab/r_analysis_template" \
 --clone \
 --private
 ```
@@ -99,21 +105,14 @@ Make sure to use `git pull` in order to have your local repository in sync with 
 cd $OUTDIR && git pull origin main
 ```
 
-## Create the Data Analysis Notebook Template
-
-::: panel-tabset
-
-### R with rmarkdown and quarto
-
-Use the `quarto` CLI to download the quarto markdown template and follow the prompts:
+3. Use the `quarto` CLI to download the quarto markdown template and follow the prompts:
 
 - ? Do you trust the authors of this template (Y/n) › **Yes**
 - ? Create a subdirectory for template? (Y/n) › **No**
 
 ``` bash
-quarto use template Meshinchi-Lab/analysis_template
+quarto use template Meshinchi-Lab/r_analysis_template
 ```
-
 
 You will see the following output: 
 
@@ -142,15 +141,122 @@ FILE="${OUTDIR}.qmd"
 echo $FILE
 ```
 
+## Python
+
+1. Create a ***private*** remote repository in the Meshinchi-Lab lab github organization. 
+
+Then repository name format is the organization name `Meshinchi-Lab/` followed by the name of the analysis directory you just created. 
+
+``` bash
+REPO="Meshinchi-Lab/${OUTDIR}"
+
+echo $REPO
+```
+
+This will create a variable that is set as the string `Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo`.
+
+``` bash
+gh repo create $REPO \
+--description "An example py analysis template repo" \
+--template "Meshinchi-Lab/py_analysis_template" \
+--clone \
+--private
+```
+
+If `gh repo create` command is successful, you will see:
+
+> ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub
+>   https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo
+> ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git
+
+
+2. Change directories (`cd`) into the new github repository you've just cloned (by using the `--clone` argument in step 1).
+
+Make sure to use `git pull` in order to have your local repository in sync with your new local repository.
+
+``` bash
+cd $OUTDIR && git pull origin main
+```
+
+Use the `quarto` CLI to download the quarto markdown template and follow the prompts:
+
+- ? Do you trust the authors of this template (Y/n) › **Yes**
+- ? Create a subdirectory for template? (Y/n) › **No**
+
+``` bash
+quarto use template Meshinchi-Lab/py_analysis_template
+```
+
+You will see the following output: 
+
+> Downloading \[###################################\] 0.0 
+
+> \[✓\] Downloading 
+
+> \[✓\] Unzipping 
+
+> Preparing template files... 
+
+> \[✓\] Copying files... 
+
+> Files created: 
+
+> - 2025.06.16_RNAseq_Example_Repo.qmd
+
+
+The `2025.06.16_RNAseq_Example_Repo.qmd` will be the template for the EDA report. You can rename it if you want. You can now open the `.qmd` file in your text editor and start editing it. 
+
+In this case, the qmd file is named the same as the directory you created, eg `2025.06.16_RNAseq_Example_Repo.qmd`. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.
+
+``` bash
+FILE="${OUTDIR}.qmd"
+echo $FILE
+```
+
+Then convert the qmd template to ipython notebook (.ipynb) that can be used for EDA analyses. 
+
+``` bash
+quarto convert $FILE
+```
+
+:::
+
+## Install Dependencies and Render 
+
+::: {.panel-tabset}
+
+## R
+
+Create a virtual environment using `renv` and then install the project dependencies.
+
+``` bash
+Rscript -e "renv::activate()"
+Rscript -e "renv::restore()"
+```
+
 When you are ready to render the HTML report, run:
 
 ``` bash
 quarto render $FILE
 ```
 
-### Python with jupyter notebooks and quarto
+## Python
 
-Another quarto template!
+Create a virtual environment using `venv` and then install the initial project dependencies. 
+
+``` bash
+python3 -m venv venv 
+source venv/bin/activate 
+python3 -m pip install -r requirements.txt
+```
+
+When you are ready to render the HTML report, run:
+
+``` bash
+IPYNB="${OUTDIR}.ipynb"
+echo $IPYNB
+quarto render $IPYNB
+```
 
 :::
 
@@ -180,7 +286,25 @@ When you make changes to the analysis qmd and create any new files, you will rep
 
 ## Summary 
 
-In summary, after creating the github repository with the analysis quarto template, you will be repeating the 5 commands below as you make edits. 
+In summary, after creating the github repository with the analysis quarto template, you will be repeating the commands below as you make edits. 
+
+1. Ensure the virtual environment is up-to-date and activated. 
+
+For R
+
+``` bash
+Rscript -e "renv::activate()"
+Rscript -e "renv::status()"
+```
+
+For Python
+
+``` bash
+source venv/bin/activate 
+which python
+```
+
+2. Use these 5 git commands as you make changes to files, and install software dependencies
 
 ``` bash
 git pull
