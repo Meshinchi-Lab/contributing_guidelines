@@ -13,6 +13,14 @@ format:
 This page contains README's and internal lab documentation on how to contribute to the Meshinchi lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.
 :::
 
+## Operating System
+
+These steps can be followed using a **Linux operating system**, like [Ubuntu](https://ubuntu.com/), or on macbook with [**MacOS**](https://www.apple.com/os/macos/). 
+
+::: callout-important
+Team members with Windows PCs will need to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/about) to follow these installation instructions. 
+:::
+
 ## Software
 
 We will be using `R`, `Python`, `git`, `gh`, and `Quarto`, with the integrated development editors (IDE) `Rstudio` and `VSCode`. Click on the links below to install the required software.

@@ -84,6 +84,17 @@
     ]
   },
   {
+    "objectID": "prerequisites.html#operating-system",
+    "href": "prerequisites.html#operating-system",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Operating System",
+    "text": "Operating System\nThese steps can be followed using a Linux operating system, like Ubuntu, or on macbook with MacOS.\n\n\n\n\n\n\nImportant\n\n\n\nTeam members with Windows PCs will need to use WSL to follow these installation instructions.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
     "objectID": "prerequisites.html#software",
     "href": "prerequisites.html#software",
     "title": "Software Dependencies and Pre-requisites",
