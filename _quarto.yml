@@ -10,6 +10,10 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - text: "Standards and Definitions"
+        menu: 
+          - text: "Installation on WSL"
+            href: details/software_install_wsl.qmd
     right:
       - icon: github
         href: https://github.com/Meshinchi-Lab/contributing_guidelines
@@ -20,6 +24,7 @@ website:
       - prerequisites.qmd
       - git_github_overview.qmd
       - code_review.qmd
+
   page-navigation: true
 
 format:

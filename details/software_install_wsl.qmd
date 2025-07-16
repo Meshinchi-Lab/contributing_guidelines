@@ -1,0 +1,133 @@
+---
+title: "Installation of Software on Windows WSL"
+format: 
+  html:
+    code-fold: false
+    code-tools: true
+    toc: true
+    number-sections: true
+author: "Jenny L. Smith"
+---
+
+
+More details on setting up WSL on a Windows PC. Code can be copied and pasted, but be sure to check if there are updated URLs to package releases. 
+
+
+# WSL  
+
+
+Open a powershell terminal in Windows and then enter the following commands:  
+
+``` powershell
+wsl --install Ubuntu-22.04 
+
+wsl hostname -I 
+``` 
+
+Info: https://learn.microsoft.com/en-us/windows/wsl/basic-commands 
+
+# VS Code 
+
+No need to install VS Code in the WSL terminal. You can install it for Windows and select the WSL terminal from the drop-down menu.  
+
+# R 
+
+Open a WSL terminal now that it's been installed 
+
+``` bash
+
+sudo apt update 
+
+sudo apt install r-base r-base-dev 
+
+sudo Rscript -e "install.packages(c('knitr','rmarkdown'))" 
+
+which R 
+
+``` 
+
+# Rstudio server 
+
+``` bash
+
+mkdir -p $HOME/opt/bin 
+
+cd $HOME/opt 
+
+sudo apt-get install gdebi-core 
+
+wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2025.05.1-513-amd64.deb 
+
+sudo gdebi rstudio-server-2025.05.1-513-amd64.deb 
+
+``` 
+
+open URL in web browser: http://localhost:8787 
+
+Username: same username as WSL shell 
+
+Password: same password as WSL shell 
+
+
+Info: https://posit.co/download/rstudio-server/ 
+
+## Python 
+
+
+This may not be necessary since RStudio server should install python3 as a dependency.  
+
+If python3 is not installed, `which python3` command will not print anything to the terminal. In that case, use `apt-get` to install python3.  
+
+``` bash
+
+which python3  
+
+sudo apt-get install python3 
+
+which python3 
+
+``` 
+
+Info: https://www.rosehosting.com/blog/how-to-install-and-switch-python-versions-on-ubuntu-20-04/ 
+
+
+## Github CLI 
+
+``` bash
+
+sudo apt update 
+
+sudo apt install gh 
+
+which gh  
+
+``` 
+
+## Quarto 
+
+``` bash
+
+mkdir -p $HOME/opt/bin 
+
+cd $HOME/opt 
+
+wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.7.32/quarto-1.7.32-linux-amd64.deb 
+
+sudo dpkg -i quarto-1.7.32-linux-amd64.deb 
+
+which quarto  
+
+``` 
+
+
+## Summary  
+
+Once the IDEs (Rstudio and VSCode) are installed, as well as the `git` 
+
+and `gh` CLI utilities, you are ready to start configuring your git installation by following [these steps](../prerequisites.html#git-and-github). 
+
+ 
+ 
+
+ 
+

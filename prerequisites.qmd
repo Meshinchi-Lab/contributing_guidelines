@@ -19,6 +19,8 @@ These steps can be followed using a **Linux operating system**, like [Ubuntu](ht
 
 ::: callout-important
 Team members with Windows PCs will need to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/about) to follow these installation instructions. 
+
+See [Installation of Software on Windows WSL](details/software_install_wsl.qmd) for detailed instructions. 
 :::
 
 ## Software
