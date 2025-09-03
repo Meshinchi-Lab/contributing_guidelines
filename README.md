@@ -2,4 +2,4 @@
 
 This repository contains the internal documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab's software and data analysis pipelines on github. 
 
-Find the rendered documentation at http://meshinchilab.com/contributing_guidelines. 
+Find the rendered documentation linked in the repository description.
