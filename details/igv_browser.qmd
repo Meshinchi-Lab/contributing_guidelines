@@ -1,0 +1,36 @@
+title: "Installation of Software on Windows WSL"
+format: 
+  html:
+    code-fold: false
+    code-tools: true
+    toc: true
+    number-sections: true
+author: "Jenny L. Smith"
+---
+
+
+## IGV 
+
+Use VSCode to remote connect to the PromethION instrument by `remote-ssh` and then launch a locally hosted IGV webserver.
+
+
+Please ask Marika Guercio or Francesca Benini for the remote connection details. 
+
+::: {.callout-important}
+
+0. Set-up your environment by running these commands:
+`export PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile`
+
+1. On the commandline enter the following:
+`IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7`
+`npx http-server -t30 -c-1 -p 8787 -a localhost $IGV_WEBAPP`
+
+2. Select the `PORTS` tab from the IGV terminal pane.
+
+3. Right click (cmd+click on MacOS) on the blue hyperlink `localhost:8080`
+
+4. Select `Open in Browser` from the pull-down menu
+
+5. VCF files and processed WGS data is included in a track `` in the pull down-menu
+
+:::
