@@ -14,6 +14,8 @@ website:
         menu: 
           - text: "Installation on WSL"
             href: details/software_install_wsl.qmd
+          - text: "Hyperqueue Job Scheduler"
+            href: details/hyperqueue.qmd
     right:
       - icon: github
         href: https://github.com/Meshinchi-Lab/contributing_guidelines
