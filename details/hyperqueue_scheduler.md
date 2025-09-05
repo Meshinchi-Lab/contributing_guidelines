@@ -1,0 +1,130 @@
+# hyperqueue Setup and Usage Notes
+
+## Create a HQ server directory
+
+Login to the DELL Ubuntu PC using your username and password. Then create a directory with your username. 
+
+`mkdir  -p /mnt/bioinformatics_datasets/{$USER}/hyperqueue/logs`
+
+## ENV variables 
+
+Must be exported by `~/.bashrc` or `~/.bash_profile`
+
+export HQ_BASE=/mnt/bioinformatics_datasets/${USER}
+export HQ_SERVER_DIR=$HQ_BASE/hyperqueue
+export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}
+export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt
+
+## Server on DELL Ubuntu  PC
+
+Use `tmux` for running the server in the background. See [tmux documentation](https://github.com/tmux/tmux/wiki/Getting-Started) on how to start and exit a tmux session. 
+
+`tmux new-session -s hq`
+`hq server start --journal $HQ_JOURNAL`
+then disconnect from the tmux session 
+
+
+Next, check the server is still up
+`hq server info`
+
++--------------+----------------------------------------------+
+| Server UID   | bTQEQ6                                       
+| Client host  | sp-alphafold-ws                              
+| Client port  | 36107                                        
+| Worker host  | sp-alphafold-ws                              
+| Worker port  | 46789                                        
+| Version      | v0.23.0                                      
+| Pid          | 1597226                                      
+| Start date   | 2025-08-08 16:29:01 UTC                      
+| Journal path | /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs/.hq_journal
++--------------+----------------------------------------------+
+
+
+### Checking the server status and logs
+
+`hq journal export $HQ_JOURNAL > $(dirname $HQ_JOURNAL)/hq_journal.log`
+
+## Workers 
+
+We will decide best use of `--work-dir` and `--group` options, for now we can start workers with limited options except time-out. 
+
+### Workers on HP Ubuntu Servers
+
+0. Generate SSH key 
+
+Need an SSH remote connect to the bioinfosrv01 and bioinfosrv02. Login to the DELL Ubuntu PC using your username and password. Then inside your home directory, follow the instructions in this [document](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server).
+
+1. Create a hq server directory
+
+```
+mkdir -p $HOME/.hq-server
+```
+
+2. must symlink the access.json to the worker machines 
+
+```
+ln -s /mnt/bioinformatics_datasets/{$USER}/hyperqueue/hq-current/access.jsfastqon $HOME/.hq-server
+```
+
+3. Use ssh-deploy to start the worker on the remote machine.
+
+--debug
+
+```
+tmux new-session -s hq_worker
+
+hq worker deploy-ssh $HQ_HOSTFILE --show-output &
+hq worker start &
+
+# disconnect from tmux session 
+```
+
+--group NXF \
+--idle-timeout 01:00:00 \
+--time-limit 24:00:00 \
+--on-server-lost finish-running \
+--wait-between-download-tries 10s
+
+4. check workers are running 
+`hq worker list`
+`hq worker list --all`
+
++----+---------+--------------+-------------------------+---------+----------------+
+| ID | State   | Hostname     | Resources               | Manager | Manager Job ID |
++----+---------+--------------+-------------------------+---------+----------------+
+|  1 | RUNNING | bioinfosrv01 | cpus 48; mem 251.34 GiB | None    | N/A            |
+|  2 | RUNNING | bioinfosrv02 | cpus 48; mem 251.34 GiB | None    | N/A            |
++----+---------+--------------+-------------------------+---------+----------------+
+
+
+
+
+### worker on DELL 
+
+Start the worker on the 'head node' as well, to utilize as much of the available resources as possible.
+
+```
+
+hq worker list --all
+```
+
+# Submit a job to the queue
+
+```
+DIR="/bioinformatics_resources/ngs_test_datasets/human/rnaseq"
+FQ1=$DIR/reads_1.fq.gz
+FQ2=$DIR/reads_2.fq.gz
+OUTDIR="data/hq_test"
+
+hq submit --progress \
+  --stdout $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stdout \
+  --stderr $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stderr \
+  docker run -i \
+  -v $DIR:$DIR \
+  -v $PWD:$PWD \
+  -w $PWD  \
+  --userns=host --user $(id -u):$(id -g) \
+  quay.io/biocontainers/fastqc:0.11.9--0 sh -c "mkdir -p fastqc_test && \
+    fastqc --verbose -o fastqc_test --threads 4 $FQ1 $FQ2 && \
+    fastqc --version"
+```

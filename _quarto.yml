@@ -16,6 +16,8 @@ website:
             href: details/software_install_wsl.qmd
           - text: "IGV on PromethION"
             href: details/igv_browser.qmd
+          - text: "Hyperqueue Job Scheduler"
+            href: details/hyperqueue.qmd
     right:
       - icon: github
         href: https://github.com/Meshinchi-Lab/contributing_guidelines
