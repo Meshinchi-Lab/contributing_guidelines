@@ -11,6 +11,12 @@ author: "Jenny L. Smith"
 
 # hyperqueue Setup and Usage Notes
 
+> HyperQueue is a tool designed to simplify execution of large workflows (task graphs) on HPC clusters. It allows you to execute a large number of tasks in a simple way, without having to manually submit jobs into batch schedulers like Slurm or PBS. You just specify what you want to compute – HyperQueue will automatically ask for computational resources and dynamically load-balance tasks across all allocated nodes and cores. HyperQueue can also work without Slurm/PBS as a general task executor.
+
+Details on jobs and tasks can be found [here](https://it4innovations.github.io/hyperqueue/stable/jobs/jobs/). 
+
+![](https://it4innovations.github.io/hyperqueue/stable/imgs/architecture.png)
+
 ## Create a HQ server directory
 
 Login to the DELL Ubuntu PC using your username and password. Then create a directory with your username. 
@@ -139,3 +145,7 @@ hq submit --progress \
     fastqc --verbose -o fastqc_test --threads 4 $FQ1 $FQ2 && \
     fastqc --version"
 ```
+
+#### References
+
+[Hyperqueue Publication](https://doi.org/10.1016/j.softx.2024.101814)

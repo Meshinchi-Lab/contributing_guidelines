@@ -12,8 +12,7 @@ author: "Jenny L. Smith"
 
 ## IGV 
 
-Use VSCode to remote connect to the PromethION instrument by `remote-ssh` and then launch a locally hosted IGV webserver.
-
+Use VSCode to remote connect to the PromethION instrument by `remote-ssh` in vscode. Then launch a locally hosted IGV webserver.
 
 Please ask Marika Guercio or Francesca Benini for the remote connection details. 
 
@@ -24,7 +23,7 @@ Please ask Marika Guercio or Francesca Benini for the remote connection details.
 
 1. On the commandline enter the following:
 `IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7`
-`npx http-server -t30 -c-1 -p 8787 -a localhost $IGV_WEBAPP`
+`npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP`
 
 2. Select the `PORTS` tab from the IGV terminal pane.
 
@@ -32,6 +31,17 @@ Please ask Marika Guercio or Francesca Benini for the remote connection details.
 
 4. Select `Open in Browser` from the pull-down menu
 
-5. VCF files and processed WGS data is included in a track `` in the pull down-menu
+5. VCF files and processed WGS data is included in a track called `WGS Nanopore T-ALL` in the pull down-menu
 
 :::
+
+
+## IGV Documentation and Resources 
+
+1. Short video [tutorials](https://www.youtube.com/@IGVtutorials)
+
+2. IGV Application [User Guide](https://igv.org/doc/desktop/#UserGuide/loading_data/)
+  - The web application uses the same user guide as the desktop application
+
+3. IGV [Web application documentation](https://igv.org/doc/webapp/)
+  - Mainly for deployment docs
