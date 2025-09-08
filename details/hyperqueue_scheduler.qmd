@@ -1,3 +1,14 @@
+---
+title: "Hyperqueue Job Scheduler on Lab Compute Infrastructure"
+format: 
+  html:
+    code-fold: false
+    code-tools: true
+    toc: true
+    number-sections: true
+author: "Jenny L. Smith"
+---
+
 # hyperqueue Setup and Usage Notes
 
 ## Create a HQ server directory
