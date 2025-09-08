@@ -1,0 +1,44 @@
+
+# Define Data and File Locations
+
+## STEP 1 DATA DUMP
+0001_raw_data/quintarelli_c/benini_f/
+0001_raw_data/quintarelli_c/benini_f/T-ALL/WTS---
+0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314
+0001_raw_data/quintarelli_c/guercio_m/CART-GD2-mbIL15/BaseSPACE-XXXXX/
+
+### STEP 2 INITIAL DATA CLEANING / ANALYSIS DIR
+0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.06.02_RNAseq_Bulk_T-ALL
+  - save cleaned metadata to `2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+  - save cleaned rnaseq counts to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv`
+
+0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.07.18_RNAseq_Bulk_T-ALL_quant
+  - read in cleaned metadata - dont repeat the cleaning step
+  - read in `0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+
+0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.11.20_RNAseq_bulk_WGNA
+  - read in `0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+  - read in cleaned rnaseq counts from `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv`
+
+
+### STEP 3 UPDATE METADATA AS NEEDED 
+0002_metadata/quintarelli_c/benini_f/T-ALL/
+ - 2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
+ - 2025.10.01_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
+ - 2025.10.15_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
+
+within {**2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
+  - SOURCE raw data directory in a column:
+
+sample_id, source_data, data_type
+TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314
+
+- use tsv (tab separated) to avoid import into EXCEL by default
+
+0002_metadata/quintarelli_c/guercio_m/CART-GD2/
+  - 2025.05.01_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
+  - 2025.11.06_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
+
+#### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
+0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/
+  - 2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv
