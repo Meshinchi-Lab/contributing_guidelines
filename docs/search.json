@@ -1,5 +1,222 @@
 [
   {
+    "objectID": "details/hyperqueue_scheduler.html",
+    "href": "details/hyperqueue_scheduler.html",
+    "title": "Hyperqueue Job Scheduler on Lab Compute Infrastructure",
+    "section": "",
+    "text": "HyperQueue is a tool designed to simplify execution of large workflows (task graphs) on HPC clusters. It allows you to execute a large number of tasks in a simple way, without having to manually submit jobs into batch schedulers like Slurm or PBS. You just specify what you want to compute – HyperQueue will automatically ask for computational resources and dynamically load-balance tasks across all allocated nodes and cores. HyperQueue can also work without Slurm/PBS as a general task executor.\n\nDetails on jobs and tasks can be found here."
+  },
+  {
+    "objectID": "details/hyperqueue_scheduler.html#create-a-hq-server-directory",
+    "href": "details/hyperqueue_scheduler.html#create-a-hq-server-directory",
+    "title": "Hyperqueue Job Scheduler on Lab Compute Infrastructure",
+    "section": "2.1 Create a HQ server directory",
+    "text": "2.1 Create a HQ server directory\nLogin to the DELL Ubuntu PC using your username and password. Then create a directory with your username.\nmkdir  -p /mnt/bioinformatics_datasets/{$USER}/hyperqueue/logs"
+  },
+  {
+    "objectID": "details/hyperqueue_scheduler.html#env-variables",
+    "href": "details/hyperqueue_scheduler.html#env-variables",
+    "title": "Hyperqueue Job Scheduler on Lab Compute Infrastructure",
+    "section": "2.2 ENV variables",
+    "text": "2.2 ENV variables\nMust be exported by ~/.bashrc or ~/.bash_profile\nexport HQ_BASE=/mnt/bioinformatics_datasets/\\({USER}\nexport HQ_SERVER_DIR=\\)HQ_BASE/hyperqueue export HQ_JOURNAL=\\(HQ_BASE/hyperqueue/logs/.hq_journal_\\){USER} export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt"
+  },
+  {
+    "objectID": "details/hyperqueue_scheduler.html#server-on-dell-ubuntu-pc",
+    "href": "details/hyperqueue_scheduler.html#server-on-dell-ubuntu-pc",
+    "title": "Hyperqueue Job Scheduler on Lab Compute Infrastructure",
+    "section": "2.3 Server on DELL Ubuntu PC",
+    "text": "2.3 Server on DELL Ubuntu PC\nUse tmux for running the server in the background. See tmux documentation on how to start and exit a tmux session.\ntmux new-session -s hq hq server start --journal $HQ_JOURNAL then disconnect from the tmux session\nNext, check the server is still up hq server info\n\n\n\n\n\n\n\nServer UID Client host Client port Worker host Worker port Version Pid Start date Journal path\nbTQEQ6 sp-alphafold-ws 36107 sp-alphafold-ws 46789 v0.23.0 1597226 2025-08-08 16:29:01 UTC /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs/.hq_journa\n\n\n\n\n2.3.1 Checking the server status and logs\nhq journal export $HQ_JOURNAL &gt; $(dirname $HQ_JOURNAL)/hq_journal.log"
+  },
+  {
+    "objectID": "details/hyperqueue_scheduler.html#workers",
+    "href": "details/hyperqueue_scheduler.html#workers",
+    "title": "Hyperqueue Job Scheduler on Lab Compute Infrastructure",
+    "section": "2.4 Workers",
+    "text": "2.4 Workers\nWe will decide best use of --work-dir and --group options, for now we can start workers with limited options except time-out.\n\n2.4.1 Workers on HP Ubuntu Servers\n\nGenerate SSH key\n\nNeed an SSH remote connect to the bioinfosrv01 and bioinfosrv02. Login to the DELL Ubuntu PC using your username and password. Then inside your home directory, follow the instructions in this document.\n\nCreate a hq server directory\n\nmkdir -p $HOME/.hq-server\n\nmust symlink the access.json to the worker machines\n\nln -s /mnt/bioinformatics_datasets/{$USER}/hyperqueue/hq-current/access.jsfastqon $HOME/.hq-server\n\nUse ssh-deploy to start the worker on the remote machine.\n\n–debug\ntmux new-session -s hq_worker\n\nhq worker deploy-ssh $HQ_HOSTFILE --show-output &\nhq worker start &\n\n# disconnect from tmux session \n–group NXF\n–idle-timeout 01:00:00\n–time-limit 24:00:00\n–on-server-lost finish-running\n–wait-between-download-tries 10s\n\ncheck workers are running hq worker list hq worker list --all\n\n\n\n\n\n\n\n\n\n\n\n\nID\nState\nHostname\nResources\nManager\nManager Job ID\n\n\n1 2\nRUNNING RUNNING\nbioinfosrv01 bioinfosrv02\ncpus 48; mem 251.34 GiB cpus 48; mem 251.34 GiB\nNone None\nN/A N/A\n\n\n\n\n\n2.4.2 worker on DELL\nStart the worker on the ‘head node’ as well, to utilize as much of the available resources as possible.\n\nhq worker list --all"
+  },
+  {
+    "objectID": "details/igv_browser.html",
+    "href": "details/igv_browser.html",
+    "title": "IGV Genome Browser App",
+    "section": "",
+    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands: export PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile\nOn the commandline enter the following: IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7 npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP\nSelect the PORTS tab from the IGV terminal pane.\nRight click (cmd+click on MacOS) on the blue hyperlink localhost:8080\nSelect Open in Browser from the pull-down menu\nVCF files and processed WGS data is included in a track called WGS Nanopore T-ALL in the pull down-menu"
+  },
+  {
+    "objectID": "details/igv_browser.html#igv",
+    "href": "details/igv_browser.html#igv",
+    "title": "IGV Genome Browser App",
+    "section": "",
+    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands: export PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile\nOn the commandline enter the following: IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7 npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP\nSelect the PORTS tab from the IGV terminal pane.\nRight click (cmd+click on MacOS) on the blue hyperlink localhost:8080\nSelect Open in Browser from the pull-down menu\nVCF files and processed WGS data is included in a track called WGS Nanopore T-ALL in the pull down-menu"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Welcome to the Meshinchi Lab at Fred Hutch\nOur research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.\nCurrently, Soheil Meshinchi, M.D., Ph.D., working in collaboration with Franco Locatelli, M.D., Ph.D. and Concetta Quintarelli, M.D., Ph.D. at the Bambino Gesù Children’s Hospital IRCCS in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.\n\n \n\n\n\n\n\n\n\nAbout\n\n\n\nThe Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\n\n\n\n\nContact\n\nFred Hutch\nSoheil Meshinchi\nRhonda Ries\n\n\nOPBG\nFranco Locatelli\nConcetta Quintarelli"
+  },
+  {
+    "objectID": "code_review.html",
+    "href": "code_review.html",
+    "title": "Code Review",
+    "section": "",
+    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
+    "crumbs": [
+      "Home",
+      "Code Review"
+    ]
+  },
+  {
+    "objectID": "code_review.html#guidelines",
+    "href": "code_review.html#guidelines",
+    "title": "Code Review",
+    "section": "",
+    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
+    "crumbs": [
+      "Home",
+      "Code Review"
+    ]
+  },
+  {
+    "objectID": "code_review.html#overview",
+    "href": "code_review.html#overview",
+    "title": "Code Review",
+    "section": "2 Overview",
+    "text": "2 Overview\n\n2.1 Agendas\nMeeting agendas will be hosted on the github repository “contributing guidelines” discussions section.\nIf you have any questions or suggestions, please post them discussions section as well! This will be an evolving process as we develop our own bioinformatics team best practices.\n\n\n2.2 Meeting Descriptions\nThere are two Microsoft Teams recurring meeting series for git and github. In general, meetings will always have a virtual component in order to share our screens and easily view each others code.\n\n“Code Review - paired programming”:\n\n\nFrequency: 1x a week on Wednesdays\nDescription:\n\nfocused on gaining experience and familiarity with using git, gh github CLI commands, and github web features.\nreview our commits and commit history together\npush changes to the lab github organization\n\n\n\n“Code Review - formal review”:\n\n\nFrequency: 1x every 3 weeks\nDescription:\n\na more in-depth discussion of the technical components of our code\nask specific questions and troubleshoot errors\nget feedback on how to improve the efficiency of our code",
+    "crumbs": [
+      "Home",
+      "Code Review"
+    ]
+  },
+  {
+    "objectID": "code_review.html#code-review---paired-programming",
+    "href": "code_review.html#code-review---paired-programming",
+    "title": "Code Review",
+    "section": "3 Code Review - paired programming",
+    "text": "3 Code Review - paired programming\nWeekly code review / code commit gatherings to ensure: - only committing changes that we expect - have not added any files that may not belong on github, such as PDFs or power point presentations - have not added any sensitive data.\n\n3.1 Meeting Format:\n\nOpen questions (10 min)\nWe will work in pairs to commit changes, review our commit history and which files should be hosted on github (35 min)\nPush changes to the lab github repositories (15 min)\n\n\n\n3.2 Git and Github\n\nReview our diffs and commit history\n\n\nVSCode\nRStudio\n\nREPO=\"Meshinchi-Lab/2025.06.23_Example_Repo\"\ncd $REPO\ngit status\ngit diff\n\nOnce we all completed the code review / code commit partner checks, then you can push changes to the repository.\n\ngit push \n\ncheck that the repository looks the way you expect it to look using the following command:\n\ngh repo view --web \"$REPO\"",
+    "crumbs": [
+      "Home",
+      "Code Review"
+    ]
+  },
+  {
+    "objectID": "code_review.html#code-review---formal-review",
+    "href": "code_review.html#code-review---formal-review",
+    "title": "Code Review",
+    "section": "4 Code Review - formal review",
+    "text": "4 Code Review - formal review\nA 1x every 3 weeks recurring code review meeting for the bioinformatics team to discuss questions, troubleshoot code, and make code improvements.\n\n4.1 Meeting Format\n\nOpen questions (10 min)\nPresentation of code by person 1 (15 min)\nPresentation of code by person 2 (15 min)\nPresentation of code by person 3 (15 min)\nRecap on what changes to be made (5 min)\n\nWe will then wait until the following “Paired Programming” meeting to push any changes.",
+    "crumbs": [
+      "Home",
+      "Code Review"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html",
+    "href": "prerequisites.html",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "",
+    "text": "Overview\n\n\n\nThis page contains README’s and internal lab documentation on how to contribute to the Meshinchi lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#operating-system",
+    "href": "prerequisites.html#operating-system",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Operating System",
+    "text": "Operating System\nThese steps can be followed using a Linux operating system, like Ubuntu, or on macbook with MacOS.\n\n\n\n\n\n\nImportant\n\n\n\nTeam members with Windows PCs will need to use WSL to follow these installation instructions.\nSee Installation of Software on Windows WSL for detailed instructions.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#software",
+    "href": "prerequisites.html#software",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Software",
+    "text": "Software\nWe will be using R, Python, git, gh, and Quarto, with the integrated development editors (IDE) Rstudio and VSCode. Click on the links below to install the required software.\n\n\nR and Rstudio\nPython\nGithub CLI\nQuarto CLI\nVisual Studio Code\n\nAlternatively, use Posit cloud (formerly Rstudio Cloud). Posit cloud is free of charge for personal users, yet you need to sign up for a new user account and have internet connection.\n\nVS Code Extensions\nInstall the Quarto Extension for VS Code provides a variety of tools for working with .qmd files in VS Code. The extension integrates directly with the Python Extension to add Python-specific capabilities.\n\n\nGit and Github\nTo get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes.\n\n\n\n\n\n\nImportant\n\n\n\nYour github account (also known as your github profile), must be invited to the lab github organization before this can be completed.\n\n\n\nSet-up a Github Account and get added as a member to the Lab organization\n\nGithub profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to set-up 2FA (2 factor authentication).\n\nConfigure git for your github username and email account associated with your github account.\n\nOpen a new a new terminal and enter the following commands.\n# print out the current configuration \ngit config --global --list\n# if not already set, configure them. This example assumes you are using a gmail account.\ngit config --global user.name MY_GITHUB_USERNAME\ngit config --global user.email MY_GITHUB_EMAIL@gmail.com\ngit config --global init.defaultbranch main\n\nAuthenticate the gh CLI tool to connect to the lab github organization.\n\nEnter the following commands in the terminal. You will be prompted to ? Authenticate Git with your GitHub credentials? (Y/n) and select ‘Yes’. Follow the prompts on the command line to open a new web browser window to enter your username and password for github.\n# login to github using a web browser\ngh auth login --git-protocol 'HTTPS' --hostname GitHub.com --web\n\n# check that you are now authenticated\ngh auth status\nOnce you see this message that you are logged in, you were successfully authenticated.\n\n✓ Logged in to github.com account MY_GITHUB_USERNAME (keyring) - Active account: true - Git operations protocol: https - Token: gho_************************************ - Token scopes: ‘gist’, ‘read:org’, ‘repo’, ‘workflow’\n\n\n\nData\nThe lab NGS datasets we use can be found here (insert link).\n\n\nCode\nThe R and Python packages, scripts, analysis notebooks, and data processing pipelines can be found at the Meshichi Lab github organization.\nRepositories have the following nomenclature for easy searching:\n\nData Analysis and Research Projects with collaborators:\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\n\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\n\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n[SHORT-NAME]_R_Package\n\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n[SHORT-NAME]_Py_Package\n\nExample: ‘DataValidator_Py_Package’\n\n\n\n\n\nGetting Started\nSee the Getting Started page for the next steps to generate a new analysis or workflow code repository on the github.\nIf you still need to gain a working knowledge of using bash, R, and Python, then see the following Resources section below.\n\n\nResources\n\nBash and Command Line Tutorial\nA good place to start getting familair with common bash commands is to read the following tutorial. Be sure to complete the exercises in the box at the bottom of each page, starting with the ls command.\nFor more intermediate bash scripting, you can follow the tutorial here.s\n\n\nQuarto and Visual Studio Code Quick Start\nThe quarto CLI with VS Code editor quick start is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports.\n\n\nR and Rstudio Tutorial\nThe RStudio user guide can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data.\nDetailed descriptions of the RStudio panels, panes, and tabsets can be found here as well.\n\n\nPython Tutorial\nStart by learning how the VS Code editor displays and runs python code.\nNext, you can follow along with the python tutorial using both the VS Code editor and interactively in a web browser by using the ‘try it yourself’ buttons.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#vs-code-extensions",
+    "href": "prerequisites.html#vs-code-extensions",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "VS Code Extensions",
+    "text": "VS Code Extensions\nInstall the Quarto Extension for VS Code provides a variety of tools for working with .qmd files in VS Code. The extension integrates directly with the Python Extension to add Python-specific capabilities.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#git-and-github",
+    "href": "prerequisites.html#git-and-github",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Git and Github",
+    "text": "Git and Github\nTo get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes.\n\n\n\n\n\n\nImportant\n\n\n\nYour github account (also known as your github profile), must be invited to the lab github organization before this can be completed.\n\n\n\nSet-up a Github Account and get added as a member to the Lab organization\n\nGithub profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to set-up 2FA (2 factor authentication).\n\nConfigure git for your github username and email account associated with your github account.\n\nOpen a new a new terminal and enter the following commands.\n# print out the current configuration \ngit config --global --list\n# if not already set, configure them. This example assumes you are using a gmail account.\ngit config --global user.name MY_GITHUB_USERNAME\ngit config --global user.email MY_GITHUB_EMAIL@gmail.com\ngit config --global init.defaultbranch main\n\nAuthenticate the gh CLI tool to connect to the lab github organization.\n\nEnter the following commands in the terminal. You will be prompted to ? Authenticate Git with your GitHub credentials? (Y/n) and select ‘Yes’. Follow the prompts on the command line to open a new web browser window to enter your username and password for github.\n# login to github using a web browser\ngh auth login --git-protocol 'HTTPS' --hostname GitHub.com --web\n\n# check that you are now authenticated\ngh auth status\nOnce you see this message that you are logged in, you were successfully authenticated.\n\n✓ Logged in to github.com account MY_GITHUB_USERNAME (keyring) - Active account: true - Git operations protocol: https - Token: gho_************************************ - Token scopes: ‘gist’, ‘read:org’, ‘repo’, ‘workflow’",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#data",
+    "href": "prerequisites.html#data",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Data",
+    "text": "Data\nThe lab NGS datasets we use can be found here (insert link).",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#code",
+    "href": "prerequisites.html#code",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Code",
+    "text": "Code\nThe R and Python packages, scripts, analysis notebooks, and data processing pipelines can be found at the Meshichi Lab github organization.\nRepositories have the following nomenclature for easy searching:\n\nData Analysis and Research Projects with collaborators:\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\n\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\n\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n[SHORT-NAME]_R_Package\n\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n[SHORT-NAME]_Py_Package\n\nExample: ‘DataValidator_Py_Package’",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#getting-started",
+    "href": "prerequisites.html#getting-started",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Getting Started",
+    "text": "Getting Started\nSee the Getting Started page for the next steps to generate a new analysis or workflow code repository on the github.\nIf you still need to gain a working knowledge of using bash, R, and Python, then see the following Resources section below.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#resources",
+    "href": "prerequisites.html#resources",
+    "title": "Software Dependencies and Pre-requisites",
+    "section": "Resources",
+    "text": "Resources\n\nBash and Command Line Tutorial\nA good place to start getting familair with common bash commands is to read the following tutorial. Be sure to complete the exercises in the box at the bottom of each page, starting with the ls command.\nFor more intermediate bash scripting, you can follow the tutorial here.s\n\n\nQuarto and Visual Studio Code Quick Start\nThe quarto CLI with VS Code editor quick start is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports.\n\n\nR and Rstudio Tutorial\nThe RStudio user guide can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data.\nDetailed descriptions of the RStudio panels, panes, and tabsets can be found here as well.\n\n\nPython Tutorial\nStart by learning how the VS Code editor displays and runs python code.\nNext, you can follow along with the python tutorial using both the VS Code editor and interactively in a web browser by using the ‘try it yourself’ buttons.",
+    "crumbs": [
+      "Home",
+      "Software Dependencies and Pre-requisites"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Meshinchi and Locatelli Github Contributing Guidelines",
+    "section": "",
+    "text": "This website is for documenting how to contribute to the Meshinchi and Locatelli Lab github organization(s).\n\n\n\n\n\n\n\nWelcome!\n\nThe goal of the lab documentation is to provide standardized procedures for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\nAnalysis code and pipelines can be found in the lab github repository.\n\n\nObjectives\nLab members will be able to understand key concepts and have standardized workflows for using:\n\ncreating standardized github repositories\nusing git command line utility for version control\nusing github remote repository to host code and pipelines\ncreating standardized R Rmarkdown and quarto documents\ncreating standardized Python jupyter notebooks for analysis\nbest practices in security\nbest practices in code reviews\n\n\n\nPre-requisites\n\nfamiliarity with bash\nfamiliarity using the command line\nBasic knowledge of R and Python\n\n\n\n\nResources\n\n\n\n\n\n\nBash and using the command line interface\n\n\n\nIf you still need to gain basic working knowledge of using bash and the command line (terminal), then see the following tutorials in the resources section before following these steps."
+  },
+  {
     "objectID": "git_github_overview.html",
     "href": "git_github_overview.html",
     "title": "Getting Started",
@@ -66,163 +283,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Meshinchi and Locatelli Github Contributing Guidelines",
-    "section": "",
-    "text": "This website is for documenting how to contribute to the Meshinchi and Locatelli Lab github organization(s).\n\n\n\n\n\n\n\nWelcome!\n\nThe goal of the lab documentation is to provide standardized procedures for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\nAnalysis code and pipelines can be found in the lab github repository.\n\n\nObjectives\nLab members will be able to understand key concepts and have standardized workflows for using:\n\ncreating standardized github repositories\nusing git command line utility for version control\nusing github remote repository to host code and pipelines\ncreating standardized R Rmarkdown and quarto documents\ncreating standardized Python jupyter notebooks for analysis\nbest practices in security\nbest practices in code reviews\n\n\n\nPre-requisites\n\nfamiliarity with bash\nfamiliarity using the command line\nBasic knowledge of R and Python\n\n\n\n\nResources\n\n\n\n\n\n\nBash and using the command line interface\n\n\n\nIf you still need to gain basic working knowledge of using bash and the command line (terminal), then see the following tutorials in the resources section before following these steps."
-  },
-  {
-    "objectID": "prerequisites.html",
-    "href": "prerequisites.html",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "",
-    "text": "Overview\n\n\n\nThis page contains README’s and internal lab documentation on how to contribute to the Meshinchi lab and Locatelli lab github organizations. Be sure to have the software requirements installed in order to use this guide.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#operating-system",
-    "href": "prerequisites.html#operating-system",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Operating System",
-    "text": "Operating System\nThese steps can be followed using a Linux operating system, like Ubuntu, or on macbook with MacOS.\n\n\n\n\n\n\nImportant\n\n\n\nTeam members with Windows PCs will need to use WSL to follow these installation instructions.\nSee Installation of Software on Windows WSL for detailed instructions.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#software",
-    "href": "prerequisites.html#software",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Software",
-    "text": "Software\nWe will be using R, Python, git, gh, and Quarto, with the integrated development editors (IDE) Rstudio and VSCode. Click on the links below to install the required software.\n\n\nR and Rstudio\nPython\nGithub CLI\nQuarto CLI\nVisual Studio Code\n\nAlternatively, use Posit cloud (formerly Rstudio Cloud). Posit cloud is free of charge for personal users, yet you need to sign up for a new user account and have internet connection.\n\nVS Code Extensions\nInstall the Quarto Extension for VS Code provides a variety of tools for working with .qmd files in VS Code. The extension integrates directly with the Python Extension to add Python-specific capabilities.\n\n\nGit and Github\nTo get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes.\n\n\n\n\n\n\nImportant\n\n\n\nYour github account (also known as your github profile), must be invited to the lab github organization before this can be completed.\n\n\n\nSet-up a Github Account and get added as a member to the Lab organization\n\nGithub profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to set-up 2FA (2 factor authentication).\n\nConfigure git for your github username and email account associated with your github account.\n\nOpen a new a new terminal and enter the following commands.\n# print out the current configuration \ngit config --global --list\n# if not already set, configure them. This example assumes you are using a gmail account.\ngit config --global user.name MY_GITHUB_USERNAME\ngit config --global user.email MY_GITHUB_EMAIL@gmail.com\ngit config --global init.defaultbranch main\n\nAuthenticate the gh CLI tool to connect to the lab github organization.\n\nEnter the following commands in the terminal. You will be prompted to ? Authenticate Git with your GitHub credentials? (Y/n) and select ‘Yes’. Follow the prompts on the command line to open a new web browser window to enter your username and password for github.\n# login to github using a web browser\ngh auth login --git-protocol 'HTTPS' --hostname GitHub.com --web\n\n# check that you are now authenticated\ngh auth status\nOnce you see this message that you are logged in, you were successfully authenticated.\n\n✓ Logged in to github.com account MY_GITHUB_USERNAME (keyring) - Active account: true - Git operations protocol: https - Token: gho_************************************ - Token scopes: ‘gist’, ‘read:org’, ‘repo’, ‘workflow’\n\n\n\nData\nThe lab NGS datasets we use can be found here (insert link).\n\n\nCode\nThe R and Python packages, scripts, analysis notebooks, and data processing pipelines can be found at the Meshichi Lab github organization.\nRepositories have the following nomenclature for easy searching:\n\nData Analysis and Research Projects with collaborators:\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\n\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\n\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n[SHORT-NAME]_R_Package\n\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n[SHORT-NAME]_Py_Package\n\nExample: ‘DataValidator_Py_Package’\n\n\n\n\n\nGetting Started\nSee the Getting Started page for the next steps to generate a new analysis or workflow code repository on the github.\nIf you still need to gain a working knowledge of using bash, R, and Python, then see the following Resources section below.\n\n\nResources\n\nBash and Command Line Tutorial\nA good place to start getting familair with common bash commands is to read the following tutorial. Be sure to complete the exercises in the box at the bottom of each page, starting with the ls command.\nFor more intermediate bash scripting, you can follow the tutorial here.s\n\n\nQuarto and Visual Studio Code Quick Start\nThe quarto CLI with VS Code editor quick start is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports.\n\n\nR and Rstudio Tutorial\nThe RStudio user guide can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data.\nDetailed descriptions of the RStudio panels, panes, and tabsets can be found here as well.\n\n\nPython Tutorial\nStart by learning how the VS Code editor displays and runs python code.\nNext, you can follow along with the python tutorial using both the VS Code editor and interactively in a web browser by using the ‘try it yourself’ buttons.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#git-and-github",
-    "href": "prerequisites.html#git-and-github",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Git and Github",
-    "text": "Git and Github\nTo get started, you will need to authenticate your access to the lab github organization so that you can create repositories and push changes.\n\n\n\n\n\n\nImportant\n\n\n\nYour github account (also known as your github profile), must be invited to the lab github organization before this can be completed.\n\n\n\nSet-up a Github Account and get added as a member to the Lab organization\n\nGithub profiles should have a clear/professional profile photo to ensure that profiles look complete and reliable. Also, each account will need to set-up 2FA (2 factor authentication).\n\nConfigure git for your github username and email account associated with your github account.\n\nOpen a new a new terminal and enter the following commands.\n# print out the current configuration \ngit config --global --list\n# if not already set, configure them. This example assumes you are using a gmail account.\ngit config --global user.name MY_GITHUB_USERNAME\ngit config --global user.email MY_GITHUB_EMAIL@gmail.com\ngit config --global init.defaultbranch main\n\nAuthenticate the gh CLI tool to connect to the lab github organization.\n\nEnter the following commands in the terminal. You will be prompted to ? Authenticate Git with your GitHub credentials? (Y/n) and select ‘Yes’. Follow the prompts on the command line to open a new web browser window to enter your username and password for github.\n# login to github using a web browser\ngh auth login --git-protocol 'HTTPS' --hostname GitHub.com --web\n\n# check that you are now authenticated\ngh auth status\nOnce you see this message that you are logged in, you were successfully authenticated.\n\n✓ Logged in to github.com account MY_GITHUB_USERNAME (keyring) - Active account: true - Git operations protocol: https - Token: gho_************************************ - Token scopes: ‘gist’, ‘read:org’, ‘repo’, ‘workflow’",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#data",
-    "href": "prerequisites.html#data",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Data",
-    "text": "Data\nThe lab NGS datasets we use can be found here (insert link).",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#code",
-    "href": "prerequisites.html#code",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Code",
-    "text": "Code\nThe R and Python packages, scripts, analysis notebooks, and data processing pipelines can be found at the Meshichi Lab github organization.\nRepositories have the following nomenclature for easy searching:\n\nData Analysis and Research Projects with collaborators:\n\n[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]\n\nExample: ‘2025.06.02_RNAseq_Bulk_T-ALL’\nExample with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’\n\n\nGenomic Data pipelines and workflows:\n\n[DATA-TYPE]_[DATA-PROCESSING]_[WORKFLOW-TYPE]\n\nExample: ‘RNAseq_Fusion_Calling_Nextflow’\n\n\nR packages:\n\n[SHORT-NAME]_R_Package\n\nExample: ‘DeGSEA_R_Package’\n\n\nPython packages:\n\n[SHORT-NAME]_Py_Package\n\nExample: ‘DataValidator_Py_Package’",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#getting-started",
-    "href": "prerequisites.html#getting-started",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Getting Started",
-    "text": "Getting Started\nSee the Getting Started page for the next steps to generate a new analysis or workflow code repository on the github.\nIf you still need to gain a working knowledge of using bash, R, and Python, then see the following Resources section below.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "prerequisites.html#resources",
-    "href": "prerequisites.html#resources",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "Resources",
-    "text": "Resources\n\nBash and Command Line Tutorial\nA good place to start getting familair with common bash commands is to read the following tutorial. Be sure to complete the exercises in the box at the bottom of each page, starting with the ls command.\nFor more intermediate bash scripting, you can follow the tutorial here.s\n\n\nQuarto and Visual Studio Code Quick Start\nThe quarto CLI with VS Code editor quick start is a great tutorial to get familiarized with using quarto (.qmd) documents to generate exploratory analysis notebooks and reports.\n\n\nR and Rstudio Tutorial\nThe RStudio user guide can help you get started with the RStudio user interface, installing your first packages, and generating a quick plot using data.\nDetailed descriptions of the RStudio panels, panes, and tabsets can be found here as well.\n\n\nPython Tutorial\nStart by learning how the VS Code editor displays and runs python code.\nNext, you can follow along with the python tutorial using both the VS Code editor and interactively in a web browser by using the ‘try it yourself’ buttons.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
-  },
-  {
-    "objectID": "code_review.html",
-    "href": "code_review.html",
-    "title": "Code Review",
-    "section": "",
-    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
-    "crumbs": [
-      "Home",
-      "Code Review"
-    ]
-  },
-  {
-    "objectID": "code_review.html#guidelines",
-    "href": "code_review.html#guidelines",
-    "title": "Code Review",
-    "section": "",
-    "text": "These meetings are truly team gatherings and are designed to be a learning environment. Since, everyone will have different levels of experience using these tools, a primary tenet of these meetings will be repetition of our processes so that we can work together effectively and adapt as needed.\nWe will model our code review style using this document. The most important sections are highlighted below.\nWe will prioritize:\n\nPositive and actionable feedback\nEmpathize and have an open mind\nLeave comments in your code\nAdd references and examples\n\nWe will also reference this checklist and modify this as needed for bioinformatics coding.",
-    "crumbs": [
-      "Home",
-      "Code Review"
-    ]
-  },
-  {
-    "objectID": "code_review.html#overview",
-    "href": "code_review.html#overview",
-    "title": "Code Review",
-    "section": "2 Overview",
-    "text": "2 Overview\n\n2.1 Agendas\nMeeting agendas will be hosted on the github repository “contributing guidelines” discussions section.\nIf you have any questions or suggestions, please post them discussions section as well! This will be an evolving process as we develop our own bioinformatics team best practices.\n\n\n2.2 Meeting Descriptions\nThere are two Microsoft Teams recurring meeting series for git and github. In general, meetings will always have a virtual component in order to share our screens and easily view each others code.\n\n“Code Review - paired programming”:\n\n\nFrequency: 1x a week on Wednesdays\nDescription:\n\nfocused on gaining experience and familiarity with using git, gh github CLI commands, and github web features.\nreview our commits and commit history together\npush changes to the lab github organization\n\n\n\n“Code Review - formal review”:\n\n\nFrequency: 1x every 3 weeks\nDescription:\n\na more in-depth discussion of the technical components of our code\nask specific questions and troubleshoot errors\nget feedback on how to improve the efficiency of our code",
-    "crumbs": [
-      "Home",
-      "Code Review"
-    ]
-  },
-  {
-    "objectID": "code_review.html#code-review---paired-programming",
-    "href": "code_review.html#code-review---paired-programming",
-    "title": "Code Review",
-    "section": "3 Code Review - paired programming",
-    "text": "3 Code Review - paired programming\nWeekly code review / code commit gatherings to ensure: - only committing changes that we expect - have not added any files that may not belong on github, such as PDFs or power point presentations - have not added any sensitive data.\n\n3.1 Meeting Format:\n\nOpen questions (10 min)\nWe will work in pairs to commit changes, review our commit history and which files should be hosted on github (35 min)\nPush changes to the lab github repositories (15 min)\n\n\n\n3.2 Git and Github\n\nReview our diffs and commit history\n\n\nVSCode\nRStudio\n\nREPO=\"Meshinchi-Lab/2025.06.23_Example_Repo\"\ncd $REPO\ngit status\ngit diff\n\nOnce we all completed the code review / code commit partner checks, then you can push changes to the repository.\n\ngit push \n\ncheck that the repository looks the way you expect it to look using the following command:\n\ngh repo view --web \"$REPO\"",
-    "crumbs": [
-      "Home",
-      "Code Review"
-    ]
-  },
-  {
-    "objectID": "code_review.html#code-review---formal-review",
-    "href": "code_review.html#code-review---formal-review",
-    "title": "Code Review",
-    "section": "4 Code Review - formal review",
-    "text": "4 Code Review - formal review\nA 1x every 3 weeks recurring code review meeting for the bioinformatics team to discuss questions, troubleshoot code, and make code improvements.\n\n4.1 Meeting Format\n\nOpen questions (10 min)\nPresentation of code by person 1 (15 min)\nPresentation of code by person 2 (15 min)\nPresentation of code by person 3 (15 min)\nRecap on what changes to be made (5 min)\n\nWe will then wait until the following “Paired Programming” meeting to push any changes.",
-    "crumbs": [
-      "Home",
-      "Code Review"
-    ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Welcome to the Meshinchi Lab at Fred Hutch\nOur research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.\nCurrently, Soheil Meshinchi, M.D., Ph.D., working in collaboration with Franco Locatelli, M.D., Ph.D. and Concetta Quintarelli, M.D., Ph.D. at the Bambino Gesù Children’s Hospital IRCCS in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.\n\n \n\n\n\n\n\n\n\nAbout\n\n\n\nThe Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.\n\n\n\n\nContact\n\nFred Hutch\nSoheil Meshinchi\nRhonda Ries\n\n\nOPBG\nFranco Locatelli\nConcetta Quintarelli"
-  },
-  {
     "objectID": "details/software_install_wsl.html",
     "href": "details/software_install_wsl.html",
     "title": "Installation of Software on Windows WSL",
@@ -258,14 +318,10 @@
     "text": "4.4 Summary\nOnce the IDEs (Rstudio and VSCode) are installed, as well as the git\nand gh CLI utilities, you are ready to start configuring your git installation by following these steps."
   },
   {
-    "objectID": "prerequisites.html#vs-code-extensions",
-    "href": "prerequisites.html#vs-code-extensions",
-    "title": "Software Dependencies and Pre-requisites",
-    "section": "VS Code Extensions",
-    "text": "VS Code Extensions\nInstall the Quarto Extension for VS Code provides a variety of tools for working with .qmd files in VS Code. The extension integrates directly with the Python Extension to add Python-specific capabilities.",
-    "crumbs": [
-      "Home",
-      "Software Dependencies and Pre-requisites"
-    ]
+    "objectID": "details/igv_browser.html#igv-documentation-and-resources",
+    "href": "details/igv_browser.html#igv-documentation-and-resources",
+    "title": "IGV Genome Browser App",
+    "section": "2 IGV Documentation and Resources",
+    "text": "2 IGV Documentation and Resources\n\nShort video tutorials\nIGV Application User Guide\n\n\nThe web application uses the same user guide as the desktop application\n\n\nIGV Web application documentation\n\n\nMainly for deployment docs"
   }
 ]

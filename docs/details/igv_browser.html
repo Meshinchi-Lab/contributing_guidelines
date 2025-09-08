@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jenny L. Smith">
 
-<title>About – Meshinchi and Locatelli Lab Documentation</title>
+<title>IGV Genome Browser App – Meshinchi and Locatelli Lab Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,26 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c848f1d992535ed1d380f1eb8cd275dc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c848f1d992535ed1d380f1eb8cd275dc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -80,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Meshinchi and Locatelli Lab Documentation</span>
     </a>
   </div>
@@ -91,11 +126,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -104,15 +139,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-standards-and-definitions">    
         <li>
-    <a class="dropdown-item" href="./details/software_install_wsl.html">
+    <a class="dropdown-item" href="../details/software_install_wsl.html">
  <span class="dropdown-text">Installation on WSL</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./details/igv_browser.html">
+    <a class="dropdown-item" href="../details/igv_browser.html">
  <span class="dropdown-text">IGV on PromethION</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./details/hyperqueue_scheduler.html">
+    <a class="dropdown-item" href="../details/hyperqueue_scheduler.html">
  <span class="dropdown-text">Hyperqueue Job Scheduler</span></a>
   </li>  
     </ul>
@@ -135,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">About</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">IGV Genome Browser App</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,19 +192,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
+  <a href="../prerequisites.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software Dependencies and Pre-requisites</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git_github_overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../git_github_overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./code_review.html" class="sidebar-item-text sidebar-link">
+  <a href="../code_review.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code Review</span></a>
   </div>
 </li>
@@ -183,8 +218,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-the-meshinchi-lab-at-fred-hutch" id="toc-welcome-to-the-meshinchi-lab-at-fred-hutch" class="nav-link active" data-scroll-target="#welcome-to-the-meshinchi-lab-at-fred-hutch">Welcome to the Meshinchi Lab at Fred Hutch</a></li>
-  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
+  <li><a href="#igv" id="toc-igv" class="nav-link active" data-scroll-target="#igv"><span class="header-section-number">1</span> IGV</a></li>
+  <li><a href="#igv-documentation-and-resources" id="toc-igv-documentation-and-resources" class="nav-link" data-scroll-target="#igv-documentation-and-resources"><span class="header-section-number">2</span> IGV Documentation and Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -193,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<div class="quarto-title-block"><div><h1 class="title">IGV Genome Browser App</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -216,41 +251,50 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-the-meshinchi-lab-at-fred-hutch" class="level3 about-sec">
-<h3 class="about-sec anchored" data-anchor-id="welcome-to-the-meshinchi-lab-at-fred-hutch">Welcome to the Meshinchi Lab at Fred Hutch</h3>
-<p>Our research laboratory is studying genomic expression of acute myeloid leukemia-restricted targets on the cell surface that are ideal for immunotherapeutic targeting with chimeric antigen receptor T-cell (CAR T) therapies, as well as identifying and validating target genes for further immunotherapy development.</p>
-<p>Currently, <a href="http://meshinchilab.com/">Soheil Meshinchi, M.D., Ph.D.,</a> working in collaboration with <a href="https://www.ospedalebambinogesu.it/area-di-ricerca---oncoematologia-94851/">Franco Locatelli, M.D., Ph.D.</a> and <a href="https://www.ospedalebambinogesu.it/terapia-genica-dei-tumori-95043/">Concetta Quintarelli, M.D., Ph.D.</a> at the <a href="https://www.ospedalebambinogesu.it/ricerca/">Bambino Gesù Children’s Hospital IRCCS</a> in Rome, Italy, we are investigating the potential of CAR T-cell therapy in pediatric acute myeloid leukemia (AML) and T-Cell Acute Lymphoblastic Leukemia (T-ALL) patients.</p>
-<div class="about-logos">
-<p><img src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/http://coursera-university-assets.s3.amazonaws.com/4c/f84deba36f423d966499563db86b31/Fred-Hutch-360px-360px.png?auto=format%2Ccompress&amp;dpr=2&amp;w=180&amp;h=180" alt="Fred Hutch Logo" width="150" height="150"> <img src="https://www.aopi.it/wp-content/uploads/2019/08/ospedale_bambino_gesu_logo.jpg" alt="Bambino Gesù Logo" width="150" height="150"></p>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<section id="igv" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="igv"><span class="header-section-number">1</span> IGV</h2>
+<p>Use VSCode to remote connect to the PromethION instrument by <code>remote-ssh</code> in vscode. Then launch a locally hosted IGV webserver.</p>
+<p>Please ask Marika Guercio or Francesca Benini for the remote connection details.</p>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-About
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Meshinchi and Locatelli Lab Group documentation for creating, maintaining, and contributing to the Meshinchi and Locatelli Lab’s software and data analysis pipelines on github.</p>
+<ol start="0" type="1">
+<li><p>Set-up your environment by running these commands: <code>export PROJ_DIR=$HOME/Documents/quintarelli_c &amp;&amp; source $PROJ_DIR/.bash_profile</code></p></li>
+<li><p>On the commandline enter the following: <code>IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7</code> <code>npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP</code></p></li>
+<li><p>Select the <code>PORTS</code> tab from the IGV terminal pane.</p></li>
+<li><p>Right click (cmd+click on MacOS) on the blue hyperlink <code>localhost:8080</code></p></li>
+<li><p>Select <code>Open in Browser</code> from the pull-down menu</p></li>
+<li><p>VCF files and processed WGS data is included in a track called <code>WGS Nanopore T-ALL</code> in the pull down-menu</p></li>
+</ol>
 </div>
 </div>
 </section>
-<section id="contact" class="level3">
-<h3 class="anchored" data-anchor-id="contact">Contact</h3>
-<section id="fred-hutch" class="level4">
-<h4 class="anchored" data-anchor-id="fred-hutch">Fred Hutch</h4>
-<p>Soheil Meshinchi</p>
-<p>Rhonda Ries</p>
-</section>
-<section id="opbg" class="level4">
-<h4 class="anchored" data-anchor-id="opbg">OPBG</h4>
-<p>Franco Locatelli</p>
-<p>Concetta Quintarelli</p>
+<section id="igv-documentation-and-resources" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="igv-documentation-and-resources"><span class="header-section-number">2</span> IGV Documentation and Resources</h2>
+<ol type="1">
+<li><p>Short video <a href="https://www.youtube.com/@IGVtutorials">tutorials</a></p></li>
+<li><p>IGV Application <a href="https://igv.org/doc/desktop/#UserGuide/loading_data/">User Guide</a></p></li>
+</ol>
+<ul>
+<li>The web application uses the same user guide as the desktop application</li>
+</ul>
+<ol start="3" type="1">
+<li>IGV <a href="https://igv.org/doc/webapp/">Web application documentation</a></li>
+</ol>
+<ul>
+<li>Mainly for deployment docs</li>
+</ul>
 
 
-</section>
+<!-- -->
+
 </section>
 
 </main> <!-- /main -->
@@ -323,6 +367,57 @@ About
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -659,7 +754,55 @@ About
       }
     }
   });
-  </script>
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "IGV Genome Browser App"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jenny L. Smith"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## IGV </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Use VSCode to remote connect to the PromethION instrument by <span class="in">`remote-ssh`</span> in vscode. Then launch a locally hosted IGV webserver.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Please ask Marika Guercio or Francesca Benini for the remote connection details. </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">0. </span>Set-up your environment by running these commands:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="in">`export PROJ_DIR=$HOME/Documents/quintarelli_c &amp;&amp; source $PROJ_DIR/.bash_profile`</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>On the commandline enter the following:</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="in">`IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7`</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">`npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP`</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Select the <span class="in">`PORTS`</span> tab from the IGV terminal pane.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Right click (cmd+click on MacOS) on the blue hyperlink <span class="in">`localhost:8080`</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Select <span class="in">`Open in Browser`</span> from the pull-down menu</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>VCF files and processed WGS data is included in a track called <span class="in">`WGS Nanopore T-ALL`</span> in the pull down-menu</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## IGV Documentation and Resources </span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Short video <span class="co">[</span><span class="ot">tutorials</span><span class="co">](https://www.youtube.com/@IGVtutorials)</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>IGV Application <span class="co">[</span><span class="ot">User Guide</span><span class="co">](https://igv.org/doc/desktop/#UserGuide/loading_data/)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>The web application uses the same user guide as the desktop application</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>IGV <span class="co">[</span><span class="ot">Web application documentation</span><span class="co">](https://igv.org/doc/webapp/)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Mainly for deployment docs</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
