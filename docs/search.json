@@ -39,14 +39,28 @@
     "href": "details/igv_browser.html",
     "title": "IGV Genome Browser App",
     "section": "",
-    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands: export PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile\nOn the commandline enter the following: IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7 npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP\nSelect the PORTS tab from the IGV terminal pane.\nRight click (cmd+click on MacOS) on the blue hyperlink localhost:8080\nSelect Open in Browser from the pull-down menu\nVCF files and processed WGS data is included in a track called WGS Nanopore T-ALL in the pull down-menu"
+    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands:\n\nexport PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile"
   },
   {
     "objectID": "details/igv_browser.html#igv",
     "href": "details/igv_browser.html#igv",
     "title": "IGV Genome Browser App",
     "section": "",
-    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands: export PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile\nOn the commandline enter the following: IGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7 npx http-server -t30 -c-1 -p 127.0.0.1:8080 -a localhost $IGV_WEBAPP\nSelect the PORTS tab from the IGV terminal pane.\nRight click (cmd+click on MacOS) on the blue hyperlink localhost:8080\nSelect Open in Browser from the pull-down menu\nVCF files and processed WGS data is included in a track called WGS Nanopore T-ALL in the pull down-menu"
+    "text": "Use VSCode to remote connect to the PromethION instrument by remote-ssh in vscode. Then launch a locally hosted IGV webserver.\nPlease ask Marika Guercio or Francesca Benini for the remote connection details.\n\n\n\n\n\n\nImportant\n\n\n\n\nSet-up your environment by running these commands:\n\nexport PROJ_DIR=$HOME/Documents/quintarelli_c && source $PROJ_DIR/.bash_profile"
+  },
+  {
+    "objectID": "details/igv_browser.html#to-launch-the-application",
+    "href": "details/igv_browser.html#to-launch-the-application",
+    "title": "IGV Genome Browser App",
+    "section": "2 To launch the application",
+    "text": "2 To launch the application\n\nOn the commandline enter the following:\n\nIGV_WEBAPP=$PROJ_DIR/opt/igv-webapp.3.0.7\nnpx http-server -t30 -c-1 -a localhost $IGV_WEBAPP\n\nSelect the PORTS tab from the IGV terminal pane.\nRight click (cmd+click on MacOS) on the blue hyperlink localhost:XXXX\nSelect Open in Browser from the pull-down menu\nVCF files and processed WGS data is included in a track called WGS Nanopore T-ALL in the pull down-menu"
+  },
+  {
+    "objectID": "details/igv_browser.html#igv-documentation-and-resources",
+    "href": "details/igv_browser.html#igv-documentation-and-resources",
+    "title": "IGV Genome Browser App",
+    "section": "3 IGV Documentation and Resources",
+    "text": "3 IGV Documentation and Resources\n\nShort video tutorials\nIGV Application User Guide\n\n\nThe web application uses the same user guide as the desktop application\n\n\nIGV Web application documentation\n\n\nMainly for deployment docs"
   },
   {
     "objectID": "about.html",
@@ -109,6 +123,20 @@
       "Home",
       "Code Review"
     ]
+  },
+  {
+    "objectID": "data_management.html",
+    "href": "data_management.html",
+    "title": "Define Data and File Locations",
+    "section": "",
+    "text": "0001_raw_data/quintarelli_c/benini_f/ 0001_raw_data/quintarelli_c/benini_f/T-ALL/WTS— 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314 0001_raw_data/quintarelli_c/guercio_m/CART-GD2-mbIL15/BaseSPACE-XXXXX/\n\n\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.06.02_RNAseq_Bulk_T-ALL - save cleaned metadata to 2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv - save cleaned rnaseq counts to 0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.07.18_RNAseq_Bulk_T-ALL_quant - read in cleaned metadata - dont repeat the cleaning step - read in 0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.11.20_RNAseq_bulk_WGNA - read in 0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv - read in cleaned rnaseq counts from 0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv\n\n\n\n0002_metadata/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_{AIEOP-BFM_T-ALL_bulk_RNAseq}libraries_sample_annots.tsv - 2025.10.01{AIEOP-BFM_T-ALL_genomic_characterization_NGS}libraries_sample_annots.tsv - 2025.10.15{AIEOP-BFM_T-ALL_genomic_characterization_NGS}_libraries_sample_annots.tsv\nwithin {2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq}_libraries_sample_annots.tsv - SOURCE raw data directory in a column:\nsample_id, source_data, data_type TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314\n\nuse tsv (tab separated) to avoid import into EXCEL by default\n\n0002_metadata/quintarelli_c/guercio_m/CART-GD2/ - 2025.05.01_{TOR_VERGATA_CART_GD2_Thesis_RNAseq}libraries_sample_annotations.tsv - 2025.11.06{TOR_VERGATA_CART_GD2_Thesis_RNAseq}_libraries_sample_annotations.tsv\n\n\n0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
+  },
+  {
+    "objectID": "data_management.html#step-1-data-dump",
+    "href": "data_management.html#step-1-data-dump",
+    "title": "Define Data and File Locations",
+    "section": "",
+    "text": "0001_raw_data/quintarelli_c/benini_f/ 0001_raw_data/quintarelli_c/benini_f/T-ALL/WTS— 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314 0001_raw_data/quintarelli_c/guercio_m/CART-GD2-mbIL15/BaseSPACE-XXXXX/\n\n\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.06.02_RNAseq_Bulk_T-ALL - save cleaned metadata to 2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv - save cleaned rnaseq counts to 0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.07.18_RNAseq_Bulk_T-ALL_quant - read in cleaned metadata - dont repeat the cleaning step - read in 0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv\n0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.11.20_RNAseq_bulk_WGNA - read in 0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv - read in cleaned rnaseq counts from 0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv\n\n\n\n0002_metadata/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_{AIEOP-BFM_T-ALL_bulk_RNAseq}libraries_sample_annots.tsv - 2025.10.01{AIEOP-BFM_T-ALL_genomic_characterization_NGS}libraries_sample_annots.tsv - 2025.10.15{AIEOP-BFM_T-ALL_genomic_characterization_NGS}_libraries_sample_annots.tsv\nwithin {2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq}_libraries_sample_annots.tsv - SOURCE raw data directory in a column:\nsample_id, source_data, data_type TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314\n\nuse tsv (tab separated) to avoid import into EXCEL by default\n\n0002_metadata/quintarelli_c/guercio_m/CART-GD2/ - 2025.05.01_{TOR_VERGATA_CART_GD2_Thesis_RNAseq}libraries_sample_annotations.tsv - 2025.11.06{TOR_VERGATA_CART_GD2_Thesis_RNAseq}_libraries_sample_annotations.tsv\n\n\n0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
   },
   {
     "objectID": "prerequisites.html",
@@ -316,12 +344,5 @@
     "title": "Installation of Software on Windows WSL",
     "section": "4.4 Summary",
     "text": "4.4 Summary\nOnce the IDEs (Rstudio and VSCode) are installed, as well as the git\nand gh CLI utilities, you are ready to start configuring your git installation by following these steps."
-  },
-  {
-    "objectID": "details/igv_browser.html#igv-documentation-and-resources",
-    "href": "details/igv_browser.html#igv-documentation-and-resources",
-    "title": "IGV Genome Browser App",
-    "section": "2 IGV Documentation and Resources",
-    "text": "2 IGV Documentation and Resources\n\nShort video tutorials\nIGV Application User Guide\n\n\nThe web application uses the same user guide as the desktop application\n\n\nIGV Web application documentation\n\n\nMainly for deployment docs"
   }
 ]
