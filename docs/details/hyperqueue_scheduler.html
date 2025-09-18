@@ -104,35 +104,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -259,10 +230,13 @@ window.Quarto = {
   <li><a href="#workers" id="toc-workers" class="nav-link" data-scroll-target="#workers"><span class="header-section-number">2.4</span> Workers</a>
   <ul class="collapse">
   <li><a href="#workers-on-hp-ubuntu-servers" id="toc-workers-on-hp-ubuntu-servers" class="nav-link" data-scroll-target="#workers-on-hp-ubuntu-servers"><span class="header-section-number">2.4.1</span> Workers on HP Ubuntu Servers</a></li>
-  <li><a href="#worker-on-dell" id="toc-worker-on-dell" class="nav-link" data-scroll-target="#worker-on-dell"><span class="header-section-number">2.4.2</span> worker on DELL</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#submit-a-job-to-the-queue" id="toc-submit-a-job-to-the-queue" class="nav-link" data-scroll-target="#submit-a-job-to-the-queue"><span class="header-section-number">3</span> Submit a job to the queue</a></li>
+  <li><a href="#use-with-nextflow-pipelines" id="toc-use-with-nextflow-pipelines" class="nav-link" data-scroll-target="#use-with-nextflow-pipelines"><span class="header-section-number">4</span> Use with Nextflow pipelines</a>
+  <ul class="collapse">
+  <li><a href="#params-to-test" id="toc-params-to-test" class="nav-link" data-scroll-target="#params-to-test"><span class="header-section-number">4.0.1</span> Params to test</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -306,20 +280,42 @@ window.Quarto = {
 <h1 data-number="2"><span class="header-section-number">2</span> hyperqueue on Lab Infrastructure</h1>
 <section id="create-a-hq-server-directory" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="create-a-hq-server-directory"><span class="header-section-number">2.1</span> Create a HQ server directory</h2>
-<p>Login to the DELL Ubuntu PC using your username and password. Then create a directory with your username.</p>
-<p><code>mkdir  -p /mnt/bioinformatics_datasets/{$USER}/hyperqueue/logs</code></p>
+<p>Login to the DELL Ubuntu PC using your username and password.</p>
+<ol type="1">
+<li>Then create a directory with your username. And copy the hyperqueue hostfile to your HQ directory.</li>
+</ol>
+<pre><code>mkdir  -p /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs
+cp /mnt/bioinformatics_datasets/hostfile.txt /mnt/bioinformatics_datasets/${USER}/hyperqueue/hostfile.txt</code></pre>
+<ol start="2" type="1">
+<li>Create a config file for your ssh keys, if it doesn’t alreadt exist. Then copy the ssh config template to your new ssh directory.</li>
+</ol>
+<pre><code>mkdir ${HOME}/.ssh
+cp /bioinformatics_resources/ssh_config_template.txt ${HOME}/.ssh/config</code></pre>
 </section>
 <section id="env-variables" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="env-variables"><span class="header-section-number">2.2</span> ENV variables</h2>
 <p>Must be exported by <code>~/.bashrc</code> or <code>~/.bash_profile</code></p>
-<p>export HQ_BASE=/mnt/bioinformatics_datasets/<span class="math inline">\({USER}
-export HQ_SERVER_DIR=\)</span>HQ_BASE/hyperqueue export HQ_JOURNAL=<span class="math inline">\(HQ_BASE/hyperqueue/logs/.hq_journal_\)</span>{USER} export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt</p>
+<pre><code>nano ~/.bash_profile</code></pre>
+<p>Then copy the lines below in the the Nano text editor and save the file.</p>
+<pre><code>export HQ_BASE=/mnt/bioinformatics_datasets/${USER}
+export HQ_SERVER_DIR=$HQ_BASE/hyperqueue
+export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}
+export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt</code></pre>
 </section>
 <section id="server-on-dell-ubuntu-pc" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="server-on-dell-ubuntu-pc"><span class="header-section-number">2.3</span> Server on DELL Ubuntu PC</h2>
 <p>Use <code>tmux</code> for running the server in the background. See <a href="https://github.com/tmux/tmux/wiki/Getting-Started">tmux documentation</a> on how to start and exit a tmux session.</p>
-<p><code>tmux new-session -s hq</code> <code>hq server start --journal $HQ_JOURNAL</code> then disconnect from the tmux session</p>
-<p>Next, check the server is still up <code>hq server info</code></p>
+<pre><code># start a new tmux session 
+tmux new-session -s hq
+
+# check that your environment variables are present
+env | grep "HQ"</code></pre>
+<p>then disconnect from the tmux session</p>
+<pre><code># should print out the log information 
+hq server start --journal $HQ_JOURNAL</code></pre>
+<p>Next, check the server is still up</p>
+<pre><code># now check that the server is still running OK
+`hq server info`</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 18%">
@@ -334,7 +330,7 @@ export HQ_SERVER_DIR=\)</span>HQ_BASE/hyperqueue export HQ_JOURNAL=<span class="
 </table>
 <section id="checking-the-server-status-and-logs" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="checking-the-server-status-and-logs"><span class="header-section-number">2.3.1</span> Checking the server status and logs</h3>
-<p><code>hq journal export $HQ_JOURNAL &gt; $(dirname $HQ_JOURNAL)/hq_journal.log</code></p>
+<pre><code>hq journal export $HQ_JOURNAL &gt; $(dirname $HQ_JOURNAL)/hq_journal.log</code></pre>
 </section>
 </section>
 <section id="workers" class="level2" data-number="2.4">
@@ -353,25 +349,22 @@ export HQ_SERVER_DIR=\)</span>HQ_BASE/hyperqueue export HQ_JOURNAL=<span class="
 <ol start="2" type="1">
 <li>must symlink the access.json to the worker machines</li>
 </ol>
-<pre><code>ln -s /mnt/bioinformatics_datasets/{$USER}/hyperqueue/hq-current/access.jsfastqon $HOME/.hq-server</code></pre>
+<pre><code>ln -s /mnt/bioinformatics_datasets/${USER}/hyperqueue/hq-current/access.json $HOME/.hq-server</code></pre>
 <ol start="3" type="1">
 <li>Use ssh-deploy to start the worker on the remote machine.</li>
 </ol>
-<p>–debug</p>
-<pre><code>tmux new-session -s hq_worker
+<p>If you you need to find more information about errors add the following parameter <code>--debug</code> to <code>hq worker</code> command</p>
+<pre><code># start a new tmux session 
+tmux new-session -s hq_worker
 
 hq worker deploy-ssh $HQ_HOSTFILE --show-output &amp;
-hq worker start &amp;
 
 # disconnect from tmux session </code></pre>
-<p>–group NXF<br>
-–idle-timeout 01:00:00<br>
-–time-limit 24:00:00<br>
-–on-server-lost finish-running<br>
-–wait-between-download-tries 10s</p>
 <ol start="4" type="1">
-<li>check workers are running <code>hq worker list</code> <code>hq worker list --all</code></li>
+<li>check workers are running</li>
 </ol>
+<pre><code>hq worker list
+hq worker list --all</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 5%">
@@ -401,12 +394,6 @@ hq worker start &amp;
 </tbody>
 </table>
 </section>
-<section id="worker-on-dell" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="worker-on-dell"><span class="header-section-number">2.4.2</span> worker on DELL</h3>
-<p>Start the worker on the ‘head node’ as well, to utilize as much of the available resources as possible.</p>
-<pre><code>
-hq worker list --all</code></pre>
-</section>
 </section>
 </section>
 <section id="submit-a-job-to-the-queue" class="level1" data-number="3">
@@ -427,9 +414,39 @@ hq submit --progress \
   quay.io/biocontainers/fastqc:0.11.9--0 sh -c "mkdir -p fastqc_test &amp;&amp; \
     fastqc --verbose -o fastqc_test --threads 4 $FQ1 $FQ2 &amp;&amp; \
     fastqc --version"</code></pre>
-<section id="references" class="level4" data-number="3.0.0.1">
-<h4 data-number="3.0.0.1" class="anchored" data-anchor-id="references"><span class="header-section-number">3.0.0.1</span> References</h4>
+</section>
+<section id="use-with-nextflow-pipelines" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Use with Nextflow pipelines</h1>
+<p>To use the hyperqueue executor with nextflow pipelines, copy the hyperqueue nextflow config file to your own directory where you are running the pipeline.</p>
+<pre><code>#  Step 1. copy the config to your own directory
+
+# define the directory where you are running the pipeline. 
+NEXTFLOW_DIR=$HOME/nextflow_example
+
+# copy the config file
+cp /bioinformatics_resources/hyperqueue.nextflow.config $NEXTFLOW_DIR/hyperqueue.nextflow.config</code></pre>
+<p>Then include the config in the <code>nextflow run</code> command and set the <code>profile</code> parameter to ‘hyperqueue’.</p>
+<p>For example if using the <code>nf-core/rnafusion</code> pipeline.</p>
+<pre><code># Step 2. run the pipeline with the addition of this custom config
+nextflow -c $NEXTFLOW_DIR/hyperqueue.nextflow.config \
+  run nf-core/rnafusion -r dev \
+  -profile hyperqueue
+  </code></pre>
+<section id="references" class="level4" data-number="4.0.0.1">
+<h4 data-number="4.0.0.1" class="anchored" data-anchor-id="references"><span class="header-section-number">4.0.0.1</span> References</h4>
 <p><a href="https://doi.org/10.1016/j.softx.2024.101814">Hyperqueue Publication</a></p>
+</section>
+<section id="params-to-test" class="level3" data-number="4.0.1">
+<h3 data-number="4.0.1" class="anchored" data-anchor-id="params-to-test"><span class="header-section-number">4.0.1</span> Params to test</h3>
+<p>–group NXF<br>
+–idle-timeout 01:00:00<br>
+–time-limit 24:00:00<br>
+–on-server-lost finish-running<br>
+–wait-between-download-tries 10s</p>
+<p>Start the worker on the ‘head node’ as well, to utilize as much of the available resources as possible.</p>
+<pre><code>tmux
+hq worker start &amp;
+hq worker list --all</code></pre>
 
 
 <!-- -->
@@ -895,159 +912,225 @@ hq submit --progress \
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hyperqueue Job Scheduler on Lab Compute Infrastructure"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jenny L. Smith"</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># hyperqueue Usage Notes</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; HyperQueue is a tool designed to simplify execution of large workflows (task graphs) on HPC clusters. It allows you to execute a large number of tasks in a simple way, without having to manually submit jobs into batch schedulers like Slurm or PBS. You just specify what you want to compute – HyperQueue will automatically ask for computational resources and dynamically load-balance tasks across all allocated nodes and cores. HyperQueue can also work without Slurm/PBS as a general task executor.</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Details on jobs and tasks can be found <span class="co">[</span><span class="ot">here</span><span class="co">](https://it4innovations.github.io/hyperqueue/stable/jobs/jobs/)</span>. </span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://it4innovations.github.io/hyperqueue/stable/imgs/architecture.png)</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># hyperqueue on Lab Infrastructure</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Create a HQ server directory</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>Login to the DELL Ubuntu PC using your username and password. Then create a directory with your username. </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="in">`mkdir  -p /mnt/bioinformatics_datasets/{$USER}/hyperqueue/logs`</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## ENV variables </span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>Must be exported by <span class="in">`~/.bashrc`</span> or <span class="in">`~/.bash_profile`</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>export HQ_BASE=/mnt/bioinformatics_datasets/${USER}</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>export HQ_SERVER_DIR=$HQ_BASE/hyperqueue</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Server on DELL Ubuntu  PC</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`tmux`</span> for running the server in the background. See <span class="co">[</span><span class="ot">tmux documentation</span><span class="co">](https://github.com/tmux/tmux/wiki/Getting-Started)</span> on how to start and exit a tmux session. </span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="in">`tmux new-session -s hq`</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="in">`hq server start --journal $HQ_JOURNAL`</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>then disconnect from the tmux session </span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>Next, check the server is still up</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="in">`hq server info`</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>+--------------+----------------------------------------------+</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Server UID   <span class="pp">|</span> bTQEQ6                                       </span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Client host  <span class="pp">|</span> sp-alphafold-ws                              </span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Client port  <span class="pp">|</span> 36107                                        </span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worker host  <span class="pp">|</span> sp-alphafold-ws                              </span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worker port  <span class="pp">|</span> 46789                                        </span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version      <span class="pp">|</span> v0.23.0                                      </span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pid          <span class="pp">|</span> 1597226                                      </span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Start date   <span class="pp">|</span> 2025-08-08 16<span class="sc">:29:</span>01 UTC                      </span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Journal path <span class="pp">|</span> /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs/.hq_journal</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>+--------------+----------------------------------------------+</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Checking the server status and logs</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="in">`hq journal export $HQ_JOURNAL &gt; $(dirname $HQ_JOURNAL)/hq_journal.log`</span></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Workers </span></span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>We will decide best use of <span class="in">`--work-dir`</span> and <span class="in">`--group`</span> options, for now we can start workers with limited options except time-out. </span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Workers on HP Ubuntu Servers</span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="ss">0. </span>Generate SSH key </span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>Need an SSH remote connect to the bioinfosrv01 and bioinfosrv02. Login to the DELL Ubuntu PC using your username and password. Then inside your home directory, follow the instructions in this <span class="co">[</span><span class="ot">document</span><span class="co">](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)</span>.</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Create a hq server directory</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="in">mkdir -p $HOME/.hq-server</span></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>must symlink the access.json to the worker machines </span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="in">ln -s /mnt/bioinformatics_datasets/{$USER}/hyperqueue/hq-current/access.jsfastqon $HOME/.hq-server</span></span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Use ssh-deploy to start the worker on the remote machine.</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>--debug</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">tmux new-session -s hq_worker</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker deploy-ssh $HQ_HOSTFILE --show-output &amp;</span></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker start &amp;</span></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="in"># disconnect from tmux session </span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>--group NXF \</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>--idle-timeout 01<span class="sc">:00:</span>00 \</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>--time-limit 24<span class="sc">:00:</span>00 \</span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>--on-server-lost finish-running \</span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>--wait-between-download-tries 10s</span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>check workers are running </span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a><span class="in">`hq worker list`</span></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="in">`hq worker list --all`</span></span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ID <span class="pp">|</span> State   <span class="pp">|</span> Hostname     <span class="pp">|</span> Resources               <span class="pp">|</span> Manager <span class="pp">|</span> Manager Job ID <span class="pp">|</span></span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  1 <span class="pp">|</span> RUNNING <span class="pp">|</span> bioinfosrv01 <span class="pp">|</span> cpus 48; mem 251.34 GiB <span class="pp">|</span> None    <span class="pp">|</span> N/A            <span class="pp">|</span></span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  2 <span class="pp">|</span> RUNNING <span class="pp">|</span> bioinfosrv02 <span class="pp">|</span> cpus 48; mem 251.34 GiB <span class="pp">|</span> None    <span class="pp">|</span> N/A            <span class="pp">|</span></span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### worker on DELL </span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>Start the worker on the 'head node' as well, to utilize as much of the available resources as possible.</span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker list --all</span></span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="fu"># Submit a job to the queue</span></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a><span class="in">DIR="/bioinformatics_resources/ngs_test_datasets/human/rnaseq"</span></span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="in">FQ1=$DIR/reads_1.fq.gz</span></span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a><span class="in">FQ2=$DIR/reads_2.fq.gz</span></span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a><span class="in">OUTDIR="data/hq_test"</span></span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a><span class="in">hq submit --progress \</span></span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a><span class="in">  --stdout $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stdout \</span></span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a><span class="in">  --stderr $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stderr \</span></span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="in">  docker run -i \</span></span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a><span class="in">  -v $DIR:$DIR \</span></span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a><span class="in">  -v $PWD:$PWD \</span></span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a><span class="in">  -w $PWD  \</span></span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a><span class="in">  --userns=host --user $(id -u):$(id -g) \</span></span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a><span class="in">  quay.io/biocontainers/fastqc:0.11.9--0 sh -c "mkdir -p fastqc_test &amp;&amp; \</span></span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a><span class="in">    fastqc --verbose -o fastqc_test --threads 4 $FQ1 $FQ2 &amp;&amp; \</span></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="in">    fastqc --version"</span></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a><span class="fu">#### References</span></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Hyperqueue Publication</span><span class="co">](https://doi.org/10.1016/j.softx.2024.101814)</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Hyperqueue Job Scheduler on Lab Compute Infrastructure"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jenny L. Smith"</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># hyperqueue Usage Notes</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; HyperQueue is a tool designed to simplify execution of large workflows (task graphs) on HPC clusters. It allows you to execute a large number of tasks in a simple way, without having to manually submit jobs into batch schedulers like Slurm or PBS. You just specify what you want to compute – HyperQueue will automatically ask for computational resources and dynamically load-balance tasks across all allocated nodes and cores. HyperQueue can also work without Slurm/PBS as a general task executor.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>Details on jobs and tasks can be found <span class="co">[</span><span class="ot">here</span><span class="co">](https://it4innovations.github.io/hyperqueue/stable/jobs/jobs/)</span>. </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://it4innovations.github.io/hyperqueue/stable/imgs/architecture.png)</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># hyperqueue on Lab Infrastructure</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Create a HQ server directory</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>Login to the DELL Ubuntu PC using your username and password. </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Then create a directory with your username. And copy the hyperqueue hostfile to your HQ directory. </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="in">mkdir  -p /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="in">cp /mnt/bioinformatics_datasets/hostfile.txt /mnt/bioinformatics_datasets/${USER}/hyperqueue/hostfile.txt</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Create a config file for your ssh keys, if it doesn't alreadt exist. Then copy the ssh config template to your new ssh directory. </span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="in">mkdir ${HOME}/.ssh</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="in">cp /bioinformatics_resources/ssh_config_template.txt ${HOME}/.ssh/config</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## ENV variables </span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>Must be exported by <span class="in">`~/.bashrc`</span> or <span class="in">`~/.bash_profile`</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="in">nano ~/.bash_profile</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>Then copy the lines below in the the Nano text editor and save the file.</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="in">export HQ_BASE=/mnt/bioinformatics_datasets/${USER}</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="in">export HQ_SERVER_DIR=$HQ_BASE/hyperqueue</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="in">export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="in">export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## Server on DELL Ubuntu  PC</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`tmux`</span> for running the server in the background. See <span class="co">[</span><span class="ot">tmux documentation</span><span class="co">](https://github.com/tmux/tmux/wiki/Getting-Started)</span> on how to start and exit a tmux session. </span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="in"># start a new tmux session </span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="in">tmux new-session -s hq</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="in"># check that your environment variables are present</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="in">env | grep "HQ"</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>then disconnect from the tmux session </span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a><span class="in"># should print out the log information </span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="in">hq server start --journal $HQ_JOURNAL</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>Next, check the server is still up</span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="in"># now check that the server is still running OK</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="in">`hq server info`</span></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>+--------------+----------------------------------------------+</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Server UID   <span class="pp">|</span> bTQEQ6                                       </span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Client host  <span class="pp">|</span> sp-alphafold-ws                              </span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Client port  <span class="pp">|</span> 36107                                        </span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worker host  <span class="pp">|</span> sp-alphafold-ws                              </span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Worker port  <span class="pp">|</span> 46789                                        </span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Version      <span class="pp">|</span> v0.23.0                                      </span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pid          <span class="pp">|</span> 1597226                                      </span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Start date   <span class="pp">|</span> 2025-08-08 16<span class="sc">:29:</span>01 UTC                      </span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Journal path <span class="pp">|</span> /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs/.hq_journal</span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a>+--------------+----------------------------------------------+</span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="fu">### Checking the server status and logs</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="in">hq journal export $HQ_JOURNAL &gt; $(dirname $HQ_JOURNAL)/hq_journal.log</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Workers </span></span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a>We will decide best use of <span class="in">`--work-dir`</span> and <span class="in">`--group`</span> options, for now we can start workers with limited options except time-out. </span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Workers on HP Ubuntu Servers</span></span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a><span class="ss">0. </span>Generate SSH key </span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a>Need an SSH remote connect to the bioinfosrv01 and bioinfosrv02. Login to the DELL Ubuntu PC using your username and password. Then inside your home directory, follow the instructions in this <span class="co">[</span><span class="ot">document</span><span class="co">](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)</span>.</span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Create a hq server directory</span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a><span class="in">mkdir -p $HOME/.hq-server</span></span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>must symlink the access.json to the worker machines </span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a><span class="in">ln -s /mnt/bioinformatics_datasets/${USER}/hyperqueue/hq-current/access.json $HOME/.hq-server</span></span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Use ssh-deploy to start the worker on the remote machine.</span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a>If you you need to find more information about errors add the following parameter <span class="in">`--debug`</span> to <span class="in">`hq worker`</span> command</span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a><span class="in"># start a new tmux session </span></span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a><span class="in">tmux new-session -s hq_worker</span></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker deploy-ssh $HQ_HOSTFILE --show-output &amp;</span></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a><span class="in"># disconnect from tmux session </span></span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>check workers are running </span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker list</span></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker list --all</span></span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ID <span class="pp">|</span> State   <span class="pp">|</span> Hostname     <span class="pp">|</span> Resources               <span class="pp">|</span> Manager <span class="pp">|</span> Manager Job ID <span class="pp">|</span></span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  1 <span class="pp">|</span> RUNNING <span class="pp">|</span> bioinfosrv01 <span class="pp">|</span> cpus 48; mem 251.34 GiB <span class="pp">|</span> None    <span class="pp">|</span> N/A            <span class="pp">|</span></span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  2 <span class="pp">|</span> RUNNING <span class="pp">|</span> bioinfosrv02 <span class="pp">|</span> cpus 48; mem 251.34 GiB <span class="pp">|</span> None    <span class="pp">|</span> N/A            <span class="pp">|</span></span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>+----+---------+--------------+-------------------------+---------+----------------+</span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a><span class="fu"># Submit a job to the queue</span></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a><span class="in">DIR="/bioinformatics_resources/ngs_test_datasets/human/rnaseq"</span></span>
+<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a><span class="in">FQ1=$DIR/reads_1.fq.gz</span></span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a><span class="in">FQ2=$DIR/reads_2.fq.gz</span></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a><span class="in">OUTDIR="data/hq_test"</span></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a><span class="in">hq submit --progress \</span></span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a><span class="in">  --stdout $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stdout \</span></span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a><span class="in">  --stderr $HQ_SERVER_DIR/logs/%{JOB_ID}.%{TASK_ID}.stderr \</span></span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a><span class="in">  docker run -i \</span></span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a><span class="in">  -v $DIR:$DIR \</span></span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a><span class="in">  -v $PWD:$PWD \</span></span>
+<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a><span class="in">  -w $PWD  \</span></span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="in">  --userns=host --user $(id -u):$(id -g) \</span></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="in">  quay.io/biocontainers/fastqc:0.11.9--0 sh -c "mkdir -p fastqc_test &amp;&amp; \</span></span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="in">    fastqc --verbose -o fastqc_test --threads 4 $FQ1 $FQ2 &amp;&amp; \</span></span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="in">    fastqc --version"</span></span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="fu"># Use with Nextflow pipelines </span></span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a>To use the hyperqueue executor with nextflow pipelines, copy the hyperqueue nextflow config file to your own directory where you are running the pipeline. </span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a><span class="in">#  Step 1. copy the config to your own directory</span></span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="in"># define the directory where you are running the pipeline. </span></span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a><span class="in">NEXTFLOW_DIR=$HOME/nextflow_example</span></span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a><span class="in"># copy the config file</span></span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a><span class="in">cp /bioinformatics_resources/hyperqueue.nextflow.config $NEXTFLOW_DIR/hyperqueue.nextflow.config</span></span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a>Then include the config in the <span class="in">`nextflow run`</span> command and set the <span class="in">`profile`</span> parameter to 'hyperqueue'. </span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a>For example if using the <span class="in">`nf-core/rnafusion`</span> pipeline. </span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="in"># Step 2. run the pipeline with the addition of this custom config</span></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a><span class="in">nextflow -c $NEXTFLOW_DIR/hyperqueue.nextflow.config \</span></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a><span class="in">  run nf-core/rnafusion -r dev \</span></span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a><span class="in">  -profile hyperqueue</span></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a><span class="fu">#### References</span></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Hyperqueue Publication</span><span class="co">](https://doi.org/10.1016/j.softx.2024.101814)</span></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### Params to test</span></span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a>--group NXF \</span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a>--idle-timeout 01<span class="sc">:00:</span>00 \</span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a>--time-limit 24<span class="sc">:00:</span>00 \</span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a>--on-server-lost finish-running \</span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a>--wait-between-download-tries 10s</span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a>Start the worker on the 'head node' as well, to utilize as much of the available resources as possible.</span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a><span class="in">tmux</span></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker start &amp;</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a><span class="in">hq worker list --all</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
