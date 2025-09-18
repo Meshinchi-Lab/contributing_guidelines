@@ -21,30 +21,64 @@ Details on jobs and tasks can be found [here](https://it4innovations.github.io/h
 
 ## Create a HQ server directory
 
-Login to the DELL Ubuntu PC using your username and password. Then create a directory with your username. 
+Login to the DELL Ubuntu PC using your username and password. 
 
-`mkdir  -p /mnt/bioinformatics_datasets/{$USER}/hyperqueue/logs`
+1. Then create a directory with your username. And copy the hyperqueue hostfile to your HQ directory. 
+
+```
+mkdir  -p /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs
+cp /mnt/bioinformatics_datasets/hostfile.txt /mnt/bioinformatics_datasets/${USER}/hyperqueue/hostfile.txt
+```
+
+2. Create a config file for your ssh keys, if it doesn't alreadt exist. Then copy the ssh config template to your new ssh directory. 
+
+```
+mkdir ${HOME}/.ssh
+cp /bioinformatics_resources/ssh_config_template.txt ${HOME}/.ssh/config
+```
 
 ## ENV variables 
 
 Must be exported by `~/.bashrc` or `~/.bash_profile`
 
+```
+nano ~/.bash_profile
+```
+
+Then copy the lines below in the the Nano text editor and save the file.
+
+```
 export HQ_BASE=/mnt/bioinformatics_datasets/${USER}
 export HQ_SERVER_DIR=$HQ_BASE/hyperqueue
 export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}
 export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt
+```
 
 ## Server on DELL Ubuntu  PC
 
 Use `tmux` for running the server in the background. See [tmux documentation](https://github.com/tmux/tmux/wiki/Getting-Started) on how to start and exit a tmux session. 
 
-`tmux new-session -s hq`
-`hq server start --journal $HQ_JOURNAL`
+```
+# start a new tmux session 
+tmux new-session -s hq
+
+# check that your environment variables are present
+env | grep "HQ"
+```
+
 then disconnect from the tmux session 
 
+```
+# should print out the log information 
+hq server start --journal $HQ_JOURNAL
+```
 
 Next, check the server is still up
+
+```
+# now check that the server is still running OK
 `hq server info`
+```
 
 +--------------+----------------------------------------------+
 | Server UID   | bTQEQ6                                       
@@ -61,7 +95,9 @@ Next, check the server is still up
 
 ### Checking the server status and logs
 
-`hq journal export $HQ_JOURNAL > $(dirname $HQ_JOURNAL)/hq_journal.log`
+```
+hq journal export $HQ_JOURNAL > $(dirname $HQ_JOURNAL)/hq_journal.log
+```
 
 ## Workers 
 
@@ -82,31 +118,28 @@ mkdir -p $HOME/.hq-server
 2. must symlink the access.json to the worker machines 
 
 ```
-ln -s /mnt/bioinformatics_datasets/{$USER}/hyperqueue/hq-current/access.jsfastqon $HOME/.hq-server
+ln -s /mnt/bioinformatics_datasets/${USER}/hyperqueue/hq-current/access.json $HOME/.hq-server
 ```
 
 3. Use ssh-deploy to start the worker on the remote machine.
 
---debug
+If you you need to find more information about errors add the following parameter `--debug` to `hq worker` command
 
 ```
+# start a new tmux session 
 tmux new-session -s hq_worker
 
 hq worker deploy-ssh $HQ_HOSTFILE --show-output &
-hq worker start &
 
 # disconnect from tmux session 
 ```
 
---group NXF \
---idle-timeout 01:00:00 \
---time-limit 24:00:00 \
---on-server-lost finish-running \
---wait-between-download-tries 10s
-
 4. check workers are running 
-`hq worker list`
-`hq worker list --all`
+
+```
+hq worker list
+hq worker list --all
+```
 
 +----+---------+--------------+-------------------------+---------+----------------+
 | ID | State   | Hostname     | Resources               | Manager | Manager Job ID |
@@ -115,17 +148,6 @@ hq worker start &
 |  2 | RUNNING | bioinfosrv02 | cpus 48; mem 251.34 GiB | None    | N/A            |
 +----+---------+--------------+-------------------------+---------+----------------+
 
-
-
-
-### worker on DELL 
-
-Start the worker on the 'head node' as well, to utilize as much of the available resources as possible.
-
-```
-
-hq worker list --all
-```
 
 # Submit a job to the queue
 
@@ -148,6 +170,50 @@ hq submit --progress \
     fastqc --version"
 ```
 
+# Use with Nextflow pipelines 
+
+To use the hyperqueue executor with nextflow pipelines, copy the hyperqueue nextflow config file to your own directory where you are running the pipeline. 
+
+
+```
+#  Step 1. copy the config to your own directory
+
+# define the directory where you are running the pipeline. 
+NEXTFLOW_DIR=$HOME/nextflow_example
+
+# copy the config file
+cp /bioinformatics_resources/hyperqueue.nextflow.config $NEXTFLOW_DIR/hyperqueue.nextflow.config
+```
+
+Then include the config in the `nextflow run` command and set the `profile` parameter to 'hyperqueue'. 
+
+For example if using the `nf-core/rnafusion` pipeline. 
+
+```
+# Step 2. run the pipeline with the addition of this custom config
+nextflow -c $NEXTFLOW_DIR/hyperqueue.nextflow.config \
+  run nf-core/rnafusion -r dev \
+  -profile hyperqueue
+  
+```
+
 #### References
 
 [Hyperqueue Publication](https://doi.org/10.1016/j.softx.2024.101814)
+
+
+### Params to test
+
+--group NXF \
+--idle-timeout 01:00:00 \
+--time-limit 24:00:00 \
+--on-server-lost finish-running \
+--wait-between-download-tries 10s
+
+Start the worker on the 'head node' as well, to utilize as much of the available resources as possible.
+
+```
+tmux
+hq worker start &
+hq worker list --all
+```
