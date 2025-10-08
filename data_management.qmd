@@ -1,5 +1,6 @@
+# Data Management
 
-# Define Data and File Locations
+## Define Data and File Locations
 
 The base directory for the metadata, raw data, processed data, and analysis outputs are found at:
 * /mnt/network_drives/storage-bioinfo_labq/

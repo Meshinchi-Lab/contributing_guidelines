@@ -1,5 +1,5 @@
 ---
-title: "Software Dependencies and Pre-requisites"
+title: "Pre-requisites and Software"
 author: "Jenny Smith"
 format: 
   html:

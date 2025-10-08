@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./git_github_overview.html" rel="next">
+<link href="./prerequisites.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -134,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_management.html">Data Management</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -162,6 +164,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_management.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Data Management</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./git_github_overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting Started</span></a>
   </div>
@@ -182,12 +190,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#define-data-and-file-locations" id="toc-define-data-and-file-locations" class="nav-link active" data-scroll-target="#define-data-and-file-locations">Define Data and File Locations</a>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link active" data-scroll-target="#data-management">Data Management</a>
   <ul class="collapse">
-  <li><a href="#step-1-data-dump" id="toc-step-1-data-dump" class="nav-link" data-scroll-target="#step-1-data-dump">STEP 1 DATA DUMP</a>
+  <li><a href="#define-data-and-file-locations" id="toc-define-data-and-file-locations" class="nav-link" data-scroll-target="#define-data-and-file-locations">Define Data and File Locations</a></li>
+  <li><a href="#data-life-cycle" id="toc-data-life-cycle" class="nav-link" data-scroll-target="#data-life-cycle">Data Life Cycle</a>
   <ul class="collapse">
+  <li><a href="#step-1-raw-data-dump" id="toc-step-1-raw-data-dump" class="nav-link" data-scroll-target="#step-1-raw-data-dump">STEP 1 RAW DATA DUMP</a></li>
   <li><a href="#step-2-initial-data-cleaning-analysis-dir" id="toc-step-2-initial-data-cleaning-analysis-dir" class="nav-link" data-scroll-target="#step-2-initial-data-cleaning-analysis-dir">STEP 2 INITIAL DATA CLEANING / ANALYSIS DIR</a></li>
-  <li><a href="#step-3-update-metadata-as-needed" id="toc-step-3-update-metadata-as-needed" class="nav-link" data-scroll-target="#step-3-update-metadata-as-needed">STEP 3 UPDATE METADATA AS NEEDED</a></li>
+  <li><a href="#step-3-metadata-versions" id="toc-step-3-metadata-versions" class="nav-link" data-scroll-target="#step-3-metadata-versions">STEP 3 METADATA Versions</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -199,29 +209,40 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="define-data-and-file-locations" class="level1">
-<h1>Define Data and File Locations</h1>
-<section id="step-1-data-dump" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-data-dump">STEP 1 DATA DUMP</h2>
-<p>0001_raw_data/quintarelli_c/benini_f/ 0001_raw_data/quintarelli_c/benini_f/T-ALL/WTS— 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314 0001_raw_data/quintarelli_c/guercio_m/CART-GD2-mbIL15/BaseSPACE-XXXXX/</p>
+<section id="data-management" class="level1">
+<h1>Data Management</h1>
+<section id="define-data-and-file-locations" class="level2">
+<h2 class="anchored" data-anchor-id="define-data-and-file-locations">Define Data and File Locations</h2>
+<p>The base directory for the metadata, raw data, processed data, and analysis outputs are found at: * /mnt/network_drives/storage-bioinfo_labq/</p>
+<p>This file path can be accessed from the DELL Ubuntu PC (head node) in the office.</p>
+<p>The directory structure is simple, but there is a “data flow” or “data life cycle” that we will need to manage. The main directory structure is below:</p>
+<p>0001_ngs_raw_data/ 0002_ngs_metadata/ 0003_ngs_processed_data/ 0004_ngs_analysis/</p>
+</section>
+<section id="data-life-cycle" class="level2">
+<h2 class="anchored" data-anchor-id="data-life-cycle">Data Life Cycle</h2>
+<section id="step-1-raw-data-dump" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-raw-data-dump">STEP 1 RAW DATA DUMP</h3>
+<p>0001_raw_data/quintarelli_c/benini_f/ - T-ALL/WTS— - T-ALL/FB_2025_00002321314</p>
+<p>0001_raw_data/quintarelli_c/guercio_m - CART-GD2-mbIL15/BaseSPACE-XXXXX/</p>
+</section>
 <section id="step-2-initial-data-cleaning-analysis-dir" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-initial-data-cleaning-analysis-dir">STEP 2 INITIAL DATA CLEANING / ANALYSIS DIR</h3>
-<p>0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.06.02_RNAseq_Bulk_T-ALL - save cleaned metadata to <code>2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv</code> - save cleaned rnaseq counts to <code>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv</code></p>
-<p>0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.07.18_RNAseq_Bulk_T-ALL_quant - read in cleaned metadata - dont repeat the cleaning step - read in <code>0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv</code></p>
-<p>0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.11.20_RNAseq_bulk_WGNA - read in <code>0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv</code> - read in cleaned rnaseq counts from <code>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv</code></p>
+<p>Imagine this is sort of a bottom-up strategy for files in the 0002_ngs_metadata, 0003_ngs_processed_data, and 0004_ngs_analysis directories.</p>
+<p>This is because the next step after raw data is generated is to process / analyze those raw data inputs.</p>
+<p>EXAMPLE with the T-ALL project:</p>
+<p>0004_ngs_analysis/ |- quintarelli_c/ |- benini_f/ |- T-ALL/ |- 2025-06-02_RNAseq_Bulk_T-ALL |- save cleaned metadata to <code>2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv</code> |- 2025-07-18_RNAseq_Bulk_T-ALL_quant |- read in <code>0002_metadata/quintarelli_c/benini_f/T-ALL/</code> as “2025-07-18_{<strong>AIEOP-BFM_T-ALL_bulk_RNAseq</strong>}_libraries_sample_annots.tsv” |- <strong>dont repeat the cleaning step</strong> |- save cleaned rnaseq counts to <code>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/</code> as “2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv” |- 2025-07-24_WGS_Nanopore_T-ALL |- read in <code>0002_metadata/quintarelli_c/benini_f/T-ALL/{**MOST CURRENT DATE}_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv</code> |- read in cleaned rnaseq counts from <code>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/</code> as “2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv” |- save cleaned SNVs, CNVs, SVs, and DNAme to <code>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/</code> as “2025-07-24_AIEOP-BFM_T-ALL_WGS_Nanopore_Variants.{sqlite,tsv,db}”</p>
 </section>
-<section id="step-3-update-metadata-as-needed" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-update-metadata-as-needed">STEP 3 UPDATE METADATA AS NEEDED</h3>
-<p>0002_metadata/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_{<strong>AIEOP-BFM_T-ALL_bulk_RNAseq</strong>}<em>libraries_sample_annots.tsv - 2025.10.01</em>{<strong>AIEOP-BFM_T-ALL_genomic_characterization_NGS</strong>}<em>libraries_sample_annots.tsv - 2025.10.15</em>{<strong>AIEOP-BFM_T-ALL_genomic_characterization_NGS</strong>}_libraries_sample_annots.tsv</p>
-<p>within {<strong>2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq</strong>}_libraries_sample_annots.tsv - SOURCE raw data directory in a column:</p>
+<section id="step-3-metadata-versions" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-metadata-versions">STEP 3 METADATA Versions</h3>
+<p>0002_metadata/ |- quintarelli_c/ |- benini_f/T-ALL/ |- 2025-07-18_{<strong>AIEOP-BFM_T-ALL_bulk_RNAseq</strong>}<em>libraries_sample_annots.tsv |- 2025-10-01</em>{<strong>AIEOP-BFM_T-ALL_genomic_characterization_NGS</strong>}<em>libraries_sample_annots.tsv |- 2025-10-15</em>{<strong>AIEOP-BFM_T-ALL_genomic_characterization_NGS</strong>}<em>libraries_sample_annots.tsv |- guercio_m/CART-GD2/ |- 2025-05-01</em>{<strong>TOR_VERGATA_CART_GD2_Thesis_RNAseq</strong>}<em>libraries_sample_annotations.tsv |- 2025-11-06</em>{<strong>TOR_VERGATA_CART_GD2_Thesis_RNAseq</strong>}_libraries_sample_annotations.tsv</p>
+<p>within {<strong>2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq</strong>}_libraries_sample_annots.tsv - SOURCE raw data directory in a column:</p>
 <p>sample_id, source_data, data_type TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314</p>
 <ul>
 <li>use tsv (tab separated) to avoid import into EXCEL by default</li>
 </ul>
-<p>0002_metadata/quintarelli_c/guercio_m/CART-GD2/ - 2025.05.01_{<strong>TOR_VERGATA_CART_GD2_Thesis_RNAseq</strong>}<em>libraries_sample_annotations.tsv - 2025.11.06</em>{<strong>TOR_VERGATA_CART_GD2_Thesis_RNAseq</strong>}_libraries_sample_annotations.tsv</p>
 <section id="step-4-final-inputs-to-downstream-data-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="step-4-final-inputs-to-downstream-data-analysis">STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS</h4>
-<p>0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/ - 2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv</p>
+<p>0004_ngs_processesed/ |- quintarelli_c/benini_f/T-ALL/ |- 2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv</p>
 
 
 </section>
@@ -636,6 +657,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./prerequisites.html" class="pagination-link" aria-label="Software Dependencies and Pre-requisites">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Software Dependencies and Pre-requisites</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./git_github_overview.html" class="pagination-link" aria-label="Getting Started">
+        <span class="nav-page-text">Getting Started</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
