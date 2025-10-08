@@ -1,33 +1,67 @@
 
 # Define Data and File Locations
 
-## STEP 1 DATA DUMP
+The base directory for the metadata, raw data, processed data, and analysis outputs are found at:
+* /mnt/network_drives/storage-bioinfo_labq/
+
+This file path can be accessed from the DELL Ubuntu PC (head node) in the office. 
+
+The directory structure is simple, but there is a "data flow" or "data life cycle" that we will need to manage. The main directory structure is below:
+
+0001_ngs_raw_data/
+0002_ngs_metadata/
+0003_ngs_processed_data/
+0004_ngs_analysis/
+
+
+## Data Life Cycle
+
+### STEP 1 RAW DATA DUMP
+
 0001_raw_data/quintarelli_c/benini_f/
-0001_raw_data/quintarelli_c/benini_f/T-ALL/WTS---
-0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314
-0001_raw_data/quintarelli_c/guercio_m/CART-GD2-mbIL15/BaseSPACE-XXXXX/
+  - T-ALL/WTS---
+  - T-ALL/FB_2025_00002321314
+
+0001_raw_data/quintarelli_c/guercio_m
+  - CART-GD2-mbIL15/BaseSPACE-XXXXX/
 
 ### STEP 2 INITIAL DATA CLEANING / ANALYSIS DIR
-0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.06.02_RNAseq_Bulk_T-ALL
-  - save cleaned metadata to `2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
-  - save cleaned rnaseq counts to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv`
 
-0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.07.18_RNAseq_Bulk_T-ALL_quant
-  - read in cleaned metadata - dont repeat the cleaning step
-  - read in `0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+Imagine this is sort of a bottom-up strategy for files in the 0002_ngs_metadata,  0003_ngs_processed_data, and  0004_ngs_analysis directories. 
 
-0003_ngs_analysis/quintarelli_c/benini_f/T-ALL/2025.11.20_RNAseq_bulk_WGNA
-  - read in `0002_metadata/quintarelli_c/benini_f/T-ALL/2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
-  - read in cleaned rnaseq counts from `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv`
+This is because the next step after raw data is generated is to process / analyze those raw data inputs. 
+
+EXAMPLE with the T-ALL project:
+
+0004_ngs_analysis/
+  |- quintarelli_c/
+    |- benini_f/
+      |- T-ALL/
+        |- 2025-06-02_RNAseq_Bulk_T-ALL
+          |- save cleaned metadata to `2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+    |- 2025-07-18_RNAseq_Bulk_T-ALL_quant
+      |- read in `0002_metadata/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv"
+      |- **dont repeat the cleaning step**
+      |- save cleaned rnaseq counts to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
+    |- 2025-07-24_WGS_Nanopore_T-ALL
+      |- read in `0002_metadata/quintarelli_c/benini_f/T-ALL/{**MOST CURRENT DATE}_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
+      |- read in cleaned rnaseq counts from `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
+      |- save cleaned SNVs, CNVs, SVs, and DNAme to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-24_AIEOP-BFM_T-ALL_WGS_Nanopore_Variants.{sqlite,tsv,db}"
 
 
-### STEP 3 UPDATE METADATA AS NEEDED 
-0002_metadata/quintarelli_c/benini_f/T-ALL/
- - 2025.07.18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
- - 2025.10.01_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
- - 2025.10.15_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
+### STEP 3 METADATA Versions
 
-within {**2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
+0002_metadata/
+  |- quintarelli_c/
+    |- benini_f/T-ALL/
+      |- 2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
+      |- 2025-10-01_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
+      |- 2025-10-15_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
+    |- guercio_m/CART-GD2/
+      |- 2025-05-01_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
+      |- 2025-11-06_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
+
+within {**2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
   - SOURCE raw data directory in a column:
 
 sample_id, source_data, data_type
@@ -35,10 +69,9 @@ TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314
 
 - use tsv (tab separated) to avoid import into EXCEL by default
 
-0002_metadata/quintarelli_c/guercio_m/CART-GD2/
-  - 2025.05.01_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
-  - 2025.11.06_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
 
 #### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
-0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/
-  - 2025.07.18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv
+
+0004_ngs_processesed/
+  |- quintarelli_c/benini_f/T-ALL/
+    |- 2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv

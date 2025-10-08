@@ -90,7 +90,7 @@ Once you see this message that you are logged in, you were successfully authenti
 
 ## Data
 
-The lab NGS datasets we use can be found here (*insert link*).
+The lab NGS datasets can be found here: [**Data Management**](data_management.html)
 
 ## Code
 
@@ -100,11 +100,11 @@ Repositories have the following nomenclature for easy searching:
 
 -   Data Analysis and Research Projects with collaborators:
 
-    -   `[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
+    -   `[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`
 
-        -   **Example**: '2025.06.02_RNAseq_Bulk_T-ALL'
+        -   **Example**: '2025-06-02_RNAseq_Bulk_T-ALL'
 
-        -   **Example** with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'
+        -   **Example** with two data types: '2025-06-02_RNAseq_WGS_Bulk_T-ALL'
 
 -   Genomic Data pipelines and workflows:
 
