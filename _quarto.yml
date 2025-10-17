@@ -26,10 +26,8 @@ website:
     search: true
     contents:
       - prerequisites.qmd
-      - data_management.qmd
       - git_github_overview.qmd
       - code_review.qmd
-
   page-navigation: true
 
 format:

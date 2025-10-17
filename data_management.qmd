@@ -20,7 +20,7 @@ The directory structure is simple, but there is a "data flow" or "data life cycl
 ### STEP 1 RAW DATA DUMP
 
 0001_raw_data/quintarelli_c/benini_f/
-  - T-ALL/WTS---
+  - T-ALL/WTS-XXXX
   - T-ALL/FB_2025_00002321314
 
 0001_raw_data/quintarelli_c/guercio_m
