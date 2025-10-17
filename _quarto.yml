@@ -28,7 +28,6 @@ website:
       - prerequisites.qmd
       - git_github_overview.qmd
       - code_review.qmd
-
   page-navigation: true
 
 format:

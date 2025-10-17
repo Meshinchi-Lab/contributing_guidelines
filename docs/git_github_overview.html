@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./prerequisites.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Software Dependencies and Pre-requisites</span></a>
+ <span class="menu-text">Pre-requisites and Software</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -282,10 +282,10 @@ Standardization of Code Repositories
 <ol type="1">
 <li><p>Exploratory Data Analysis and Research Projects with collaborators:</p>
 <ul>
-<li><p><code>[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]</code></p>
+<li><p><code>[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]</code></p>
 <ul>
-<li><p><strong>Example</strong>: ‘2025.06.02_RNAseq_Bulk_T-ALL’</p></li>
-<li><p><strong>Example</strong>: with two data types: ‘2025.06.02_RNAseq_WGS_Bulk_T-ALL’</p></li>
+<li><p><strong>Example</strong>: ‘2025-06-02_RNAseq_Bulk_T-ALL’</p></li>
+<li><p><strong>Example</strong>: with two data types: ‘2025-06-02_RNAseq_WGS_Bulk_T-ALL’</p></li>
 </ul></li>
 </ul></li>
 <li><p>Genomic Data pipelines and workflows:</p>
@@ -317,10 +317,10 @@ Standardization of Code Repositories
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_TYPE</span><span class="op">=</span><span class="st">"RNAseq"</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">DESCRIPTION</span><span class="op">=</span><span class="st">"Example_Repo"</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">date</span> +%Y.%m.%d<span class="va">)</span><span class="st">_</span><span class="va">${DATA_TYPE}</span><span class="st">_</span><span class="va">${DESCRIPTION}</span><span class="st">"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">date</span> +%Y-%m-%d<span class="va">)</span><span class="st">_</span><span class="va">${DATA_TYPE}</span><span class="st">_</span><span class="va">${DESCRIPTION}</span><span class="st">"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$OUTDIR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will create a variable that is has the value set as the string <code>2025.06.17_RNAseq_Example_Repo</code>.</p>
+<p>This will create a variable that is has the value set as the string <code>2025-06-17_RNAseq_Example_Repo</code>.</p>
 </section>
 </section>
 <section id="create-the-data-analysis-notebook-template" class="level2" data-number="2">
@@ -336,7 +336,7 @@ Standardization of Code Repositories
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">REPO</span><span class="op">=</span><span class="st">"Meshinchi-Lab/</span><span class="va">${OUTDIR}</span><span class="st">"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPO</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will create a variable that is set as the string <code>Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo</code>.</p>
+<p>This will create a variable that is set as the string <code>Meshinchi-Lab/2025-06-17_RNAseq_Example_Repo</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo create <span class="va">$REPO</span> <span class="dt">\</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--description <span class="st">"An example R analysis template repo"</span> <span class="dt">\</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--template <span class="st">"Meshinchi-Lab/r_analysis_template"</span> <span class="dt">\</span></span>
@@ -344,7 +344,7 @@ Standardization of Code Repositories
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--private</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If <code>gh repo create</code> command is successful, you will see:</p>
 <blockquote class="blockquote">
-<p>✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git</p>
+<p>✓ Created repository Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo on GitHub https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo ✓ Added remote https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo.git</p>
 </blockquote>
 <ol start="2" type="1">
 <li>Change directories (<code>cd</code>) into the new github repository you’ve just cloned (by using the <code>--clone</code> argument in step 1).</li>
@@ -380,11 +380,11 @@ Standardization of Code Repositories
 </blockquote>
 <blockquote class="blockquote">
 <ul>
-<li>2025.06.16_RNAseq_Example_Repo.qmd</li>
+<li>2025-06-16_RNAseq_Example_Repo.qmd</li>
 </ul>
 </blockquote>
-<p>The <code>2025.06.16_RNAseq_Example_Repo.qmd</code> will be the template for the EDA report. You can rename it if you want. You can now open the <code>.qmd</code> file in your text editor and start editing it.</p>
-<p>In this case, the qmd file is named the same as the directory you created, eg <code>2025.06.16_RNAseq_Example_Repo.qmd</code>. If you’ve renamed the qmd, be sure to use the right value for the “$FILE” variable.</p>
+<p>The <code>2025-06-16_RNAseq_Example_Repo.qmd</code> will be the template for the EDA report. You can rename it if you want. You can now open the <code>.qmd</code> file in your text editor and start editing it.</p>
+<p>In this case, the qmd file is named the same as the directory you created, eg <code>2025-06-16_RNAseq_Example_Repo.qmd</code>. If you’ve renamed the qmd, be sure to use the right value for the “$FILE” variable.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$FILE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -397,7 +397,7 @@ Standardization of Code Repositories
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">REPO</span><span class="op">=</span><span class="st">"Meshinchi-Lab/</span><span class="va">${OUTDIR}</span><span class="st">"</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPO</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will create a variable that is set as the string <code>Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo</code>.</p>
+<p>This will create a variable that is set as the string <code>Meshinchi-Lab/2025-06-17_RNAseq_Example_Repo</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo create <span class="va">$REPO</span> <span class="dt">\</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>--description <span class="st">"An example py analysis template repo"</span> <span class="dt">\</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>--template <span class="st">"Meshinchi-Lab/py_analysis_template"</span> <span class="dt">\</span></span>
@@ -405,7 +405,7 @@ Standardization of Code Repositories
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>--private</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If <code>gh repo create</code> command is successful, you will see:</p>
 <blockquote class="blockquote">
-<p>✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git</p>
+<p>✓ Created repository Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo on GitHub https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo ✓ Added remote https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo.git</p>
 </blockquote>
 <ol start="2" type="1">
 <li>Change directories (<code>cd</code>) into the new github repository you’ve just cloned (by using the <code>--clone</code> argument in step 1).</li>
@@ -439,11 +439,11 @@ Standardization of Code Repositories
 </blockquote>
 <blockquote class="blockquote">
 <ul>
-<li>2025.06.16_RNAseq_Example_Repo.qmd</li>
+<li>2025-06-16_RNAseq_Example_Repo.qmd</li>
 </ul>
 </blockquote>
-<p>The <code>2025.06.16_RNAseq_Example_Repo.qmd</code> will be the template for the EDA report. You can rename it if you want. You can now open the <code>.qmd</code> file in your text editor and start editing it.</p>
-<p>In this case, the qmd file is named the same as the directory you created, eg <code>2025.06.16_RNAseq_Example_Repo.qmd</code>. If you’ve renamed the qmd, be sure to use the right value for the “$FILE” variable.</p>
+<p>The <code>2025-06-16_RNAseq_Example_Repo.qmd</code> will be the template for the EDA report. You can rename it if you want. You can now open the <code>.qmd</code> file in your text editor and start editing it.</p>
+<p>In this case, the qmd file is named the same as the directory you created, eg <code>2025-06-16_RNAseq_Example_Repo.qmd</code>. If you’ve renamed the qmd, be sure to use the right value for the “$FILE” variable.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$FILE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then convert the qmd template to ipython notebook (.ipynb) that can be used for EDA analyses.</p>
@@ -482,7 +482,7 @@ Standardization of Code Repositories
 <ol type="1">
 <li>First, add the quarto analysis template qmd file.</li>
 </ol>
-<p>In this case, the qmd file is named the same as the directory you created, eg “2025.06.16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.</p>
+<p>In this case, the qmd file is named the same as the directory you created, eg “2025-06-16_RNAseq_Example_Repo.qmd”. If you’ve renamed the qmd before committing the file, be sure to use the right name for the “$FILE” variable.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="va">$FILE</span></span>
@@ -982,8 +982,8 @@ Standardization of Code Repositories
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./prerequisites.html" class="pagination-link" aria-label="Software Dependencies and Pre-requisites">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Software Dependencies and Pre-requisites</span>
+      <a href="./prerequisites.html" class="pagination-link" aria-label="Pre-requisites and Software">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pre-requisites and Software</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1018,11 +1018,11 @@ Standardization of Code Repositories
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Exploratory Data Analysis and Research Projects with collaborators:</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`[YEAR.MONTH.DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`[YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]`</span></span>
 <span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>**Example**: '2025.06.02_RNAseq_Bulk_T-ALL'</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>**Example**: '2025-06-02_RNAseq_Bulk_T-ALL'</span>
 <span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>**Example**: with two data types: '2025.06.02_RNAseq_WGS_Bulk_T-ALL'</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>**Example**: with two data types: '2025-06-02_RNAseq_WGS_Bulk_T-ALL'</span>
 <span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Genomic Data pipelines and workflows:</span>
 <span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
@@ -1049,12 +1049,12 @@ Standardization of Code Repositories
 <span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a><span class="va">DATA_TYPE</span><span class="op">=</span><span class="st">"RNAseq"</span> </span>
 <span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a><span class="va">DESCRIPTION</span><span class="op">=</span><span class="st">"Example_Repo"</span> </span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">date</span> +%Y.%m.%d<span class="va">)</span><span class="st">_</span><span class="va">${DATA_TYPE}</span><span class="st">_</span><span class="va">${DESCRIPTION}</span><span class="st">"</span></span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"</span><span class="va">$(</span><span class="fu">date</span> +%Y-%m-%d<span class="va">)</span><span class="st">_</span><span class="va">${DATA_TYPE}</span><span class="st">_</span><span class="va">${DESCRIPTION}</span><span class="st">"</span></span>
 <span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$OUTDIR</span></span>
 <span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a>This will create a variable that is has the value set as the string <span class="in">`2025.06.17_RNAseq_Example_Repo`</span>.</span>
+<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a>This will create a variable that is has the value set as the string <span class="in">`2025-06-17_RNAseq_Example_Repo`</span>.</span>
 <span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a></span>
@@ -1074,7 +1074,7 @@ Standardization of Code Repositories
 <span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPO</span></span>
 <span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a>This will create a variable that is set as the string <span class="in">`Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo`</span>.</span>
+<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a>This will create a variable that is set as the string <span class="in">`Meshinchi-Lab/2025-06-17_RNAseq_Example_Repo`</span>.</span>
 <span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo create <span class="va">$REPO</span> <span class="dt">\</span></span>
@@ -1086,9 +1086,9 @@ Standardization of Code Repositories
 <span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a>If <span class="in">`gh repo create`</span> command is successful, you will see:</span>
 <span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub</span></span>
-<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;   https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo</span></span>
-<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git</span></span>
+<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Created repository Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo on GitHub</span></span>
+<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;   https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo</span></span>
+<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Added remote https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo.git</span></span>
 <span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Change directories (<span class="in">`cd`</span>) into the new github repository you've just cloned (by using the <span class="in">`--clone`</span> argument in step 1).</span>
@@ -1122,12 +1122,12 @@ Standardization of Code Repositories
 <span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Files created: </span></span>
 <span id="cb22-130"><a href="#cb22-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; - 2025.06.16_RNAseq_Example_Repo.qmd</span></span>
+<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; - 2025-06-16_RNAseq_Example_Repo.qmd</span></span>
 <span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>The <span class="in">`2025.06.16_RNAseq_Example_Repo.qmd`</span> will be the template for the EDA report. You can rename it if you want. You can now open the <span class="in">`.qmd`</span> file in your text editor and start editing it. </span>
+<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>The <span class="in">`2025-06-16_RNAseq_Example_Repo.qmd`</span> will be the template for the EDA report. You can rename it if you want. You can now open the <span class="in">`.qmd`</span> file in your text editor and start editing it. </span>
 <span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg <span class="in">`2025.06.16_RNAseq_Example_Repo.qmd`</span>. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.</span>
+<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg <span class="in">`2025-06-16_RNAseq_Example_Repo.qmd`</span>. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.</span>
 <span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
@@ -1147,7 +1147,7 @@ Standardization of Code Repositories
 <span id="cb22-153"><a href="#cb22-153" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPO</span></span>
 <span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>This will create a variable that is set as the string <span class="in">`Meshinchi-Lab/2025.06.17_RNAseq_Example_Repo`</span>.</span>
+<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>This will create a variable that is set as the string <span class="in">`Meshinchi-Lab/2025-06-17_RNAseq_Example_Repo`</span>.</span>
 <span id="cb22-157"><a href="#cb22-157" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> repo create <span class="va">$REPO</span> <span class="dt">\</span></span>
@@ -1159,9 +1159,9 @@ Standardization of Code Repositories
 <span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a>If <span class="in">`gh repo create`</span> command is successful, you will see:</span>
 <span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Created repository Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo on GitHub</span></span>
-<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;   https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo</span></span>
-<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Added remote https://github.com/Meshinchi-Lab/2025.06.16_RNAseq_Example_Repo.git</span></span>
+<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Created repository Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo on GitHub</span></span>
+<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;   https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo</span></span>
+<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ✓ Added remote https://github.com/Meshinchi-Lab/2025-06-16_RNAseq_Example_Repo.git</span></span>
 <span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Change directories (<span class="in">`cd`</span>) into the new github repository you've just cloned (by using the <span class="in">`--clone`</span> argument in step 1).</span>
@@ -1195,12 +1195,12 @@ Standardization of Code Repositories
 <span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Files created: </span></span>
 <span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; - 2025.06.16_RNAseq_Example_Repo.qmd</span></span>
+<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; - 2025-06-16_RNAseq_Example_Repo.qmd</span></span>
 <span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>The <span class="in">`2025.06.16_RNAseq_Example_Repo.qmd`</span> will be the template for the EDA report. You can rename it if you want. You can now open the <span class="in">`.qmd`</span> file in your text editor and start editing it. </span>
+<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>The <span class="in">`2025-06-16_RNAseq_Example_Repo.qmd`</span> will be the template for the EDA report. You can rename it if you want. You can now open the <span class="in">`.qmd`</span> file in your text editor and start editing it. </span>
 <span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg <span class="in">`2025.06.16_RNAseq_Example_Repo.qmd`</span>. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.</span>
+<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg <span class="in">`2025-06-16_RNAseq_Example_Repo.qmd`</span>. If you've renamed the qmd, be sure to use the right value for the "$FILE" variable.</span>
 <span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-211"><a href="#cb22-211" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-212"><a href="#cb22-212" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
@@ -1258,7 +1258,7 @@ Standardization of Code Repositories
 <span id="cb22-264"><a href="#cb22-264" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-265"><a href="#cb22-265" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>First, add the quarto analysis template qmd file. </span>
 <span id="cb22-266"><a href="#cb22-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg "2025.06.16_RNAseq_Example_Repo.qmd". If you've renamed the qmd before committing the file, be sure to use the right name for the "$FILE" variable.</span>
+<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a>In this case, the qmd file is named the same as the directory you created, eg "2025-06-16_RNAseq_Example_Repo.qmd". If you've renamed the qmd before committing the file, be sure to use the right name for the "$FILE" variable.</span>
 <span id="cb22-268"><a href="#cb22-268" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-269"><a href="#cb22-269" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
 <span id="cb22-270"><a href="#cb22-270" aria-hidden="true" tabindex="-1"></a><span class="va">FILE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">.qmd"</span></span>
