@@ -1,78 +1,182 @@
 # Data Management
 
+## Head Node
+
+DELL Ubuntu PC is primarily used for running genomic data pipelines and workflows, as well as most genomic data interactive analyses. 
+
+The data pipelines and workflows generate a lot of large temporary files that can use a disproportionate amount of storage space if not maintained. 
+
+The data storage space (3.5 Tb in 3 individual partitions) is shared among all users of the DELL Ubuntu PC, and can affect the other users. 
+
+* Home Directories
+  *  /home 
+  * 3.5 Tb shared by all users. If one user has 1 Tb of data in their home, it will take away 1 Tb from all others. 
+
+* Pipeline and Workflow "working" Disk Partitions
+
+  * 2 directories are mapped to 2 individual disk partitions
+  * Each has 3.5 Tb shared by all users
+  
+
+Using the following 'temporary' directories will allow us to easily clean old files from prior pipeline executions.
+
+```
+├── /mnt/bioinformatics
+    ├── nextflow_tmp
+      ├── alessiogalimi
+      ├── francescalastname
+      ├── jennysmith
+      ├── marikaguercio
+      └── valentina
+```
+
+```
+├── /mnt/bioinformatics_datasets
+    ├── nextflow_tmp/
+      ├── alessiogalimi
+      ├── francescalastname
+      ├── jennysmith
+      ├── marikaguercio
+      └── valentina
+```
+
+
+## Network Drives 
+
+These are for data back-ups and storage. 
+
 ## Define Data and File Locations
 
 The base directory for the metadata, raw data, processed data, and analysis outputs are found at:
+
 * /mnt/network_drives/storage-bioinfo_labq/
 
 This file path can be accessed from the DELL Ubuntu PC (head node) in the office. 
 
 The directory structure is simple, but there is a "data flow" or "data life cycle" that we will need to manage. The main directory structure is below:
 
-0001_ngs_raw_data/
-0002_ngs_metadata/
-0003_ngs_processed_data/
-0004_ngs_analysis/
+* 0001_ngs_raw_data/
 
+* 0002_ngs_metadata/
+
+* 0003_ngs_processed_data/
+
+* 0004_ngs_analysis/
+
+
+We can use the following naming and file heirarchy to help organize datasets for the long term.
+
+For example
+
+```
+000X_ngs_XXXXX
+  ├── pi_lastname_first_initial
+    ├── collaborator_lastname_first_initial
+      ├── [PROJECT_NAME]
+        ├── [YEAR-MONTH-DAY]_[DATA-TYPE]_[SHORT-DESCRIPTION]
+
+```
 
 ## Data Life Cycle
 
 ### STEP 1 RAW DATA DUMP
 
-0001_raw_data/quintarelli_c/benini_f/
-  - T-ALL/WTS-XXXX
-  - T-ALL/FB_2025_00002321314
+Output raw files from Basespace, Nanopore, etc. 
 
-0001_raw_data/quintarelli_c/guercio_m
-  - CART-GD2-mbIL15/BaseSPACE-XXXXX/
+```
+# for example a project called 'T-ALL'
+0001_raw_data
+  ├──  quintarelli_c
+    ├── lastname_f
+      ├── T-ALL
+        ├── WTS-XXXX
+        ├── FB_2025_00002321314
+
+# for example a project called 'CAR-GD2_mbIL15'
+0001_raw_data
+  ├── quintarelli_c
+    ├── guercio_m
+      ├──CAR-GD2_mbIL15
+        ├── BaseSPACE-XXXXX/
+```
+
 
 ### STEP 2 INITIAL DATA CLEANING / ANALYSIS DIR
 
-Imagine this is sort of a bottom-up strategy for files in the 0002_ngs_metadata,  0003_ngs_processed_data, and  0004_ngs_analysis directories. 
+Imagine this is sort of a **bottom-up** strategy:
+
+0004_ngs_analysis --> 0002_ngs_metadata
+
+0004_ngs_analysis -->  0003_ngs_processed_data  
 
 This is because the next step after raw data is generated is to process / analyze those raw data inputs. 
 
-EXAMPLE with the T-ALL project:
+EXAMPLE with the 'DEMO' project:
 
+```
 0004_ngs_analysis/
-  |- quintarelli_c/
-    |- benini_f/
-      |- T-ALL/
-        |- 2025-06-02_RNAseq_Bulk_T-ALL
-          |- save cleaned metadata to `2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
-    |- 2025-07-18_RNAseq_Bulk_T-ALL_quant
-      |- read in `0002_metadata/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv"
-      |- **dont repeat the cleaning step**
-      |- save cleaned rnaseq counts to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
-    |- 2025-07-24_WGS_Nanopore_T-ALL
-      |- read in `0002_metadata/quintarelli_c/benini_f/T-ALL/{**MOST CURRENT DATE}_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv`
-      |- read in cleaned rnaseq counts from `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv"
-      |- save cleaned SNVs, CNVs, SVs, and DNAme to `0004_ngs_processesed/quintarelli_c/benini_f/T-ALL/` as "2025-07-24_AIEOP-BFM_T-ALL_WGS_Nanopore_Variants.{sqlite,tsv,db}"
-
+  ├── quintarelli_c/
+    ├── lastname_f/
+      ├── DEMO/
+        ├── 2025-01-01_RNAseq_Bulk_DEMO
+          ├── save cleaned metadata 
+          ├── '0002_metadata/quintarelli_c/lastname_f/DEMO/2025-01-01_DEMO_RNAseq_Bulk_sample_annotations.csv'
+        ├── 2025-02-01_RNAseq_Bulk_DEMO_quant
+          ├── read in metadata
+          ├── '0002_metadata/quintarelli_c/lastname_f/DEMO/2025-01-01_DEMO_RNAseq_Bulk_sample_annotations.csv'
+          ├── save **FINAL** rnaseq counts 
+          ├── '0004_ngs_processesed/quintarelli_c/lastname_f/DEMO/2025-02-01_DEMO_RNAseq_Bulk_raw_counts.csv'
+        ├── 2025-03-01_WGS_Nanopore_DEMO
+          ├── read in metada
+          ├── '0002_metadata/quintarelli_c/lastname_f/DEMO/[MOST-CURRENT-DATE]_DEMO_RNAseq_Bulk_sample_annotations.csv'
+          ├── read in cleaned rnaseq counts 
+          ├── '0004_ngs_processesed/quintarelli_c/lastname_f/DEMO/2025-02-01_DEMO_RNAseq_Bulk_raw_counts.csv'
+          ├── save **FINAL** variant calls
+          ├── `0004_ngs_processesed/quintarelli_c/lastname_f/DEMO/2025-03-01_WGS_Nanopore_Sample1_Variants.vcf"
+          ├── `0004_ngs_processesed/quintarelli_c/lastname_f/DEMO/2025-03-01_WGS_Nanopore_Sample2_Variants.vcf"
+          ├── `0004_ngs_processesed/quintarelli_c/lastname_f/DEMO/2025-03-01_WGS_Nanopore_Full_Cohort_Variants.sqlite"
+```
 
 ### STEP 3 METADATA Versions
 
+Update the metadata in the same analysis directory, whenever possible
+
+```
+0004_ngs_analysis/
+  ├── quintarelli_c/
+    ├── lastname_f/
+      ├── DEMO/
+        ├── 2025-01-01_RNAseq_Bulk_DEMO
+          ├── 1st Update cleaned metadata 
+          ├── '2025-05-01_DEMO_RNAseq_Bulk_sample_annotations.csv'
+          ├── 2nd Update cleaned metadata 
+          ├── '2025-10-01_DEMO_RNAseq_Bulk_sample_annotations.csv'
+```
+
+Then save the output in the same 0002_metadata directory for the project
+
+```
 0002_metadata/
-  |- quintarelli_c/
-    |- benini_f/T-ALL/
-      |- 2025-07-18_{**AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
-      |- 2025-10-01_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
-      |- 2025-10-15_{**AIEOP-BFM_T-ALL_genomic_characterization_NGS**}_libraries_sample_annots.tsv
-    |- guercio_m/CART-GD2/
-      |- 2025-05-01_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
-      |- 2025-11-06_{**TOR_VERGATA_CART_GD2_Thesis_RNAseq**}_libraries_sample_annotations.tsv
+  ├── quintarelli_c/
+    ├── lastname_f/
+      ├── DEMO/
+        ├── 2025-01-01_DEMO_RNAseq_Bulk_sample_annotations.csv
+        ├── 2025-05-01_DEMO_RNAseq_Bulk_sample_annotations.csv
+        ├── 2025-10-01_DEMO_RNAseq_Bulk_sample_annotations.csv
+```
 
-within {**2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq**}_libraries_sample_annots.tsv
-  - SOURCE raw data directory in a column:
-
-sample_id, source_data, data_type
-TALL1_S1, 0001_raw_data/quintarelli_c/benini_f/T-ALL/FB_2025_00002321314
-
-- use tsv (tab separated) to avoid import into EXCEL by default
+### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
 
 
-#### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
+Similary, save the **FINAL** publication ready versions of genomic data analyses, such as gene quantification matrices, VCF files, rna-seq fusion outputs in `0003_ngs_processesed` directory.
 
-0004_ngs_processesed/
-  |- quintarelli_c/benini_f/T-ALL/
-    |- 2025-07-18_AIEOP-BFM_T-ALL_bulk_RNAseq_feature_counts_raw_counts.csv
+```
+0003_ngs_processesed/
+  ├── quintarelli_c/
+    ├── lastname_f
+      ├── DEMO
+        ├── 2025-02-01_DEMO_RNAseq_Bulk_raw_counts.csv
+        ├── 2025-03-01_WGS_Nanopore_Sample1_Variants.vcf
+        ├── 2025-03-01_WGS_Nanopore_Full_Cohort_Variants.sqlite"
+```
+
