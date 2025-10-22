@@ -19,7 +19,7 @@ Details on jobs and tasks can be found [here](https://it4innovations.github.io/h
 
 # hyperqueue on Lab Infrastructure
 
-## Create a HQ server directory
+## 1. Create a HQ server directory
 
 Login to the DELL Ubuntu PC using your username and password. 
 
@@ -30,14 +30,7 @@ mkdir  -p /mnt/bioinformatics_datasets/${USER}/hyperqueue/logs
 cp /mnt/bioinformatics_datasets/hostfile.txt /mnt/bioinformatics_datasets/${USER}/hyperqueue/hostfile.txt
 ```
 
-2. Create a config file for your ssh keys, if it doesn't alreadt exist. Then copy the ssh config template to your new ssh directory. 
-
-```
-mkdir ${HOME}/.ssh
-cp /bioinformatics_resources/ssh_config_template.txt ${HOME}/.ssh/config
-```
-
-## ENV variables 
+## 2. ENV variables 
 
 Must be exported by `~/.bashrc` or `~/.bash_profile`
 
@@ -53,6 +46,27 @@ export HQ_SERVER_DIR=$HQ_BASE/hyperqueue
 export HQ_JOURNAL=$HQ_BASE/hyperqueue/logs/.hq_journal_${USER}
 export HQ_HOSTFILE=$HQ_BASE/hyperqueue/hostfile.txt
 ```
+
+## 3. Remote Access
+
+1. Create a config file for your ssh keys, if it doesn't alreadt exist. Then copy the ssh config template to your new ssh directory. 
+
+The ssh config file in your HOME directory must be named exactly 'config' (no file extenstion, etc) in order to be detected by the `ssh` command line tool. 
+
+```
+CONFIG_TEMPLATE='/bioinformatics_resources/ssh_config_template.txt'
+mkdir $HOME/.ssh
+cp -n $CONFIG_TEMPLATE $HOME/.ssh/config
+```
+
+2. Generate SSH key 
+
+To connect to the workers, an SSH key will need to be created for the bioinfosrv01 and bioinfosrv02. 
+
+Login to the DELL Ubuntu PC using your username and password. 
+
+Then inside your home directory, follow the instructions in this [document](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server).
+
 
 ## Server on DELL Ubuntu  PC
 
@@ -105,9 +119,6 @@ We will decide best use of `--work-dir` and `--group` options, for now we can st
 
 ### Workers on HP Ubuntu Servers
 
-0. Generate SSH key 
-
-Need an SSH remote connect to the bioinfosrv01 and bioinfosrv02. Login to the DELL Ubuntu PC using your username and password. Then inside your home directory, follow the instructions in this [document](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server).
 
 1. Create a hq server directory
 
@@ -174,27 +185,40 @@ hq submit --progress \
 
 To use the hyperqueue executor with nextflow pipelines, copy the hyperqueue nextflow config file to your own directory where you are running the pipeline. 
 
+::: callout-important
+Pipelines can generate a lot of large data files. See 
+
+See [Data Management](../data_management.html) for detailed instructions. 
+:::
+
+1. Create a Nextflow Launch Directory
 
 ```
-#  Step 1. copy the config to your own directory
-
 # define the directory where you are running the pipeline. 
 NEXTFLOW_DIR=$HOME/nextflow_example
 
-# copy the config file
-cp /bioinformatics_resources/hyperqueue.nextflow.config $NEXTFLOW_DIR/hyperqueue.nextflow.config
+cd $NEXTFLOW_DIR
 ```
 
-Then include the config in the `nextflow run` command and set the `profile` parameter to 'hyperqueue'. 
+2. Copy the config to your own launch directory
+
+```
+# copy the config file
+NXF_HQ_CONFIG='/bioinformatics_resources/hyperqueue.nextflow.config'
+cp $NXF_HQ_CONFIG .
+```
+
+3. Include the config in the `nextflow run` command 
+
+Also, will need to set the `profile` parameter to 'hyperqueue'. 
 
 For example if using the `nf-core/rnafusion` pipeline. 
 
 ```
-# Step 2. run the pipeline with the addition of this custom config
-nextflow -c $NEXTFLOW_DIR/hyperqueue.nextflow.config \
-  run nf-core/rnafusion -r dev \
-  -profile hyperqueue
-  
+nextflow -c hyperqueue.nextflow.config \
+  run nf-core/rnaseq \
+  -r dev \
+  -profile test,hyperqueue
 ```
 
 #### References

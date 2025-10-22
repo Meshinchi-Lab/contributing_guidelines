@@ -165,7 +165,7 @@ Then save the output in the same 0002_metadata directory for the project
         ├── 2025-10-01_DEMO_RNAseq_Bulk_sample_annotations.csv
 ```
 
-#### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
+### STEP 4 FINAL INPUTS TO DOWNSTREAM DATA ANALYSIS
 
 
 Similary, save the **FINAL** publication ready versions of genomic data analyses, such as gene quantification matrices, VCF files, rna-seq fusion outputs in `0003_ngs_processesed` directory.
