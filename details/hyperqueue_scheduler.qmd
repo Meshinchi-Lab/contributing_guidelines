@@ -212,7 +212,7 @@ cp $NXF_HQ_CONFIG .
 
 Also, will need to set the `profile` parameter to 'hyperqueue'. 
 
-For example if using the `nf-core/rnafusion` pipeline. 
+For example if using the `nf-core/rnaseq` pipeline. 
 
 ```
 nextflow -c hyperqueue.nextflow.config \

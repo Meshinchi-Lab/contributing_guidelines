@@ -94,7 +94,7 @@ The lab NGS datasets can be found here: [**Data Management**](data_management.ht
 
 ## Code
 
-The `R` and `Python` packages, scripts, analysis notebooks, and data processing pipelines can be found at the [Meshichi Lab github organization](https://github.com/Meshinchi-Lab).
+The `R` and `Python` packages, scripts, analysis notebooks, and data processing pipelines can be found at the [Meshinchi Lab github organization](https://github.com/Meshinchi-Lab).
 
 Repositories have the following nomenclature for easy searching:
 
@@ -136,7 +136,7 @@ If you still need to gain a working knowledge of using `bash`, `R`, and `Python`
 
 A good place to start getting familair with common bash commands is to read the following [tutorial](https://www.w3schools.com/bash/bash_commands.php). Be sure to complete the exercises in the box at the bottom of each page, starting with the `ls` command.
 
-For more intermediate bash scripting, you can follow the tutorial [here](https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/).s
+For more intermediate bash scripting, you can follow the tutorial [here](https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/).
 
 ### Quarto and Visual Studio Code Quick Start
 
