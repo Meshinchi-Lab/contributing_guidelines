@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jenny L. Smith">
+
+<title>RMS Gene Explorer Shiny App on sp-alphafold-ws – Meshinchi and Locatelli Lab Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ee4dfe2de8c58c5866876d25a9b6c156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Meshinchi and Locatelli Lab Documentation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-standards-and-definitions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Standards and Definitions</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-standards-and-definitions">    
+        <li>
+    <a class="dropdown-item" href="../details/software_install_wsl.html">
+ <span class="dropdown-text">Installation on WSL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../details/igv_browser.html">
+ <span class="dropdown-text">IGV on PromethION</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../details/hyperqueue_scheduler.html">
+ <span class="dropdown-text">Hyperqueue Job Scheduler</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../details/rms_gene_explorer_shiny.html">
+ <span class="dropdown-text">RMS Gene Explorer Shiny App</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Meshinchi-Lab/contributing_guidelines"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">RMS Gene Explorer Shiny App on sp-alphafold-ws</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prerequisites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-requisites and Software</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../data_management.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Management</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../git_github_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code_review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Review</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#quickstart" id="toc-quickstart" class="nav-link active" data-scroll-target="#quickstart"><span class="header-section-number">1</span> Quickstart</a></li>
+  <li><a href="#systemd-deployment" id="toc-systemd-deployment" class="nav-link" data-scroll-target="#systemd-deployment"><span class="header-section-number">2</span> systemd Deployment</a>
+  <ul class="collapse">
+  <li><a href="#clone-the-repository-and-copy-the-store" id="toc-clone-the-repository-and-copy-the-store" class="nav-link" data-scroll-target="#clone-the-repository-and-copy-the-store"><span class="header-section-number">2.1</span> Clone the Repository and Copy the Store</a></li>
+  <li><a href="#get-image" id="toc-get-image" class="nav-link" data-scroll-target="#get-image"><span class="header-section-number">2.2</span> Get the Docker Image</a></li>
+  <li><a href="#install-the-systemd-service" id="toc-install-the-systemd-service" class="nav-link" data-scroll-target="#install-the-systemd-service"><span class="header-section-number">2.3</span> Install the systemd Service</a></li>
+  <li><a href="#open-app" id="toc-open-app" class="nav-link" data-scroll-target="#open-app"><span class="header-section-number">2.4</span> Open the App</a></li>
+  <li><a href="#update-and-restart" id="toc-update-and-restart" class="nav-link" data-scroll-target="#update-and-restart"><span class="header-section-number">2.5</span> Update and Restart</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">RMS Gene Explorer Shiny App on sp-alphafold-ws</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jenny L. Smith </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Overview
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets"><code>rms_gene_explorer</code></a> Shiny app allows exploration of gene expression across rhabdomyosarcoma (RMS) tumors, cell lines, and normal tissue cohorts used for RMS CAR T target discovery.</p>
+<p>These steps run the app as a Docker container on the DELL Ubuntu PC (<code>sp-alphafold-ws</code>), either with a single <code>docker run</code> command (<a href="#quickstart">Quickstart</a>) or as an always-on <code>systemd</code> service (<a href="#systemd-deployment">systemd Deployment</a>). The full instructions are in the repository <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md">deployment README</a>.</p>
+<p>The repository is private, so the links on this page only work for members of the lab github organization.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Data governance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The app serves controlled-access PCGP data (dbGaP phs000720) and pre-publication OPBG data. Keep it bound to <code>127.0.0.1</code> and connect over an SSH tunnel. <strong>Do not</strong> deploy it to shinyapps.io or package it with shinylive.</p>
+<p>See <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#data-governance">Data governance</a> in the repository README.</p>
+</div>
+</div>
+<section id="quickstart" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="quickstart"><span class="header-section-number">1</span> Quickstart</h2>
+<p>The input data files (the expression store) are saved under <code>0003_ngs_processed_data</code> on the network drive (see <a href="../data_management.html">Data Management</a>), so there is nothing to build. Login to <code>sp-alphafold-ws</code> using your username and password.</p>
+<p>If the <a href="#systemd-deployment">systemd service</a> is already running on the host (<code>systemctl is-active rms-gene-explorer</code> prints “active”), skip to step 3.</p>
+<ol type="1">
+<li>Clone the repository (first time only). The Docker image contains R and the package dependencies, and the app code is read from the repository.</li>
+</ol>
+<pre><code>cd $HOME/github_repos
+gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets
+cd 2026-09-25_RNAseq_RMS_targets
+mkdir -p store    # mount point for the input data</code></pre>
+<ol start="2" type="1">
+<li>Copy and paste the <code>docker run</code> command from inside the repository to launch the app. Docker pulls the image on the first run (see <a href="#get-image">Get the Docker Image</a> if the pull is denied).</li>
+</ol>
+<pre><code>DATA="/mnt/network_drives/storage-bioinfo_labq/0003_ngs_processed_data/locatelli_f/RMS/2026-09-25_RNAseq_RMS_targets"
+STORE_DIR="$DATA/store"
+
+docker run --rm \
+    -v "$PWD":"$PWD" \
+    -v "$STORE_DIR":"$PWD/store":ro \
+    -w "$PWD" \
+    -p 127.0.0.1:3838:3838 \
+    ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ports
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you recieve an error, “Bind for 127.0.0.1:3838 failed: port is already allocated”, run the command without the port specified.</p>
+<p><code>docker run --rm -v "$PWD":"$PWD" -v "$STORE_DIR":"$PWD/store":ro  -w "$PWD" ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3</code></p>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Open a web browser on <code>sp-alphafold-ws</code> and enter the URL <a href="http://localhost:3838" class="uri">http://localhost:3838</a>.</li>
+</ol>
+<p>Press <code>Ctrl+C</code> in the terminal to stop the app. To open the app from another computer, see <a href="#open-app">Open the App</a>.</p>
+</section>
+<section id="systemd-deployment" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="systemd-deployment"><span class="header-section-number">2</span> systemd Deployment</h2>
+<p>Run the app as a shared, always-on service that starts on boot and restarts automatically, so lab members can open it without launching it themselves. You will need <code>sudo</code> access, and Docker must be running.</p>
+<pre><code>docker --version
+systemctl is-active docker.service    # should print "active"</code></pre>
+<section id="clone-the-repository-and-copy-the-store" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="clone-the-repository-and-copy-the-store"><span class="header-section-number">2.1</span> Clone the Repository and Copy the Store</h3>
+<p>Clone the repository, if you have not already done so in the <a href="#quickstart">Quickstart</a>.</p>
+<pre><code>cd $HOME/github_repos
+gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets
+cd 2026-09-25_RNAseq_RMS_targets</code></pre>
+<p>The service reads the input data from <code>store/</code> inside the repository. Copy it from <code>0003_ngs_processed_data</code>, using the same <code>STORE_DIR</code> as the <a href="#quickstart">Quickstart</a>.</p>
+<pre><code>rsync -a "${STORE_DIR:?}"/ store/</code></pre>
+<p>To rebuild the store from the source data instead, see <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#build-the-store">Build the store</a>.</p>
+</section>
+<section id="get-image" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="get-image"><span class="header-section-number">2.2</span> Get the Docker Image</h3>
+<p>Pull the published image.</p>
+<pre><code>docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3</code></pre>
+<p>If the pull is denied, either <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry">log in to the GitHub Container registry</a> or build the image from the repository <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/Dockerfile">Dockerfile</a> with the same tag.</p>
+<pre><code>docker build -t ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 .</code></pre>
+</section>
+<section id="install-the-systemd-service" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="install-the-systemd-service"><span class="header-section-number">2.3</span> Install the systemd Service</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The service runs one shared copy of the app on port 3838 for the whole host. Check that it is not already installed with <code>systemctl status rms-gene-explorer</code> before continuing.</p>
+</div>
+</div>
+<ol type="1">
+<li>Copy the <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.env.example">environment file</a> and set <code>APP_DIR</code> to your repository path.</li>
+</ol>
+<p><code>APP_DIR</code> must be a literal absolute path, because <code>systemd</code> does not expand <code>$HOME</code> or <code>~</code>. Run these commands from inside the repository so that <code>$PWD</code> is filled in by the shell.</p>
+<pre><code>sudo install -m 0644 deploy/rms-gene-explorer.env.example /etc/rms-gene-explorer.env
+sudo sed -i "s|^APP_DIR=.*|APP_DIR=$PWD|" /etc/rms-gene-explorer.env
+grep APP_DIR /etc/rms-gene-explorer.env</code></pre>
+<ol start="2" type="1">
+<li>Install and start the <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.service">service unit</a>.</li>
+</ol>
+<pre><code>sudo install -m 0644 deploy/rms-gene-explorer.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now rms-gene-explorer.service</code></pre>
+<ol start="3" type="1">
+<li>Check that the app is running.</li>
+</ol>
+<pre><code>systemctl status rms-gene-explorer.service
+curl -so /dev/null -w '%{http_code}\n' http://127.0.0.1:3838/   # expect 200</code></pre>
+</section>
+<section id="open-app" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="open-app"><span class="header-section-number">2.4</span> Open the App</h3>
+<p>On <code>sp-alphafold-ws</code>, open a web browser and enter the URL <a href="http://localhost:3838" class="uri">http://localhost:3838</a>.</p>
+<p>From your own computer, open an SSH tunnel to the host first. Use the host alias from your <code>~/.ssh/config</code> if it differs.</p>
+<pre><code>ssh -N -L 3838:127.0.0.1:3838 YOUR_USER@sp-alphafold-ws</code></pre>
+<p>Then open <a href="http://localhost:3838" class="uri">http://localhost:3838</a> in a web browser. If you are connected with VS Code <code>remote-ssh</code>, you can instead forward port 3838 from the <code>PORTS</code> tab.</p>
+</section>
+<section id="update-and-restart" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="update-and-restart"><span class="header-section-number">2.5</span> Update and Restart</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Restart after a code change (<code>git pull</code>)</td>
+<td><code>sudo systemctl restart rms-gene-explorer</code></td>
+</tr>
+<tr class="even">
+<td>Restart after the store is updated</td>
+<td><code>rsync -a --delete "${STORE_DIR:?}"/ store/ &amp;&amp; sudo systemctl restart rms-gene-explorer</code></td>
+</tr>
+<tr class="odd">
+<td>Restart after a new image</td>
+<td><code>docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 &amp;&amp; sudo systemctl restart rms-gene-explorer</code></td>
+</tr>
+<tr class="even">
+<td>Follow the logs</td>
+<td><code>journalctl -u rms-gene-explorer -f</code></td>
+</tr>
+<tr class="odd">
+<td>Stop and disable</td>
+<td><code>sudo systemctl disable --now rms-gene-explorer</code></td>
+</tr>
+</tbody>
+</table>
+<section id="references" class="level4" data-number="2.5.1">
+<h4 data-number="2.5.1" class="anchored" data-anchor-id="references"><span class="header-section-number">2.5.1</span> References</h4>
+<ul>
+<li><a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets">RMS targets repository</a> and its <a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#readme">README</a></li>
+<li><a href="https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md">Deployment README</a></li>
+<li><a href="https://github.com/Meshinchi-Lab/2025-12-04_RNAseq_RMS_infant">Companion analysis repository</a></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "RMS Gene Explorer Shiny App on sp-alphafold-ws"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jenny L. Smith"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`rms_gene_explorer`</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets)</span> Shiny app allows exploration of gene expression across rhabdomyosarcoma (RMS) tumors, cell lines, and normal tissue cohorts used for RMS CAR T target discovery.</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>These steps run the app as a Docker container on the DELL Ubuntu PC (<span class="in">`sp-alphafold-ws`</span>), either with a single <span class="in">`docker run`</span> command (<span class="co">[</span><span class="ot">Quickstart</span><span class="co">](#quickstart)</span>) or as an always-on <span class="in">`systemd`</span> service (<span class="co">[</span><span class="ot">systemd Deployment</span><span class="co">](#systemd-deployment)</span>). The full instructions are in the repository <span class="co">[</span><span class="ot">deployment README</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md)</span>.</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>The repository is private, so the links on this page only work for members of the lab github organization.</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>::: callout-important</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data governance</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>The app serves controlled-access PCGP data (dbGaP phs000720) and pre-publication OPBG data. Keep it bound to <span class="in">`127.0.0.1`</span> and connect over an SSH tunnel. **Do not** deploy it to shinyapps.io or package it with shinylive.</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">Data governance</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#data-governance)</span> in the repository README.</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quickstart {#quickstart}</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>The input data files (the expression store) are saved under <span class="in">`0003_ngs_processed_data`</span> on the network drive (see <span class="co">[</span><span class="ot">Data Management</span><span class="co">](../data_management.html)</span>), so there is nothing to build. Login to <span class="in">`sp-alphafold-ws`</span> using your username and password.</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>If the <span class="co">[</span><span class="ot">systemd service</span><span class="co">](#systemd-deployment)</span> is already running on the host (<span class="in">`systemctl is-active rms-gene-explorer`</span> prints "active"), skip to step 3.</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Clone the repository (first time only). The Docker image contains R and the package dependencies, and the app code is read from the repository.</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="in">cd $HOME/github_repos</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="in">gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="in">cd 2026-09-25_RNAseq_RMS_targets</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="in">mkdir -p store    # mount point for the input data</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Copy and paste the <span class="in">`docker run`</span> command from inside the repository to launch the app. Docker pulls the image on the first run (see <span class="co">[</span><span class="ot">Get the Docker Image</span><span class="co">](#get-image)</span> if the pull is denied).</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="in">DATA="/mnt/network_drives/storage-bioinfo_labq/0003_ngs_processed_data/locatelli_f/RMS/2026-09-25_RNAseq_RMS_targets"</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="in">STORE_DIR="$DATA/store"</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="in">docker run --rm \</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="in">    -v "$PWD":"$PWD" \</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="in">    -v "$STORE_DIR":"$PWD/store":ro \</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="in">    -w "$PWD" \</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="in">    -p 127.0.0.1:3838:3838 \</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="in">    ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>::: callout-note </span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ports</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>If you recieve an error, "Bind for 127.0.0.1:3838 failed: port is already allocated", run the command without the port specified. </span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="in">`docker run --rm -v "$PWD":"$PWD" -v "$STORE_DIR":"$PWD/store":ro  -w "$PWD" ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3`</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Open a web browser on <span class="in">`sp-alphafold-ws`</span> and enter the URL <span class="ot">&lt;http://localhost:3838&gt;</span>.</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>Press <span class="in">`Ctrl+C`</span> in the terminal to stop the app. To open the app from another computer, see <span class="co">[</span><span class="ot">Open the App</span><span class="co">](#open-app)</span>.</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## systemd Deployment {#systemd-deployment}</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>Run the app as a shared, always-on service that starts on boot and restarts automatically, so lab members can open it without launching it themselves. You will need <span class="in">`sudo`</span> access, and Docker must be running.</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="in">docker --version</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="in">systemctl is-active docker.service    # should print "active"</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clone the Repository and Copy the Store</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>Clone the repository, if you have not already done so in the <span class="co">[</span><span class="ot">Quickstart</span><span class="co">](#quickstart)</span>.</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="in">cd $HOME/github_repos</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="in">gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="in">cd 2026-09-25_RNAseq_RMS_targets</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>The service reads the input data from <span class="in">`store/`</span> inside the repository. Copy it from <span class="in">`0003_ngs_processed_data`</span>, using the same <span class="in">`STORE_DIR`</span> as the <span class="co">[</span><span class="ot">Quickstart</span><span class="co">](#quickstart)</span>.</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="in">rsync -a "${STORE_DIR:?}"/ store/</span></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>To rebuild the store from the source data instead, see <span class="co">[</span><span class="ot">Build the store</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#build-the-store)</span>.</span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get the Docker Image {#get-image}</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>Pull the published image.</span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="in">docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3</span></span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>If the pull is denied, either <span class="co">[</span><span class="ot">log in to the GitHub Container registry</span><span class="co">](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry)</span> or build the image from the repository <span class="co">[</span><span class="ot">Dockerfile</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/Dockerfile)</span> with the same tag.</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a><span class="in">docker build -t ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 .</span></span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Install the systemd Service</span></span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>The service runs one shared copy of the app on port 3838 for the whole host. Check that it is not already installed with <span class="in">`systemctl status rms-gene-explorer`</span> before continuing.</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Copy the <span class="co">[</span><span class="ot">environment file</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.env.example)</span> and set <span class="in">`APP_DIR`</span> to your repository path.</span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="in">`APP_DIR`</span> must be a literal absolute path, because <span class="in">`systemd`</span> does not expand <span class="in">`$HOME`</span> or <span class="in">`~`</span>. Run these commands from inside the repository so that <span class="in">`$PWD`</span> is filled in by the shell.</span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a><span class="in">sudo install -m 0644 deploy/rms-gene-explorer.env.example /etc/rms-gene-explorer.env</span></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="in">sudo sed -i "s|^APP_DIR=.*|APP_DIR=$PWD|" /etc/rms-gene-explorer.env</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a><span class="in">grep APP_DIR /etc/rms-gene-explorer.env</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Install and start the <span class="co">[</span><span class="ot">service unit</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.service)</span>.</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="in">sudo install -m 0644 deploy/rms-gene-explorer.service /etc/systemd/system/</span></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="in">sudo systemctl daemon-reload</span></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a><span class="in">sudo systemctl enable --now rms-gene-explorer.service</span></span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Check that the app is running.</span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="in">systemctl status rms-gene-explorer.service</span></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a><span class="in">curl -so /dev/null -w '%{http_code}\n' http://127.0.0.1:3838/   # expect 200</span></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="fu">### Open the App {#open-app}</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>On <span class="in">`sp-alphafold-ws`</span>, open a web browser and enter the URL <span class="ot">&lt;http://localhost:3838&gt;</span>.</span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>From your own computer, open an SSH tunnel to the host first. Use the host alias from your <span class="in">`~/.ssh/config`</span> if it differs.</span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a><span class="in">ssh -N -L 3838:127.0.0.1:3838 YOUR_USER@sp-alphafold-ws</span></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>Then open <span class="ot">&lt;http://localhost:3838&gt;</span> in a web browser. If you are connected with VS Code <span class="in">`remote-ssh`</span>, you can instead forward port 3838 from the <span class="in">`PORTS`</span> tab.</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### Update and Restart</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Task <span class="pp">|</span> Command <span class="pp">|</span></span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Restart after a code change (<span class="in">`git pull`</span>) <span class="pp">|</span> <span class="in">`sudo systemctl restart rms-gene-explorer`</span> <span class="pp">|</span></span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Restart after the store is updated <span class="pp">|</span> <span class="in">`rsync -a --delete "${STORE_DIR:?}"/ store/ &amp;&amp; sudo systemctl restart rms-gene-explorer`</span> <span class="pp">|</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Restart after a new image <span class="pp">|</span> <span class="in">`docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 &amp;&amp; sudo systemctl restart rms-gene-explorer`</span> <span class="pp">|</span></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Follow the logs <span class="pp">|</span> <span class="in">`journalctl -u rms-gene-explorer -f`</span> <span class="pp">|</span></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Stop and disable <span class="pp">|</span> <span class="in">`sudo systemctl disable --now rms-gene-explorer`</span> <span class="pp">|</span></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="fu">#### References</span></span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">RMS targets repository</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets)</span> and its <span class="co">[</span><span class="ot">README</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#readme)</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Deployment README</span><span class="co">](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md)</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Companion analysis repository</span><span class="co">](https://github.com/Meshinchi-Lab/2025-12-04_RNAseq_RMS_infant)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

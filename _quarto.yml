@@ -18,6 +18,8 @@ website:
             href: details/igv_browser.qmd
           - text: "Hyperqueue Job Scheduler"
             href: details/hyperqueue_scheduler.qmd
+          - text: "RMS Gene Explorer Shiny App"
+            href: details/rms_gene_explorer_shiny.qmd
     right:
       - icon: github
         href: https://github.com/Meshinchi-Lab/contributing_guidelines

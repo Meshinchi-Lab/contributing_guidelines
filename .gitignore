@@ -51,3 +51,4 @@ rsconnect/
 # python
 venv/
 .venv/
+**/*.quarto_ipynb

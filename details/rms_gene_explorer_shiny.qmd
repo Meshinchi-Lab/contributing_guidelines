@@ -1,0 +1,168 @@
+---
+title: "RMS Gene Explorer Shiny App on sp-alphafold-ws"
+format:
+  html:
+    code-fold: false
+    code-tools: true
+    toc: true
+    number-sections: true
+author: "Jenny L. Smith"
+---
+
+::: callout-tip
+## Overview
+
+The [`rms_gene_explorer`](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets) Shiny app allows exploration of gene expression across rhabdomyosarcoma (RMS) tumors, cell lines, and normal tissue cohorts used for RMS CAR T target discovery.
+
+These steps run the app as a Docker container on the DELL Ubuntu PC (`sp-alphafold-ws`), either with a single `docker run` command ([Quickstart](#quickstart)) or as an always-on `systemd` service ([systemd Deployment](#systemd-deployment)). The full instructions are in the repository [deployment README](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md).
+
+The repository is private, so the links on this page only work for members of the lab github organization.
+:::
+
+::: callout-important
+## Data governance
+
+The app serves controlled-access PCGP data (dbGaP phs000720) and pre-publication OPBG data. Keep it bound to `127.0.0.1` and connect over an SSH tunnel. **Do not** deploy it to shinyapps.io or package it with shinylive.
+
+See [Data governance](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#data-governance) in the repository README.
+:::
+
+## Quickstart {#quickstart}
+
+The input data files (the expression store) are saved under `0003_ngs_processed_data` on the network drive (see [Data Management](../data_management.html)), so there is nothing to build. Login to `sp-alphafold-ws` using your username and password.
+
+If the [systemd service](#systemd-deployment) is already running on the host (`systemctl is-active rms-gene-explorer` prints "active"), skip to step 3.
+
+1. Clone the repository (first time only). The Docker image contains R and the package dependencies, and the app code is read from the repository.
+
+```
+cd $HOME/github_repos
+gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets
+cd 2026-09-25_RNAseq_RMS_targets
+mkdir -p store    # mount point for the input data
+```
+
+2. Copy and paste the `docker run` command from inside the repository to launch the app. Docker pulls the image on the first run (see [Get the Docker Image](#get-image) if the pull is denied).
+
+```
+DATA="/mnt/network_drives/storage-bioinfo_labq/0003_ngs_processed_data/locatelli_f/RMS/2026-09-25_RNAseq_RMS_targets"
+STORE_DIR="$DATA/store"
+
+docker run --rm \
+    -v "$PWD":"$PWD" \
+    -v "$STORE_DIR":"$PWD/store":ro \
+    -w "$PWD" \
+    -p 127.0.0.1:3838:3838 \
+    ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3
+```
+
+::: callout-note 
+## Ports
+If you recieve an error, "Bind for 127.0.0.1:3838 failed: port is already allocated", run the command without the port specified. 
+
+`docker run --rm -v "$PWD":"$PWD" -v "$STORE_DIR":"$PWD/store":ro  -w "$PWD" ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3`
+:::
+
+3. Open a web browser on `sp-alphafold-ws` and enter the URL <http://localhost:3838>.
+
+Press `Ctrl+C` in the terminal to stop the app. To open the app from another computer, see [Open the App](#open-app).
+
+## systemd Deployment {#systemd-deployment}
+
+Run the app as a shared, always-on service that starts on boot and restarts automatically, so lab members can open it without launching it themselves. You will need `sudo` access, and Docker must be running.
+
+```
+docker --version
+systemctl is-active docker.service    # should print "active"
+```
+
+### Clone the Repository and Copy the Store
+
+Clone the repository, if you have not already done so in the [Quickstart](#quickstart).
+
+```
+cd $HOME/github_repos
+gh repo clone Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets
+cd 2026-09-25_RNAseq_RMS_targets
+```
+
+The service reads the input data from `store/` inside the repository. Copy it from `0003_ngs_processed_data`, using the same `STORE_DIR` as the [Quickstart](#quickstart).
+
+```
+rsync -a "${STORE_DIR:?}"/ store/
+```
+
+To rebuild the store from the source data instead, see [Build the store](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#build-the-store).
+
+### Get the Docker Image {#get-image}
+
+Pull the published image.
+
+```
+docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3
+```
+
+If the pull is denied, either [log in to the GitHub Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry) or build the image from the repository [Dockerfile](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/Dockerfile) with the same tag.
+
+```
+docker build -t ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 .
+```
+
+### Install the systemd Service
+
+::: callout-note
+The service runs one shared copy of the app on port 3838 for the whole host. Check that it is not already installed with `systemctl status rms-gene-explorer` before continuing.
+:::
+
+1. Copy the [environment file](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.env.example) and set `APP_DIR` to your repository path.
+
+`APP_DIR` must be a literal absolute path, because `systemd` does not expand `$HOME` or `~`. Run these commands from inside the repository so that `$PWD` is filled in by the shell.
+
+```
+sudo install -m 0644 deploy/rms-gene-explorer.env.example /etc/rms-gene-explorer.env
+sudo sed -i "s|^APP_DIR=.*|APP_DIR=$PWD|" /etc/rms-gene-explorer.env
+grep APP_DIR /etc/rms-gene-explorer.env
+```
+
+2. Install and start the [service unit](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/rms-gene-explorer.service).
+
+```
+sudo install -m 0644 deploy/rms-gene-explorer.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now rms-gene-explorer.service
+```
+
+3. Check that the app is running.
+
+```
+systemctl status rms-gene-explorer.service
+curl -so /dev/null -w '%{http_code}\n' http://127.0.0.1:3838/   # expect 200
+```
+
+### Open the App {#open-app}
+
+On `sp-alphafold-ws`, open a web browser and enter the URL <http://localhost:3838>.
+
+From your own computer, open an SSH tunnel to the host first. Use the host alias from your `~/.ssh/config` if it differs.
+
+```
+ssh -N -L 3838:127.0.0.1:3838 YOUR_USER@sp-alphafold-ws
+```
+
+Then open <http://localhost:3838> in a web browser. If you are connected with VS Code `remote-ssh`, you can instead forward port 3838 from the `PORTS` tab.
+
+### Update and Restart
+
+| Task | Command |
+|---|---|
+| Restart after a code change (`git pull`) | `sudo systemctl restart rms-gene-explorer` |
+| Restart after the store is updated | `rsync -a --delete "${STORE_DIR:?}"/ store/ && sudo systemctl restart rms-gene-explorer` |
+| Restart after a new image | `docker pull ghcr.io/meshinchi-lab/rms-gene-explorer:4.5.3 && sudo systemctl restart rms-gene-explorer` |
+| Follow the logs | `journalctl -u rms-gene-explorer -f` |
+| Stop and disable | `sudo systemctl disable --now rms-gene-explorer` |
+
+#### References
+
+- [RMS targets repository](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets) and its [README](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets#readme)
+- [Deployment README](https://github.com/Meshinchi-Lab/2026-09-25_RNAseq_RMS_targets/blob/main/deploy/README.md)
+- [Companion analysis repository](https://github.com/Meshinchi-Lab/2025-12-04_RNAseq_RMS_infant)
